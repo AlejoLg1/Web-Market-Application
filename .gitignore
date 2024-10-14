@@ -215,6 +215,8 @@ ecf/
 rcf/
 
 # Windows Store app package directories and files
+packages/
+.nuget/
 AppPackages/
 BundleArtifacts/
 Package.StoreAssociation.xml
@@ -230,6 +232,8 @@ _pkginfo.txt
 !?*.[Cc]ache/
 
 # Others
+bin/
+obj/
 ClientBin/
 ~$*
 *~
@@ -238,7 +242,10 @@ ClientBin/
 *.jfm
 *.pfx
 *.publishsettings
+publish/
+.vscode/
 orleans.codegen.cs
+.DS_Store
 
 # Including strong name files can present a security risk
 # (https://github.com/github/gitignore/pull/2483#issue-259490424)
@@ -256,6 +263,9 @@ Generated_Code/
 # because we have git ;-)
 _UpgradeReport_Files/
 Backup*/
+*.log
+*.tlog
+*.pdb
 UpgradeLog*.XML
 UpgradeLog*.htm
 ServiceFabricBackup/
