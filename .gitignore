@@ -1,1 +1,28 @@
-﻿.vs/
+# Ignorar la carpeta .vs
+.vs/
+
+# Ignorar archivos temporales de usuario de Visual Studio
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignorar carpetas de paquetes y dependencias
+packages/
+.nuget/
+
+# Ignorar archivos de compilación
+bin/
+obj/
+
+# Ignorar archivos de configuración y logs
+*.log
+*.tlog
+*.pdb
+
+# Ignorar archivos de publicación
+publish/
+.vscode/
+
+# Ignorar cualquier archivo específico de la plataforma (por ejemplo, MacOS o Linux)
+.DS_Store
