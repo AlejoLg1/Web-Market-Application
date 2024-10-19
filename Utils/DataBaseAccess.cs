@@ -51,7 +51,7 @@ namespace Utils
             }
         }
 
-        public void excecuteAction() //Excecutes actions as update, remove 
+        public void excecuteAction()
         {
             command.Connection = connection;
             try
