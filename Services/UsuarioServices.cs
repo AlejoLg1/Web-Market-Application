@@ -81,5 +81,34 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public bool ValidUser(string username, string password)
+        {
+            try
+            {
+                bool response = false;
+                DB.clearParameters();
+                DB.setQuery("Select IdUsuario from Usuario where NombreUsuario = @username and Contrasena = @password");
+                DB.setParameter("@username", username);
+                DB.setParameter("@password", password);
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    response = true;
+                }
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Credenciales inválidas. Acceso denegado.");
+                return false;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
     }
 }
