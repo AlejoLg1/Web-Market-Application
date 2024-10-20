@@ -13,8 +13,8 @@
             background-color: #e7e7e7;
         }
         .logout-button {
-            height: 30px; /* Ajusta la altura de la imagen del botón de logout */
-            width: 30px; /* Ajusta el ancho de la imagen del botón de logout */
+            height: 30px; 
+            width: 30px;
         }
     </style>
 </head>
