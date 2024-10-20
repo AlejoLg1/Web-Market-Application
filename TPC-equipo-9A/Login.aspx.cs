@@ -26,7 +26,10 @@ namespace TPC_equipo_9A
                 
                 if (service.ValidUser(username, password))
                 {
-                    Response.Redirect("~/Default.aspx");
+                    int IdUsuario = service.GetUserId(username, password);
+                    Session.Add("id", IdUsuario);
+                    Session.Add("rol", service.GetUserRol(IdUsuario));
+                    Response.Redirect("~/Default.aspx", false);
                 }
                 else
                 {
@@ -37,7 +40,7 @@ namespace TPC_equipo_9A
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
-                Response.Redirect("Error.aspx");
+                Response.Redirect("Error.aspx", false);
             }
         }
     }
