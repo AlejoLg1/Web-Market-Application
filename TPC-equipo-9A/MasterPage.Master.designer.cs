@@ -42,13 +42,22 @@ namespace TPC_equipo_9A
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liInicio;
 
         /// <summary>
-        /// liUsuarios control.
+        /// liControlAcceso control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liUsuarios;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liControlAcceso;
+
+        /// <summary>
+        /// liRelacionesComerciales control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liRelacionesComerciales;
 
         /// <summary>
         /// liInventario control.

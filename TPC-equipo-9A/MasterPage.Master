@@ -1,4 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="TPC_equipo_9A.MasterPage" %>
+
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -12,8 +13,9 @@
         body {
             background-color: #e7e7e7;
         }
+
         .logout-button {
-            height: 30px; 
+            height: 30px;
             width: 30px;
         }
     </style>
@@ -30,10 +32,13 @@
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul class="navbar-nav me-auto">
                             <li class="nav-item" id="liInicio" runat="server" visible="false">
-                                <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                                <a class="nav-link active" aria-current="page" href="Default.aspx">Inicio</a>
                             </li>
-                            <li class="nav-item" id="liUsuarios" runat="server" visible="false">
-                                <a class="nav-link" href="#">Usuarios</a>
+                            <li class="nav-item" id="liControlAcceso" runat="server" visible="false">
+                                <a class="nav-link" href="ControlAcceso.aspx">Control de acceso</a>
+                            </li>
+                            <li class="nav-item" id="liRelacionesComerciales" runat="server" visible="false">
+                                <a class="nav-link" href="RelacionesComerciales.aspx">Relaciones Comerciales</a>
                             </li>
                             <li class="nav-item dropdown" id="liInventario" runat="server" visible="false">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inventario</a>
@@ -51,7 +56,7 @@
                                 </ul>
                             </li>
                         </ul>
-                        <asp:ImageButton ID="btnLogout" runat="server" ImageUrl="/images/logout.png" CssClass="logout-button ms-auto" AlternateText="Cerrar sesión" visible="false" OnClick="btnLogout_Click"/>
+                        <asp:ImageButton ID="btnLogout" runat="server" ImageUrl="/images/logout.png" CssClass="logout-button ms-auto" AlternateText="Cerrar sesión" Visible="false" OnClick="btnLogout_Click" />
                     </div>
                 </div>
             </nav>

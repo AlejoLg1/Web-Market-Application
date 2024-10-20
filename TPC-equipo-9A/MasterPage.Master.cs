@@ -24,14 +24,16 @@ namespace TPC_equipo_9A
 
                             if (userRole == "Administrador")
                             {
+                                liControlAcceso.Visible = true;
                                 liInicio.Visible = true;
-                                liUsuarios.Visible = true;
+                                liRelacionesComerciales.Visible = true;
                                 liInventario.Visible = true;
                                 liOperaciones.Visible = true;
                             }
                             else if (userRole == "Vendedor")
                             {
                                 liInicio.Visible = true;
+                                liRelacionesComerciales.Visible = true;
                                 liInventario.Visible = true;
                                 liOperaciones.Visible = true;
                             }
