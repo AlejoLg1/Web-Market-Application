@@ -20,11 +20,12 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("INSERT INTO Usuario (NombreUsuario, Contrasena, Rol) VALUES (@NombreUsuario, @Contrasena, @Rol)");
+                DB.setQuery("INSERT INTO Usuario (NombreUsuario, Contrasena, Rol, FotoPerfil) VALUES (@NombreUsuario, @Contrasena, @Rol, @FotoPerfil)");
 
                 DB.setParameter("@NombreUsuario", newUsuario.NombreUsuario);
                 DB.setParameter("@Contrasena", newUsuario.Contrasena);
                 DB.setParameter("@Rol", newUsuario.Rol);
+                DB.setParameter("@FotoPerfil", newUsuario.FotoPerfil);
 
                 DB.excecuteAction();
             }
@@ -43,11 +44,12 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("UPDATE Usuario SET NombreUsuario = @NombreUsuario, Contrasena = @Contrasena, Rol = @Rol WHERE IdUsuario = @IdUsuario");
+                DB.setQuery("UPDATE Usuario SET NombreUsuario = @NombreUsuario, Contrasena = @Contrasena, Rol = @Rol FotoPerfil = @FotoPerfil WHERE IdUsuario = @IdUsuario");
 
                 DB.setParameter("@NombreUsuario", usuario.NombreUsuario);
                 DB.setParameter("@Contrasena", usuario.Contrasena);
                 DB.setParameter("@Rol", usuario.Rol);
+                DB.setParameter("@FotoPerfil", usuario.FotoPerfil);
                 DB.setParameter("@IdUsuario", usuario.IdUsuario);
 
                 DB.excecuteAction();
