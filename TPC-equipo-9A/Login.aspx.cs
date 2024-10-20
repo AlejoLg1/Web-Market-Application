@@ -23,7 +23,7 @@ namespace TPC_equipo_9A
             {
                 string username = HttpUtility.HtmlEncode(txtUsername.Text);
                 string password = HttpUtility.HtmlEncode(txtPassword.Text);
-
+                
                 if (service.ValidUser(username, password))
                 {
                     Response.Redirect("~/Default.aspx");
@@ -36,7 +36,8 @@ namespace TPC_equipo_9A
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ocurrió un error: {ex.Message}");
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
             }
         }
     }
