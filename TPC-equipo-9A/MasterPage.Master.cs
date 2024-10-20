@@ -20,6 +20,8 @@ namespace TPC_equipo_9A
                         string userRole = Session["rol"].ToString();
                         if (!string.IsNullOrEmpty(userRole))
                         {
+                            btnLogout.Visible = true;
+
                             if (userRole == "Administrador")
                             {
                                 liInicio.Visible = true;
@@ -48,6 +50,13 @@ namespace TPC_equipo_9A
                 Response.Redirect("Error.aspx", false);
             }
         }
+
+        protected void btnLogout_Click(object sender, ImageClickEventArgs e)
+        {
+            Session.Abandon();
+            Response.Redirect("Login.aspx");
+        }
+
 
     }
 }
