@@ -34,8 +34,9 @@
                                     CssClass="text-danger" 
                                     Display="Dynamic" />
                             </div>
+                            <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="False" />
                             <div class="d-grid gap-2 mt-4">
-                                <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-primary btn-block" Text="Iniciar sesión" />
+                                <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-primary btn-block" Text="Iniciar sesión" OnClick="btnSubmit_Click"/>
                             </div>
                         </asp:Panel>
                     </div>
