@@ -84,7 +84,7 @@ namespace Services
             }
         }
 
-        public bool ValidUser(string username, string password)
+        public bool validUser(string username, string password)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace Services
             }
         }
 
-        public int GetUserId(string username, string password)
+        public int getUserId(string username, string password)
         {
             try
             {
@@ -142,7 +142,7 @@ namespace Services
             }
         }
 
-        public string GetUserRol (int Id)
+        public string getUserRol(int Id)
         {
             try
             {

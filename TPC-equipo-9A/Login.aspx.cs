@@ -24,11 +24,11 @@ namespace TPC_equipo_9A
                 string username = HttpUtility.HtmlEncode(txtUsername.Text);
                 string password = HttpUtility.HtmlEncode(txtPassword.Text);
                 
-                if (service.ValidUser(username, password))
+                if (service.validUser(username, password))
                 {
-                    int IdUsuario = service.GetUserId(username, password);
+                    int IdUsuario = service.getUserId(username, password);
                     Session.Add("id", IdUsuario);
-                    Session.Add("rol", service.GetUserRol(IdUsuario));
+                    Session.Add("rol", service.getUserRol(IdUsuario));
                     Response.Redirect("~/Default.aspx", false);
                 }
                 else
