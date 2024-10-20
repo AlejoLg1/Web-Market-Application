@@ -110,5 +110,62 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public int GetUserId(string username, string password)
+        {
+            try
+            {
+                int id = 0;
+                DB.clearParameters();
+                DB.setQuery("Select IdUsuario from Usuario where NombreUsuario = @username and Contrasena = @password");
+                DB.setParameter("@username", username);
+                DB.setParameter("@password", password);
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    id = Convert.ToInt32(DB.Reader["IdUsuario"]);
+                }
+
+                return id;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Credenciales inválidas. Acceso denegado.");
+                return 0;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public string GetUserRol (int Id)
+        {
+            try
+            {
+                string rol = "";
+                DB.clearParameters();
+                DB.setQuery("Select Rol from Usuario where IdUsuario = @id");
+                DB.setParameter("@id", Id);
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    rol = DB.Reader["Rol"].ToString();
+                }
+
+                return rol;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Credenciales inválidas. Acceso denegado.");
+                return "";
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
     }
 }
