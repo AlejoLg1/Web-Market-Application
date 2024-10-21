@@ -97,6 +97,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Marcas.aspx" />
     <Content Include="MasterPage.Master" />
+    <Content Include="Perfil.aspx" />
     <Content Include="Productos.aspx" />
     <Content Include="RelacionesComerciales.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -164,6 +165,13 @@
     </Compile>
     <Compile Include="MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Perfil.aspx.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Perfil.aspx.designer.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="Productos.aspx.cs">
       <DependentUpon>Productos.aspx</DependentUpon>
