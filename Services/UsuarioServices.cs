@@ -44,13 +44,13 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("UPDATE Usuario SET NombreUsuario = @NombreUsuario, Contrasena = @Contrasena, Rol = @Rol FotoPerfil = @FotoPerfil WHERE IdUsuario = @IdUsuario");
+                DB.setQuery("UPDATE Usuario SET NombreUsuario = @Nombre, Contrasena = @Cont, Rol = @R, FotoPerfil = @Foto WHERE IdUsuario = @Id");
 
-                DB.setParameter("@NombreUsuario", usuario.NombreUsuario);
-                DB.setParameter("@Contrasena", usuario.Contrasena);
-                DB.setParameter("@Rol", usuario.Rol);
-                DB.setParameter("@FotoPerfil", usuario.FotoPerfil);
-                DB.setParameter("@IdUsuario", usuario.IdUsuario);
+                DB.setParameter("@Nombre", usuario.NombreUsuario);
+                DB.setParameter("@Cont", usuario.Contrasena);
+                DB.setParameter("@R", usuario.Rol);
+                DB.setParameter("@Foto", usuario.FotoPerfil);
+                DB.setParameter("@Id", usuario.IdUsuario);
 
                 DB.excecuteAction();
             }
@@ -169,5 +169,43 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public Usuario getUser(int Id)
+        {
+            try
+            {
+                Usuario user = new Usuario();
+                DB.clearParameters();
+                DB.setQuery("SELECT IdUsuario, NombreUsuario, Contrasena, Rol, FotoPerfil FROM Usuario WHERE IdUsuario = @id");
+                DB.setParameter("@id", Id);
+                DB.excecuteQuery();
+
+                if (DB.Reader.Read())
+                {
+                    user.IdUsuario = DB.Reader["IdUsuario"] != DBNull.Value ? Convert.ToInt32(DB.Reader["IdUsuario"]) : 0;
+                    user.NombreUsuario = DB.Reader["NombreUsuario"] != DBNull.Value ? DB.Reader["NombreUsuario"].ToString() : null;
+                    user.Contrasena = DB.Reader["Contrasena"] != DBNull.Value ? DB.Reader["Contrasena"].ToString() : null;
+                    user.Rol = DB.Reader["Rol"] != DBNull.Value ? DB.Reader["Rol"].ToString() : null;
+                    user.FotoPerfil = DB.Reader["FotoPerfil"] != DBNull.Value ? DB.Reader["FotoPerfil"].ToString() : "/images/user.png";
+                }
+
+                if (user.IdUsuario == 0)
+                {
+                    return null;
+                }
+
+                return user;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
     }
+
 }
