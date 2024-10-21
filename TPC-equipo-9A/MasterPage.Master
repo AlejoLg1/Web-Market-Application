@@ -56,15 +56,18 @@
                                 </ul>
                             </li>
                         </ul>
-                        
+
                         <div class="dropdown ms-auto" id="divUser" runat="server" visible="false">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="/images/user.png" class="image-button" alt="Perfil" />
+                                <asp:Image ID="imgUser" runat="server" CssClass="image-button rounded-circle" alt="Perfil" />
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                                 <li><a class="dropdown-item" href="Perfil.aspx">Ver Perfil</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item" OnClick="btnLogout_Click">
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item" OnClick="btnLogout_Click">
                                     <img src="/images/logout.png" alt="Cerrar Sesión" style="height: 20px; width: 20px;" /> Cerrar Sesión</asp:LinkButton>
                                 </li>
                             </ul>

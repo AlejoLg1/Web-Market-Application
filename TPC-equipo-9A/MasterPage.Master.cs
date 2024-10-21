@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Models;
+using Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +11,7 @@ namespace TPC_equipo_9A
 {
     public partial class MasterPage : System.Web.UI.MasterPage
     {
+        UsuarioServices service = new UsuarioServices();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -18,6 +21,7 @@ namespace TPC_equipo_9A
                     if (Session["rol"] != null)
                     {
                         string userRole = Session["rol"].ToString();
+
                         if (!string.IsNullOrEmpty(userRole))
                         {
                             divUser.Visible = true;
@@ -37,6 +41,14 @@ namespace TPC_equipo_9A
                                 liInventario.Visible = true;
                                 liOperaciones.Visible = true;
                             }
+
+                            imgUser.ImageUrl = "/images/user.png";
+                            Usuario user = service.getUser(Convert.ToInt32(Session["id"]));
+                            if (user != null)
+                            {
+                                imgUser.ImageUrl = user.FotoPerfil.ToString();
+                            }
+
                         }
                         else
                         {
