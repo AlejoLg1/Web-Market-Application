@@ -93,6 +93,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\icon.png" />
     <Content Include="Images\logout.png" />
+    <Content Include="Images\user.png" />
     <Content Include="Login.aspx" />
     <Content Include="Marcas.aspx" />
     <Content Include="MasterPage.Master" />

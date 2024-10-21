@@ -20,7 +20,7 @@ namespace TPC_equipo_9A
                         string userRole = Session["rol"].ToString();
                         if (!string.IsNullOrEmpty(userRole))
                         {
-                            btnLogout.Visible = true;
+                            divUser.Visible = true;
 
                             if (userRole == "Administrador")
                             {
@@ -53,11 +53,13 @@ namespace TPC_equipo_9A
             }
         }
 
-        protected void btnLogout_Click(object sender, ImageClickEventArgs e)
+        protected void btnLogout_Click(object sender, EventArgs e)
         {
             Session.Abandon();
             Response.Redirect("Login.aspx");
         }
+
+
 
 
     }
