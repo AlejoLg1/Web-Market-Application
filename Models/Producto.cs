@@ -14,6 +14,6 @@ namespace Models
         public Categoria Categoria { get; set; }
         public int StockMinimo { get; set; }
         public int StockActual { get; set; }
-        public float PorcentajeGanancia { get; set; }
+        public decimal PorcentajeGanancia { get; set; }
     }
 }
