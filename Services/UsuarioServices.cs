@@ -103,8 +103,8 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("DELETE FROM Usuario WHERE IdUsuario = @IdUsuario");
-                DB.setParameter("@IdUsuario", id);
+                DB.setQuery("DELETE FROM Usuario WHERE IdUsuario = @Id");
+                DB.setParameter("@Id", id);
                 DB.excecuteAction();
             }
             catch (Exception ex)
