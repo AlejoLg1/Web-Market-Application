@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Perfil.aspx.cs" Inherits="TPC_equipo_9A.Perfil" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -15,15 +16,18 @@
                             <div class="mt-3">
                                 <asp:FileUpload ID="fuFotoPerfil" runat="server" CssClass="form-control-file" />
                             </div>
+                            <div class="mt-3">
+                                <asp:Button ID="btnEliminarFoto" runat="server" CssClass="btn btn-danger mt-2" Text="Eliminar Foto" OnClick="btnEliminarFoto_Click" visible="false"/>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="txtNombreUsuario">Nombre de Usuario:</label>
-                            <asp:TextBox ID="txtNombreUsuario" runat="server" CssClass="form-control"/>
+                            <asp:TextBox ID="txtNombreUsuario" runat="server" CssClass="form-control" />
                         </div>
                         <div class="form-group mt-3">
                             <label for="lblContrasena">Contraseña:</label>
                             <div class="input-group">
-                                <asp:TextBox ID="txtContrasena" runat="server" CssClass="form-control" TextMode="Password"/>
+                                <asp:TextBox ID="txtContrasena" runat="server" CssClass="form-control" TextMode="Password" />
                                 <span class="input-group-text" onclick="togglePasswordVisibility()">
                                     <i class="bi bi-eye" id="toggleEye"></i>
                                 </span>
@@ -31,7 +35,7 @@
                         </div>
                         <div class="form-group mt-3">
                             <label for="lblRol">Rol:</label>
-                            <asp:Label ID="lblRol" runat="server" CssClass="form-control" Enabled="false"/>
+                            <asp:Label ID="lblRol" runat="server" CssClass="form-control" Enabled="false" />
                         </div>
                         <div class="d-flex justify-content-center mt-4">
                             <asp:Button ID="btnGuardarCambios" runat="server" CssClass="btn btn-success" Text="Guardar Cambios" OnClick="btnGuardarCambios_Click" />

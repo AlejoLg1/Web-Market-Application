@@ -25,6 +25,12 @@ namespace TPC_equipo_9A
                     txtNombreUsuario.Text = usuario.NombreUsuario;
                     txtContrasena.Attributes["value"] = usuario.Contrasena;
                     lblRol.Text = usuario.Rol;
+
+
+                    if (usuario.FotoPerfil != "/images/user.png")
+                    {
+                        btnEliminarFoto.Visible = true;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -59,6 +65,26 @@ namespace TPC_equipo_9A
                 {
                     user.FotoPerfil = imgFotoPerfil.ImageUrl;
                 }
+
+                service.modify(user);
+                Session.Add("FotoPerfil", user.FotoPerfil);
+                Response.Redirect("Perfil.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void btnEliminarFoto_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Usuario user = service.getUser(Convert.ToInt32(Session["id"]));
+
+                
+                user.FotoPerfil = "/images/user.png";
 
                 service.modify(user);
                 Session.Add("FotoPerfil", user.FotoPerfil);
