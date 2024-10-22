@@ -90,6 +90,7 @@
     <Content Include="ControlAcceso.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Error.aspx" />
+    <Content Include="FormProducto.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Images\icon.png" />
     <Content Include="Images\logout.png" />
@@ -141,6 +142,13 @@
     </Compile>
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FormProducto.aspx.cs">
+      <DependentUpon>FormProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FormProducto.aspx.designer.cs">
+      <DependentUpon>FormProducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

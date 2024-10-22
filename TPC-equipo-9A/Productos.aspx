@@ -49,15 +49,16 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <hr />
     <h1>Listado de productos</h1>
-    <asp:GridView ID="dgvProductos" runat="server" CssClass="table" AutoGenerateColumns="False">
+    <asp:GridView ID="dgvProductos" runat="server" OnSelectedIndexChanged="dgvProductos_SelectedIndexChanged" DataKeyNames="IdProducto" CssClass="table" AutoGenerateColumns="False">
           <Columns>
-        <asp:BoundField DataField="IdProducto" HeaderText="ID Producto" Visible ="false" />
+        <%--<asp:BoundField DataField="IdProducto" HeaderText="ID Producto" Visible ="false" />--%>
         <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
         <asp:BoundField DataField="StockMinimo" HeaderText="Stock Mínimo" />
         <asp:BoundField DataField="StockActual" HeaderText="Stock Actual" />
         <asp:BoundField DataField="Categoria.Nombre" HeaderText="Categoría" />
         <asp:BoundField DataField="Marca.Nombre" HeaderText="Marca" />
         <asp:BoundField DataField="PorcentajeGanancia" HeaderText="Porcentaje Ganancia" />
+        <asp:CommandField ShowSelectButton="true" SelectText="Seleccionar" HeaderText="Acción" />
     </Columns>
     </asp:GridView>
 </asp:Content>

@@ -16,5 +16,11 @@ namespace TPC_equipo_9A
             dgvProductos.DataSource = services.listar();
             dgvProductos.DataBind();
         }
+
+        protected void dgvProductos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           var id = dgvProductos.SelectedDataKey.Value.ToString();
+            Response.Redirect("FormProducto.aspx?id=" + id);
+        }
     }
 }
