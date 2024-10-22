@@ -48,8 +48,7 @@ namespace TPC_equipo_9A
 
             if (e.CommandName == "Editar")
             {
-                // Lógica para editar el usuario
-                //Response.Redirect($"EditarUsuario.aspx?id={idUsuario}");
+                Response.Redirect($"Perfil.aspx?id={IdUsuario}&edit={true}");
             }
             else if (e.CommandName == "Eliminar")
             {
@@ -58,8 +57,7 @@ namespace TPC_equipo_9A
             }
             else if (e.CommandName == "VerPerfil")
             {
-                // Lógica para ver el perfil del usuario
-                //Response.Redirect($"Perfil.aspx?id={idUsuario}");
+                Response.Redirect($"Perfil.aspx?id={IdUsuario}&edit={false}");
             }
         }
     }

@@ -18,8 +18,7 @@ namespace TPC_equipo_9A
             {
                 try
                 {
-                    int userId = Convert.ToInt32(Session["id"]);
-                    Usuario usuario = service.getUser(userId);
+                    Usuario usuario = getUser();
 
                     imgFotoPerfil.ImageUrl = usuario.FotoPerfil;
                     txtNombreUsuario.Text = usuario.NombreUsuario;
@@ -30,6 +29,21 @@ namespace TPC_equipo_9A
                     if (usuario.FotoPerfil != "/images/user.png")
                     {
                         btnEliminarFoto.Visible = true;
+                    }
+
+                    if (Request.QueryString["edit"] != null)
+                    {
+                        bool editMode = Convert.ToBoolean(Request.QueryString["edit"]);
+                        btnControlAcceso.Visible = true;
+                        if (!editMode)
+                        {
+                            txtNombreUsuario.Enabled = false;
+                            txtContrasena.Enabled = false;
+                            fuFotoPerfil.Visible = false;
+                            btnEliminarFoto.Visible = false;
+                            btnGuardarCambios.Visible = false;
+                            btnControlAcceso.Visible = true;
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -45,10 +59,11 @@ namespace TPC_equipo_9A
             try
             {
                 Usuario user = new Usuario();
-                user.IdUsuario = Convert.ToInt32(Session["id"]);
+
+                user.IdUsuario = Convert.ToInt32(getUser().IdUsuario);
                 user.NombreUsuario = txtNombreUsuario.Text;
                 user.Contrasena = txtContrasena.Text;
-                user.Rol = Session["rol"].ToString();
+                user.Rol = getUser().Rol;
 
                 Response.Write(txtContrasena.Attributes["value"].ToString());
 
@@ -67,6 +82,11 @@ namespace TPC_equipo_9A
                 }
 
                 service.modify(user);
+                if (Request.QueryString["id"] != null)
+                {
+                    Response.Redirect("ControlAcceso.aspx", false);
+                    return;
+                }
                 Session.Add("FotoPerfil", user.FotoPerfil);
                 Response.Redirect("Perfil.aspx", false);
             }
@@ -83,11 +103,14 @@ namespace TPC_equipo_9A
             {
                 Usuario user = service.getUser(Convert.ToInt32(Session["id"]));
 
-                
+
                 user.FotoPerfil = "/images/user.png";
 
                 service.modify(user);
-                Session.Add("FotoPerfil", user.FotoPerfil);
+                if (Request.QueryString["id"] != null)
+                {
+                    Session.Add("FotoPerfil", user.FotoPerfil);
+                }
                 Response.Redirect("Perfil.aspx", false);
             }
             catch (Exception ex)
@@ -97,5 +120,16 @@ namespace TPC_equipo_9A
             }
         }
 
+        protected void btnIrAControlAcceso_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ControlAcceso.aspx", false);
+        }
+
+        protected Usuario getUser()
+        {
+            int Id = Request.QueryString["id"] != null? Convert.ToInt32(Request.QueryString["id"]) : Convert.ToInt32(Session["id"]);
+
+            return service.getUser(Id);
+        }
     }
 }

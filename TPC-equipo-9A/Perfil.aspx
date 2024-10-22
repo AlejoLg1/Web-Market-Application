@@ -17,7 +17,7 @@
                                 <asp:FileUpload ID="fuFotoPerfil" runat="server" CssClass="form-control-file" />
                             </div>
                             <div class="mt-3">
-                                <asp:Button ID="btnEliminarFoto" runat="server" CssClass="btn btn-danger mt-2" Text="Eliminar Foto" OnClick="btnEliminarFoto_Click" visible="false"/>
+                                <asp:Button ID="btnEliminarFoto" runat="server" CssClass="btn btn-danger mt-2" Text="Eliminar Foto" OnClick="btnEliminarFoto_Click" visible="false" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -37,8 +37,9 @@
                             <label for="lblRol">Rol:</label>
                             <asp:Label ID="lblRol" runat="server" CssClass="form-control" Enabled="false" />
                         </div>
-                        <div class="d-flex justify-content-center mt-4">
+                        <div class="d-flex justify-content-between mt-4">
                             <asp:Button ID="btnGuardarCambios" runat="server" CssClass="btn btn-success" Text="Guardar Cambios" OnClick="btnGuardarCambios_Click" />
+                            <asp:Button ID="btnControlAcceso" runat="server" CssClass="btn btn-primary" Text="Volver" visible="false" OnClick="btnIrAControlAcceso_Click" />
                         </div>
                     </div>
                 </div>
