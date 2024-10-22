@@ -15,6 +15,39 @@ namespace Services
     {
         private DataBaseAccess DB = new DataBaseAccess();
 
+        public List<Usuario> listar()
+        {
+            List<Usuario> list = new List<Usuario>();
+            try
+            {
+                DB.setQuery("SELECT * FROM Usuario");
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    Usuario user = new Usuario();
+
+                    user.IdUsuario = (int)DB.Reader["IdUsuario"];
+                    user.NombreUsuario = (string)DB.Reader["NombreUsuario"];
+                    user.Contrasena = (string)DB.Reader["Contrasena"];
+                    user.Rol = (string)DB.Reader["Rol"];
+                    user.FotoPerfil = (string)DB.Reader["FotoPerfil"];
+
+                    list.Add(user);
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
         public void add(Usuario newUsuario)
         {
             try
