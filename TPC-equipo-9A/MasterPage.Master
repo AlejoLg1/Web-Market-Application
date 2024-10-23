@@ -51,8 +51,8 @@
                             <li class="nav-item dropdown" id="liOperaciones" runat="server" visible="false">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Operaciones</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Compra</a></li>
-                                    <li><a class="dropdown-item" href="#">Venta</a></li>
+                                    <li><a class="dropdown-item" href="fCompra.aspx">Compra</a></li>
+                                    <li><a class="dropdown-item" href="fVenta.aspx">Venta</a></li>
                                 </ul>
                             </li>
                         </ul>

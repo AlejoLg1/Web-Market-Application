@@ -90,9 +90,11 @@
     <Content Include="ControlAcceso.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Error.aspx" />
+    <Content Include="fCompra.aspx" />
     <Content Include="FormMarca.aspx" />
     <Content Include="FormProducto.aspx" />
     <Content Include="FormCategoria.aspx" />
+    <Content Include="fVenta.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Images\icon.png" />
     <Content Include="Images\logout.png" />
@@ -145,6 +147,13 @@
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
     </Compile>
+    <Compile Include="fCompra.aspx.cs">
+      <DependentUpon>fCompra.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="fCompra.aspx.designer.cs">
+      <DependentUpon>fCompra.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FormMarca.aspx.cs">
       <DependentUpon>FormMarca.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -165,6 +174,13 @@
     </Compile>
     <Compile Include="FormCategoria.aspx.designer.cs">
       <DependentUpon>FormCategoria.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="fVenta.aspx.cs">
+      <DependentUpon>fVenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="fVenta.aspx.designer.cs">
+      <DependentUpon>fVenta.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
