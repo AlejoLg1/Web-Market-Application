@@ -12,12 +12,18 @@ namespace Services
     {
         private DataBaseAccess DB = new DataBaseAccess();
 
-        public List<Categoria> listar()
+        public List<Categoria> listar(string id = "")
         {
             List<Categoria> list = new List<Categoria>();
             try
             {
-                DB.setQuery("SELECT * FROM VW_CategoriasGrid");
+                if (id != "")
+                {
+                    DB.setQuery("SELECT * FROM VW_CategoriasGrid WHERE IdCategoria =" + id);
+                }
+                else{
+                    DB.setQuery("SELECT * FROM VW_CategoriasGrid");
+                }
                 DB.excecuteQuery();
 
                 while (DB.Reader.Read())
@@ -31,6 +37,27 @@ namespace Services
                 }
 
                 return list;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public void add(Categoria newCategoria)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("INSERT INTO Categoria (Nombre) VALUES (@Nombre)");
+
+               
+                DB.setParameter("@Nombre", newCategoria.Nombre);
+                DB.excecuteAction();
             }
             catch (Exception ex)
             {

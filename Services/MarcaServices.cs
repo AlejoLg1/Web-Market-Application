@@ -11,12 +11,20 @@ namespace Services
     public class MarcaServices
     {
         private DataBaseAccess DB = new DataBaseAccess();
-        public List<Marca> listar()
+        public List<Marca> listar(string id = "")
         {
             List<Marca> list = new List<Marca>();
             try
             {
-                DB.setQuery("SELECT * FROM VW_MarcasGrid");
+                
+                if (id != "")
+                {
+                    DB.setQuery("SELECT * FROM VW_MarcasGrid WHERE IdMarca =" + id);
+                }
+                else
+                {
+                    DB.setQuery("SELECT * FROM VW_MarcasGrid");
+                }
                 DB.excecuteQuery();
 
                 while (DB.Reader.Read())
@@ -30,6 +38,25 @@ namespace Services
                 }
 
                 return list;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public void add(Marca newMarca)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("INSERT into Marca (Nombre) values(@Nombre)");
+                DB.setParameter("@Nombre", newMarca.Nombre);
+                DB.excecuteAction();
             }
             catch (Exception ex)
             {

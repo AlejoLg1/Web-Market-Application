@@ -22,5 +22,10 @@ namespace TPC_equipo_9A
            var id = dgvProductos.SelectedDataKey.Value.ToString();
             Response.Redirect("FormProducto.aspx?id=" + id);
         }
+
+        protected void btnAgregarProducto_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("FormProducto.aspx");
+        }
     }
 }

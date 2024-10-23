@@ -13,12 +13,16 @@ namespace Services
     {
         private DataBaseAccess DB = new DataBaseAccess();
 
-        public List<Producto> listar()
+        public List<Producto> listar(string id = "")
         {
             List<Producto> list = new List<Producto>();
             try
             {
                 DB.setQuery("SELECT * FROM VW_productosGrid");
+                if(id != "")
+                {
+                   DB.setQuery("SELECT * FROM VW_productosGrid WHERE IdProducto =" + id);
+                }
                 DB.excecuteQuery();
 
                 while (DB.Reader.Read())
@@ -73,6 +77,33 @@ namespace Services
             {
                 producto.Marca.IdMarca = 0;
                 producto.Marca.Nombre = string.Empty;
+            }
+        }
+
+        public void add(Producto newProducto)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("SP_insertProducto");
+
+                DB.setParameter("@Nombre", newProducto.Nombre);
+                DB.setParameter("@IdMarca", newProducto.Marca.IdMarca);
+                DB.setParameter("@IdCategoria", newProducto.Categoria.IdCategoria);
+                DB.setParameter("@StockActual", newProducto.StockActual);
+                DB.setParameter("@StockMinimo", newProducto.StockMinimo);
+                DB.setParameter("@PorcentajeGanancia", newProducto.PorcentajeGanancia);
+
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
             }
         }
     }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Services;
+using Models;
 
 namespace TPC_equipo_9A
 {
@@ -13,9 +13,24 @@ namespace TPC_equipo_9A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            CategoriaServices services = new CategoriaServices ();
-            dgvCategoria.DataSource = services.listar();
-            dgvCategoria.DataBind();
+            if (!IsPostBack)
+            {
+                CategoriaServices services = new CategoriaServices();
+                List<Categoria> categorias = services.listar();
+                dgvCategoria.DataSource = categorias;
+                dgvCategoria.DataBind();
+            }
+        }
+
+        protected void dgvCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var id = dgvCategoria.SelectedDataKey.Value.ToString();
+            Response.Redirect("FormCategoria.aspx?id=" + id);
+        }
+
+        protected void btnAgregarCategoria_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("FormCategoria.aspx", false);
         }
     }
 }

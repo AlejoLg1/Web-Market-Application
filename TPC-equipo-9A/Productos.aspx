@@ -58,7 +58,10 @@
         <asp:BoundField DataField="Categoria.Nombre" HeaderText="Categoría" />
         <asp:BoundField DataField="Marca.Nombre" HeaderText="Marca" />
         <asp:BoundField DataField="PorcentajeGanancia" HeaderText="Porcentaje Ganancia" />
-        <asp:CommandField ShowSelectButton="true" SelectText="Seleccionar" HeaderText="Acción" />
+        <asp:CommandField ShowSelectButton="true" SelectText="Ver detalle" HeaderText="Acción" />
     </Columns>
     </asp:GridView>
+    <div style="text-align: center; margin-top: 20px;">
+        <asp:Button ID="btnAgregarProducto" runat="server" CssClass="btn btn-success mt-3" Text="Agregar" OnClick="btnAgregarProducto_Click" />
+    </div>
 </asp:Content>

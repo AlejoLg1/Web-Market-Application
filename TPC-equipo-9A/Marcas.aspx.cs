@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Services;
 
 namespace TPC_equipo_9A
 {
@@ -13,9 +12,23 @@ namespace TPC_equipo_9A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            MarcaServices services = new MarcaServices();
-            dgvMarca.DataSource = services.listar();
-            dgvMarca.DataBind();
+            if (!IsPostBack)
+            {
+                MarcaServices services = new MarcaServices();
+                dgvMarca.DataSource = services.listar();
+                dgvMarca.DataBind();
+            }
+        }
+
+        protected void dgvMarca_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var id = dgvMarca.SelectedDataKey.Value.ToString();
+            Response.Redirect("FormMarca.aspx?id=" + id);
+        }
+
+        protected void btnAgregarMarca_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("FormMarca.aspx", false);
         }
     }
 }

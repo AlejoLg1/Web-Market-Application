@@ -24,6 +24,7 @@
         .table th {
             background-color: #4CAF50;
             color: white;
+            text-align: center;
         }
 
         /* Alternar color de las filas */
@@ -36,20 +37,25 @@
             background-color: #e0e0e0;
         }
 
-        /* Centrando el texto */
-        /*.table th, .table td {
+         Centrando el texto 
+        .table th, .table td {
             text-align: center;
-        }*/
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <hr />
     <h1>Listado de Marcas</h1>
 
-    <asp:GridView ID="dgvMarca" runat="server" DataKeyNames="IdMarca" CssClass="table" AutoGenerateColumns="false">
+    <asp:GridView ID="dgvMarca" runat="server" OnSelectedIndexChanged="dgvMarca_SelectedIndexChanged" DataKeyNames="IdMarca" CssClass="table" AutoGenerateColumns="false">
         <Columns>
             <%--<asp:BoundField DataField="IdMarca" HeaderText="ID Marca" Visible="false" />--%>
             <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+            <asp:CommandField ShowSelectButton="true" SelectText="Ver detalle" HeaderText="Acción" />
+
         </Columns>
     </asp:GridView>
+  <div style="text-align: center; margin-top: 20px;">
+     <asp:Button ID="btnAgregarMarca" runat="server" CssClass="btn btn-success mt-3" Text="Agregar" OnClick="btnAgregarMarca_Click" />
+ </div>
 </asp:Content>
