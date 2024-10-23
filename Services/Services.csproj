@@ -41,11 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompraServices.cs" />
     <Compile Include="ProductoServices.cs" />
     <Compile Include="CategoriaServices.cs" />
     <Compile Include="MarcaServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsuarioServices.cs" />
+    <Compile Include="VentaServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
