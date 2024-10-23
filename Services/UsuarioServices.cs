@@ -31,7 +31,7 @@ namespace Services
                     user.NombreUsuario = (string)DB.Reader["NombreUsuario"];
                     user.Contrasena = (string)DB.Reader["Contrasena"];
                     user.Rol = (string)DB.Reader["Rol"];
-                    user.FotoPerfil = (string)DB.Reader["FotoPerfil"];
+                    user.FotoPerfil = DB.Reader["FotoPerfil"] != DBNull.Value ? (string)DB.Reader["FotoPerfil"] : "/images/user.png";
                     user.Estado = (bool)DB.Reader["Estado"];
 
                     list.Add(user);

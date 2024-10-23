@@ -20,7 +20,7 @@
         <asp:GridView ID="gvUsuarios" runat="server" CssClass="table table-striped" DataKeyNames="IdUsuario" AutoGenerateColumns="False" OnRowCommand="gvUsuarios_RowCommand">
             <Columns>
                 <asp:BoundField DataField="UsuarioID" HeaderText="ID" Visible="False" />
-                <asp:ImageField DataImageUrlField="FotoPerfil" HeaderText="" ControlStyle-CssClass="image-thumbnail" />
+                <asp:ImageField DataImageUrlField="FotoPerfil" HeaderText="" ControlStyle-CssClass="image-thumbnail" NullDisplayText="/images/user.png"/>
                 <asp:BoundField DataField="NombreUsuario" HeaderText="Nombre de Usuario" />
                 <asp:BoundField DataField="Rol" HeaderText="Rol" />
                 <asp:TemplateField HeaderText="Estado">
