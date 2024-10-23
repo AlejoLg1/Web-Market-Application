@@ -13,6 +13,7 @@ namespace Models
         public string Contrasena { get; set; }
         public string Rol { get; set; }
         public string FotoPerfil { get; set; }
+        public bool Estado { get; set; }
     }
 
 }

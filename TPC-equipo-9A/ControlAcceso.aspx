@@ -23,6 +23,11 @@
                 <asp:ImageField DataImageUrlField="FotoPerfil" HeaderText="" ControlStyle-CssClass="image-thumbnail" />
                 <asp:BoundField DataField="NombreUsuario" HeaderText="Nombre de Usuario" />
                 <asp:BoundField DataField="Rol" HeaderText="Rol" />
+                <asp:TemplateField HeaderText="Estado">
+                    <ItemTemplate>
+                        <%# Convert.ToBoolean(Eval("Estado")) ? "Activo" : "Inactivo" %>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField>
                     <ItemTemplate>
                         <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-primary btn-sm" />

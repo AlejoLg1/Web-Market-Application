@@ -32,6 +32,7 @@ namespace Services
                     user.Contrasena = (string)DB.Reader["Contrasena"];
                     user.Rol = (string)DB.Reader["Rol"];
                     user.FotoPerfil = (string)DB.Reader["FotoPerfil"];
+                    user.Estado = (bool)DB.Reader["Estado"];
 
                     list.Add(user);
                 }
