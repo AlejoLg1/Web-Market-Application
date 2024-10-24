@@ -9,15 +9,14 @@
         }
 
         .table td, .table th {
-            vertical-align: middle; /* Alinea verticalmente el contenido al centro */
-            text-align: center; /* Alinea horizontalmente el contenido al centro */
+            vertical-align: middle; 
+            text-align: center;
         }
 
         .btn-separator {
-            margin-left: 100px; /* Añade un margen entre los conjuntos de botones */
+            margin-left: 100px; 
         }
 
-        /* Estilos para los textos de estado */
         .estado-activo {
             color: green;
             font-weight: bold;
@@ -26,6 +25,10 @@
         .estado-inactivo {
             color: red;
             font-weight: bold;
+        }
+
+        .btn {
+            min-width: 100px; 
         }
     </style>
 </asp:Content>
