@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using Models;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +24,19 @@ namespace TPC_equipo_9A
             {
                 string username = HttpUtility.HtmlEncode(txtUsername.Text);
                 string password = HttpUtility.HtmlEncode(txtPassword.Text);
-                
+
                 if (service.validUser(username, password))
                 {
                     int IdUsuario = service.getUserId(username, password);
+                    Usuario user = service.getUser(IdUsuario);
+                    if (!user.Estado)
+                    {
+                        lblError.Text = "Usuario inactivo";
+                        lblError.Visible = true;
+                        return;
+                    }
                     Session.Add("id", IdUsuario);
-                    Session.Add("rol", service.getUserRol(IdUsuario));
+                    Session.Add("rol", user.Rol);
                     Response.Redirect("~/Default.aspx", false);
                 }
                 else
