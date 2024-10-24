@@ -1,7 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="FormProducto.aspx.cs" Inherits="TPC_equipo_9A.FormProducto" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script type="text/javascript">
+        function confirmarEliminacion(idProducto, nombreProducto) {
+            var mensaje = "¿Estás seguro que deseas eliminar el producto con ID: " + idProducto + " y Nombre: " + nombreProducto + "?";
+            return confirm(mensaje);
+        }
+    </script>
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div class="row justify-content-center mt-5">
@@ -35,16 +42,16 @@
                 <asp:DropDownList ID="ddlCategoria" CssClass="form-control" Enabled="false" runat="server"></asp:DropDownList>
             </div>
 
-            <!-- Fila para Stock Mínimo -->
-            <div class="mb-3">
-                <label for="txtStockMinimo" class="form-label">Stock Mínimo</label>
-                <asp:TextBox ID="txtStockMinimo" CssClass="form-control" ReadOnly="true" runat="server"></asp:TextBox>
-            </div>
-
             <!-- Fila para Stock Actual -->
             <div class="mb-3">
                 <label for="txtStockActual" class="form-label">Stock Actual</label>
-                <asp:TextBox ID="txtStockActual" CssClass="form-control" ReadOnly="true" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtStockActual" CssClass="form-control" ReadOnly="true" runat="server" type="number" min="0" step="1"></asp:TextBox>
+            </div>
+
+            <!-- Fila para Stock Mínimo -->
+            <div class="mb-3">
+                <label for="txtStockMinimo" class="form-label">Stock Mínimo</label>
+                <asp:TextBox ID="txtStockMinimo" CssClass="form-control" ReadOnly="true" runat="server" type="number" min="0" step="1"></asp:TextBox>
             </div>
 
             <!-- Fila para Porcentaje de Ganancia -->
@@ -53,11 +60,12 @@
                 <asp:TextBox ID="txtPorcentajeGanancia" CssClass="form-control" ReadOnly="true" runat="server" type="number" step="0.01"></asp:TextBox>
             </div>
 
-            <!-- Botón para habilitar la edición -->
+            <!-- Botones de acción -->
             <div class="mb-3 text-center">
+                <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-success" OnClick="btnVolver_Click" />
                 <asp:Button ID="btnModificar" CssClass="btn btn-warning" Text="Modificar Producto" OnClick="btnModificar_Click" runat="server" />
                 <asp:Button ID="btnGuardar" CssClass="btn btn-success" Text="Guardar Cambios" OnClick="btnGuardar_Click" runat="server" Visible="false" />
-                <asp:Button ID="btnEliminar" CssClass="btn btn-danger" Text="Eliminar Producto" OnClick="btnEliminar_Click" runat="server" />
+                <asp:Button ID="btnEliminar" CssClass="btn btn-danger" Text="Eliminar Producto"  OnClick="btnEliminar_Click"  runat="server" />
             </div>
         </div>
     </div>

@@ -26,8 +26,8 @@ namespace TPC_equipo_9A
                     //Precargar los datos
                     txtIdCategoria.Text = id;
                     txtNombreCategoria.Text = seleccionado.Nombre;
-                    
 
+                    btnEliminar.OnClientClick = "return confirmarEliminacion('" + id + "', '" + seleccionado.Nombre + "');";
                 }
                 else
                 {
@@ -38,10 +38,10 @@ namespace TPC_equipo_9A
 
                     txtIdCategoria.Text = "";
                     txtNombreCategoria.Text = "";
-                   
+
 
                     txtNombreCategoria.ReadOnly = false;
-                    
+
                 }
             }
             catch (Exception ex)
@@ -70,7 +70,15 @@ namespace TPC_equipo_9A
 
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
+            CategoriaServices services = new CategoriaServices();
+            string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+            services.delete(id);
+            Response.Redirect("Categorias.aspx", false);
+        }
 
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Categorias.aspx", false);
         }
     }
 }

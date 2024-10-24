@@ -60,15 +60,6 @@ namespace TPC_equipo_9A
         protected global::System.Web.UI.WebControls.DropDownList ddlCategoria;
 
         /// <summary>
-        /// Control txtStockMinimo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtStockMinimo;
-
-        /// <summary>
         /// Control txtStockActual.
         /// </summary>
         /// <remarks>
@@ -78,6 +69,15 @@ namespace TPC_equipo_9A
         protected global::System.Web.UI.WebControls.TextBox txtStockActual;
 
         /// <summary>
+        /// Control txtStockMinimo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtStockMinimo;
+
+        /// <summary>
         /// Control txtPorcentajeGanancia.
         /// </summary>
         /// <remarks>
@@ -85,6 +85,15 @@ namespace TPC_equipo_9A
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPorcentajeGanancia;
+
+        /// <summary>
+        /// Control btnVolver.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnVolver;
 
         /// <summary>
         /// Control btnModificar.

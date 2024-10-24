@@ -53,6 +53,8 @@ namespace TPC_equipo_9A
                     ddlCategoria.SelectedValue = seleccionado.Categoria.IdCategoria.ToString();
                     ddlMarca.SelectedValue = seleccionado.Marca.IdMarca.ToString();
 
+                    btnEliminar.OnClientClick = "return confirmarEliminacion('" + id + "', '" + seleccionado.Nombre + "');";
+
                 }
                 else
                 {
@@ -99,22 +101,13 @@ namespace TPC_equipo_9A
                 ProductoServices services = new ProductoServices();
                 Producto nuevo = new Producto();
                 nuevo.Nombre = txtNombre.Text;
-                //decimal porcentajeGanancia;
-
-                //if (!decimal.TryParse(txtPorcentajeGanancia.Text, NumberStyles.Any, new CultureInfo("es-AR"), out porcentajeGanancia))
-                //{
-                //    Session["error"] = "El porcentaje de ganancia es inválido.";
-                //    Response.Redirect("Error.aspx", false);
-                //    return; // Salir del método si la conversión falla
-                //}
-                //nuevo.PorcentajeGanancia = porcentajeGanancia;
-                nuevo.PorcentajeGanancia = decimal.Parse(txtPorcentajeGanancia.Text);
-                nuevo.StockMinimo = int.Parse(txtStockMinimo.Text);
-                nuevo.StockActual = int.Parse(txtStockActual.Text);
-                nuevo.Categoria = new Categoria();
-                nuevo.Categoria.IdCategoria = int.Parse(ddlCategoria.SelectedValue);
                 nuevo.Marca = new Marca();
-                nuevo.Marca.IdMarca = int.Parse(ddlMarca.SelectedValue);
+                nuevo.Marca.IdMarca = Convert.ToInt32(ddlMarca.SelectedValue);
+                nuevo.Categoria = new Categoria();
+                nuevo.Categoria.IdCategoria = Convert.ToInt32(ddlCategoria.SelectedValue);
+                nuevo.StockMinimo = Convert.ToInt32(txtStockMinimo.Text);
+                nuevo.StockActual = Convert.ToInt32(txtStockActual.Text);
+                nuevo.PorcentajeGanancia = Convert.ToDecimal(txtPorcentajeGanancia.Text);
 
                 services.add(nuevo);
                 Response.Redirect("Productos.aspx", false);
@@ -129,7 +122,15 @@ namespace TPC_equipo_9A
 
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
+            ProductoServices services = new ProductoServices();
+            string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+            services.delete(id);
+            Response.Redirect("Productos.aspx", false);
+        }
 
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Productos.aspx", false);
         }
     }
 }
