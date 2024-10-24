@@ -27,5 +27,13 @@ namespace TPC_equipo_9A
         {
             Response.Redirect("FormProducto.aspx");
         }
+
+        protected void dgvProductos_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            dgvProductos.PageIndex = e.NewPageIndex;
+            ProductoServices services = new ProductoServices();
+            dgvProductos.DataSource = services.listar();
+            dgvProductos.DataBind();
+        }
     }
 }

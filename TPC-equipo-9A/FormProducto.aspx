@@ -71,7 +71,7 @@
 
             <!-- Botones de acción -->
             <div class="mb-3 text-center">
-                <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-success" OnClick="btnVolver_Click" />
+                <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-success" OnClick="btnVolver_Click" CausesValidation="false" />
                 <asp:Button ID="btnModificar" CssClass="btn btn-warning" Text="Modificar Producto" OnClick="btnModificar_Click" runat="server" />
                 <asp:Button ID="btnGuardar" CssClass="btn btn-success" Text="Guardar Cambios" OnClick="btnGuardar_Click" runat="server" Visible="false" />
                 <asp:Button ID="btnEliminar" CssClass="btn btn-danger" Text="Eliminar Producto" OnClientClick="return confirmarEliminacion(txtIdProducto.Text, txtNombre.Text);" OnClick="btnEliminar_Click" runat="server" />
