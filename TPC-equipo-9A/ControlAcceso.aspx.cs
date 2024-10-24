@@ -42,92 +42,107 @@ namespace TPC_equipo_9A
 
         protected void gvUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int rowIndex = Convert.ToInt32(e.CommandArgument);
-            GridViewRow row = gvUsuarios.Rows[rowIndex];
-            int IdUsuario = Convert.ToInt32(gvUsuarios.DataKeys[rowIndex].Value.ToString());
-
-            switch (e.CommandName)
+            try
             {
-                case "Editar":
-                    Response.Redirect($"Perfil.aspx?id={IdUsuario}&edit={true}");
-                    break;
+                int rowIndex = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = gvUsuarios.Rows[rowIndex];
+                int IdUsuario = Convert.ToInt32(gvUsuarios.DataKeys[rowIndex].Value.ToString());
 
-                case "Eliminar":
-                    service.delete(IdUsuario);
-                    Response.Redirect("ControlAcceso.aspx", false);
-                    break;
+                switch (e.CommandName)
+                {
+                    case "Editar":
+                        Response.Redirect($"Perfil.aspx?id={IdUsuario}&edit={true}");
+                        break;
 
-                case "VerPerfil":
-                    Response.Redirect($"Perfil.aspx?id={IdUsuario}&edit={false}");
-                    break;
+                    case "Eliminar":
+                        service.delete(IdUsuario);
+                        Response.Redirect("ControlAcceso.aspx", false);
+                        break;
 
-                case "Activar":
-                    service.updateEstado(IdUsuario, true);
-                    Response.Redirect("ControlAcceso.aspx", false);
-                    break;
+                    case "VerPerfil":
+                        Response.Redirect($"Perfil.aspx?id={IdUsuario}&edit={false}");
+                        break;
 
-                case "Desactivar":
+                    case "Activar":
+                        service.updateEstado(IdUsuario, true);
+                        Response.Redirect("ControlAcceso.aspx", false);
+                        break;
 
-                    if (service.getUser(IdUsuario).Rol == "Administrador")
-                    {
-                        int admins = service.countActiveAdmins();
-                        if (Convert.ToInt32(admins) == 1)
+                    case "Desactivar":
+
+                        if (service.getUser(IdUsuario).Rol == "Administrador")
                         {
-                            string script = "alert('No es posible Desactivar al único administrador de la plataforma.');";
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
+                            int admins = service.countActiveAdmins();
+                            if (Convert.ToInt32(admins) == 1)
+                            {
+                                string script = "alert('No es posible Desactivar al único administrador de la plataforma.');";
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
+                                return;
+                            }
+                        }
+                        service.updateEstado(IdUsuario, false);
+                    
+                        if (IdUsuario == Convert.ToInt32(Session["id"]))
+                        {
+                            Session.Abandon();
+                            Response.Redirect("Login.aspx", false);
                             return;
                         }
-                    }
-                    service.updateEstado(IdUsuario, false);
-                    
-                    if (IdUsuario == Convert.ToInt32(Session["id"]))
-                    {
-                        Session.Abandon();
-                        Response.Redirect("Login.aspx", false);
-                        return;
-                    }
-                    Response.Redirect("ControlAcceso.aspx", false);
+                        Response.Redirect("ControlAcceso.aspx", false);
 
-                    break;
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
+                }
             }
-
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            string nombreUsuario = txtNombreUsuario.Text;
-            string rolSeleccionado = ddlRol.SelectedValue.ToString();
-            string estadoSeleccionado = ddlEstado.SelectedValue.ToString();
-
-            string filters = "";
-
-            if (nombreUsuario != "")
+            try
             {
-                filters += $"NombreUsuario = '{nombreUsuario}'";
-            }
+                string nombreUsuario = txtNombreUsuario.Text;
+                string rolSeleccionado = ddlRol.SelectedValue.ToString();
+                string estadoSeleccionado = ddlEstado.SelectedValue.ToString();
 
-            if (rolSeleccionado != "")
-            {
-                if (filters != "")
+                string filters = "";
+
+                if (nombreUsuario != "")
                 {
-                    filters += " and ";
+                    filters += $"NombreUsuario = '{nombreUsuario}'";
                 }
-                filters += $"Rol = '{rolSeleccionado}'";
-            }
 
-            if (estadoSeleccionado != "")
-            {
-                if (filters != "")
+                if (rolSeleccionado != "")
                 {
-                    filters += " and ";
+                    if (filters != "")
+                    {
+                        filters += " and ";
+                    }
+                    filters += $"Rol = '{rolSeleccionado}'";
                 }
-                filters += $"Estado = '{estadoSeleccionado}'";
-            }
 
-            BindGrid(filters);
+                if (estadoSeleccionado != "")
+                {
+                    if (filters != "")
+                    {
+                        filters += " and ";
+                    }
+                    filters += $"Estado = '{estadoSeleccionado}'";
+                }
+
+                BindGrid(filters);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
     }
 }
