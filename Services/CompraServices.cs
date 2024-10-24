@@ -10,7 +10,7 @@ namespace Services
 {
     public class CompraServices
     {
-        private DataBaseAccess dbAccess = new DataBaseAccess();
+        private DataBaseAccess DB = new DataBaseAccess();
 
         public void IngresarCompra(int IdProveedor, DateTime FechaCompra)
         {
@@ -31,7 +31,7 @@ namespace Services
 
             finally
             {
-               dbAccess.CloseConnection();
+                DB.CloseConnection();
             }
         }
     }
