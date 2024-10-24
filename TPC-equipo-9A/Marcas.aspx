@@ -47,7 +47,7 @@
     <hr />
     <h1>Listado de Marcas</h1>
 
-    <asp:GridView ID="dgvMarca" runat="server" OnSelectedIndexChanged="dgvMarca_SelectedIndexChanged" DataKeyNames="IdMarca" CssClass="table" AutoGenerateColumns="false">
+    <asp:GridView ID="dgvMarca" runat="server" OnSelectedIndexChanged="dgvMarca_SelectedIndexChanged" DataKeyNames="IdMarca" CssClass="table" AutoGenerateColumns="false" AllowPaging="True" PageSize="4" OnPageIndexChanging="dgvMarca_PageIndexChanging">
         <Columns>
             <%--<asp:BoundField DataField="IdMarca" HeaderText="ID Marca" Visible="false" />--%>
             <asp:BoundField DataField="Nombre" HeaderText="Nombre" />

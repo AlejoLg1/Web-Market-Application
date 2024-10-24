@@ -30,5 +30,13 @@ namespace TPC_equipo_9A
         {
             Response.Redirect("FormMarca.aspx", false);
         }
+
+        protected void dgvMarca_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            dgvMarca.PageIndex = e.NewPageIndex;
+            MarcaServices services = new MarcaServices();
+            dgvMarca.DataSource = services.listar();
+            dgvMarca.DataBind();
+        }
     }
 }
