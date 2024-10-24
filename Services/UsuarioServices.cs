@@ -241,6 +241,55 @@ namespace Services
             }
         }
 
+        public void updateEstado(int Id, bool estado)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("UPDATE Usuario SET Estado = @Est WHERE IdUsuario = @Id");
+
+                DB.setParameter("@Id", Id);
+                DB.setParameter("@Est", estado);
+                
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al modificar UserEstado. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public int countActiveAdmins()
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("SELECT COUNT(*) FROM Usuario WHERE Rol = 'Administrador' and Estado = 1");
+
+                DB.excecuteQuery();
+
+                if (DB.Reader.Read())
+                {
+                    return DB.Reader.GetInt32(0);
+                }
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al contar Admins Activos. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return 0;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
     }
 
 }
