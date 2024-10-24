@@ -73,7 +73,7 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("DELETE FROM Marca WHERE IdMarca = @IdMarca");
+                DB.setQuery("sp_DeleteMarca @IdMarca");
                 DB.setParameter("@IdMarca", Id);
 
                 DB.excecuteAction();

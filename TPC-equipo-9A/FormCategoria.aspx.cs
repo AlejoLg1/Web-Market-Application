@@ -2,6 +2,7 @@
 using Services;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -70,10 +71,32 @@ namespace TPC_equipo_9A
 
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
-            CategoriaServices services = new CategoriaServices();
-            string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
-            services.delete(id);
-            Response.Redirect("Categorias.aspx", false);
+            try
+            {
+                CategoriaServices services = new CategoriaServices();
+                string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+
+                // Intentar eliminar la categoría
+                services.delete(id);
+
+                // Redirigir solo si no hubo errores
+                Response.Redirect("Categorias.aspx", false);
+            }
+            catch (SqlException ex)
+            {
+                // Si hay una excepción relacionada con la clave referenciada
+                if (ex.Message.Contains("No se puede eliminar la categoría porque está referenciada"))
+                {
+                    lblError.Text = "No se puede eliminar la categoría porque está referenciada por productos.";
+                    lblError.Visible = true;
+                }
+                else
+                {
+                    // Otros posibles errores
+                    lblError.Text = "Ocurrió un error al intentar eliminar la categoría porque esta referenciada a productos.";
+                    lblError.Visible = true;
+                }
+            }
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)

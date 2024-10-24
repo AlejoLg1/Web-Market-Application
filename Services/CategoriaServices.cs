@@ -75,7 +75,7 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("DELETE FROM Categoria WHERE IdCategoria = @IdCategoria");
+                DB.setQuery("sp_DeleteCategoria @IdCategoria");
                 DB.setParameter("@IdCategoria", Id);
 
                 DB.excecuteAction();

@@ -1,12 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="FormCategoria.aspx.cs" Inherits="TPC_equipo_9A.FromCategoria" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     <script type="text/javascript">
-     function confirmarEliminacion(idCategoria, nombreCategoria) {
-         var mensaje = "¿Estás seguro que deseas eliminar la categoría con ID: " + idCategoria + " y Nombre: " + nombreCategoria + "?";
-         return confirm(mensaje);
-     }
-     </script>
+    <script type="text/javascript">
+        function confirmarEliminacion(idCategoria, nombreCategoria) {
+            var mensaje = "¿Estás seguro que deseas eliminar la categoría con ID: " + idCategoria + " y Nombre: " + nombreCategoria + "?";
+            return confirm(mensaje);
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row justify-content-center mt-5">
@@ -26,6 +26,12 @@
             <div class="mb-3">
                 <label for="txtNombreCategoria" class="form-label">Nombre</label>
                 <asp:TextBox ID="txtNombreCategoria" CssClass="form-control" ReadOnly="true" runat="server"></asp:TextBox>
+
+                <asp:RequiredFieldValidator ID="rfvNombre" runat="server"
+                    ControlToValidate="txtNombreCategoria"
+                    ErrorMessage="El Nombre es obligatorio."
+                    CssClass="text-danger"
+                    Display="Dynamic" />
             </div>
 
             <!-- Botón para habilitar la edición -->
@@ -35,6 +41,9 @@
                 <asp:Button ID="btnGuardar" CssClass="btn btn-success" Text="Guardar Cambios" OnClick="btnGuardar_Click" runat="server" Visible="false" />
                 <asp:Button ID="btnEliminar" CssClass="btn btn-danger" Text="Eliminar Categoria" OnClick="btnEliminar_Click" runat="server" />
             </div>
+            <!-- label error-->
+            <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
+
         </div>
     </div>
 </asp:Content>
