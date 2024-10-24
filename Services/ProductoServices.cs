@@ -89,11 +89,31 @@ namespace Services
 
                 DB.setParameter("@Nombre", newProducto.Nombre);
                 DB.setParameter("@IdMarca", newProducto.Marca.IdMarca);
-                DB.setParameter("@IdCategoria", newProducto.Categoria.IdCategoria);
+                DB.setParameter("@IdTipoProducto", newProducto.Categoria.IdCategoria);
                 DB.setParameter("@StockActual", newProducto.StockActual);
                 DB.setParameter("@StockMinimo", newProducto.StockMinimo);
                 DB.setParameter("@PorcentajeGanancia", newProducto.PorcentajeGanancia);
 
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public void delete(string Id)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("DELETE FROM Producto WHERE IdProducto = @IdProducto");
+                DB.setParameter("@IdProducto", Id);
 
                 DB.excecuteAction();
             }

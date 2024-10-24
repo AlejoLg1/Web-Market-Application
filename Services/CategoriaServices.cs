@@ -21,7 +21,8 @@ namespace Services
                 {
                     DB.setQuery("SELECT * FROM VW_CategoriasGrid WHERE IdCategoria =" + id);
                 }
-                else{
+                else
+                {
                     DB.setQuery("SELECT * FROM VW_CategoriasGrid");
                 }
                 DB.excecuteQuery();
@@ -55,7 +56,7 @@ namespace Services
                 DB.clearParameters();
                 DB.setQuery("INSERT INTO Categoria (Nombre) VALUES (@Nombre)");
 
-               
+
                 DB.setParameter("@Nombre", newCategoria.Nombre);
                 DB.excecuteAction();
             }
@@ -68,5 +69,26 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public void delete(string Id)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("DELETE FROM Categoria WHERE IdCategoria = @IdCategoria");
+                DB.setParameter("@IdCategoria", Id);
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
     }
+
 }

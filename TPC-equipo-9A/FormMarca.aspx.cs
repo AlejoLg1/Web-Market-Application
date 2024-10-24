@@ -27,6 +27,8 @@ namespace TPC_equipo_9A
                     txtIdMarca.Text = id;
                     txtNombreMarca.Text = seleccionado.Nombre;
 
+                    //Pregunta de confirmacion al eliminar
+                    btnEliminar.OnClientClick = "return confirmarEliminacion('" + id + "', '" + seleccionado.Nombre + "');";
 
                 }
                 else
@@ -70,7 +72,15 @@ namespace TPC_equipo_9A
 
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
+            MarcaServices services = new MarcaServices();
+            string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+            services.delete(id);
+            Response.Redirect("Marcas.aspx", false);
+        }
 
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Marcas.aspx", false);
         }
     }
 }

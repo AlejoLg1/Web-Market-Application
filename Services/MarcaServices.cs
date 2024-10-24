@@ -67,5 +67,25 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public void delete(string Id)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("DELETE FROM Marca WHERE IdMarca = @IdMarca");
+                DB.setParameter("@IdMarca", Id);
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
     }
 }
