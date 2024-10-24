@@ -12,8 +12,24 @@
             vertical-align: middle; /* Alinea verticalmente el contenido al centro */
             text-align: center; /* Alinea horizontalmente el contenido al centro */
         }
+
+        .btn-separator {
+            margin-left: 100px; /* Añade un margen entre los conjuntos de botones */
+        }
+
+        /* Estilos para los textos de estado */
+        .estado-activo {
+            color: green;
+            font-weight: bold;
+        }
+
+        .estado-inactivo {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-5">
         <h2>Control de Acceso</h2>
@@ -25,7 +41,9 @@
                 <asp:BoundField DataField="Rol" HeaderText="Rol" />
                 <asp:TemplateField HeaderText="Estado">
                     <ItemTemplate>
-                        <%# Convert.ToBoolean(Eval("Estado")) ? "Activo" : "Inactivo" %>
+                        <span class='<%# Convert.ToBoolean(Eval("Estado")) ? "estado-activo" : "estado-inactivo" %>'>
+                            <%# Convert.ToBoolean(Eval("Estado")) ? "Activo" : "Inactivo" %>
+                        </span>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField>
@@ -33,6 +51,14 @@
                         <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning btn-sm" />
                         <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-danger btn-sm" />
                         <asp:Button ID="btnVerPerfil" runat="server" Text="Ver Perfil" CommandName="VerPerfil" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-info btn-sm" />
+
+                        <span class="btn-separator"></span>
+
+                        <asp:Button ID="btnActivar" runat="server" Text="Activar" CommandName="Activar" CommandArgument='<%# Container.DataItemIndex %>' 
+                            CssClass="btn btn-success btn-sm" Visible='<%# !Convert.ToBoolean(Eval("Estado")) %>' />
+
+                        <asp:Button ID="btnDesactivar" runat="server" Text="Desactivar" CommandName="Desactivar" CommandArgument='<%# Container.DataItemIndex %>' 
+                            CssClass="btn btn-secondary btn-sm" Visible='<%# Convert.ToBoolean(Eval("Estado")) %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

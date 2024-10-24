@@ -46,19 +46,50 @@ namespace TPC_equipo_9A
             GridViewRow row = gvUsuarios.Rows[rowIndex];
             int IdUsuario = Convert.ToInt32(gvUsuarios.DataKeys[rowIndex].Value.ToString());
 
-            if (e.CommandName == "Editar")
+            switch (e.CommandName)
             {
-                Response.Redirect($"Perfil.aspx?id={IdUsuario}&edit={true}");
+                case "Editar":
+                    Response.Redirect($"Perfil.aspx?id={IdUsuario}&edit={true}");
+                    break;
+
+                case "Eliminar":
+                    service.delete(IdUsuario);
+                    Response.Redirect("ControlAcceso.aspx", false);
+                    break;
+
+                case "VerPerfil":
+                    Response.Redirect($"Perfil.aspx?id={IdUsuario}&edit={false}");
+                    break;
+
+                case "Activar":
+                    service.updateEstado(IdUsuario, true);
+                    Response.Redirect("ControlAcceso.aspx", false);
+                    break;
+
+                case "Desactivar":
+                    int admins = service.countActiveAdmins();
+                    if (Convert.ToInt32(admins) == 1)
+                    {
+                        string script = "alert('No es posible Desactivar al único administrador de la plataforma.');";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
+                        return;
+                    }
+                    service.updateEstado(IdUsuario, false);
+                    
+                    if (IdUsuario == Convert.ToInt32(Session["id"]))
+                    {
+                        Session.Abandon();
+                        Response.Redirect("Login.aspx", false);
+                        return;
+                    }
+                    Response.Redirect("ControlAcceso.aspx", false);
+
+                    break;
+
+                default:
+                    break;
             }
-            else if (e.CommandName == "Eliminar")
-            {
-                service.delete(IdUsuario);
-                Response.Redirect("ControlAcceso.aspx", false);
-            }
-            else if (e.CommandName == "VerPerfil")
-            {
-                Response.Redirect($"Perfil.aspx?id={IdUsuario}&edit={false}");
-            }
+
         }
     }
 }

@@ -167,7 +167,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Credenciales inválidas. Acceso denegado.");
+                Console.WriteLine($"FATAL ERROR: Error al obtener UserId. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
                 return 0;
             }
             finally
@@ -195,7 +195,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Credenciales inválidas. Acceso denegado.");
+                Console.WriteLine($"FATAL ERROR: Error al ontemer UserRol. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
                 return "";
             }
             finally
@@ -210,7 +210,7 @@ namespace Services
             {
                 Usuario user = new Usuario();
                 DB.clearParameters();
-                DB.setQuery("SELECT IdUsuario, NombreUsuario, Contrasena, Rol, FotoPerfil FROM Usuario WHERE IdUsuario = @id");
+                DB.setQuery("SELECT IdUsuario, NombreUsuario, Contrasena, Rol, FotoPerfil, Estado FROM Usuario WHERE IdUsuario = @id");
                 DB.setParameter("@id", Id);
                 DB.excecuteQuery();
 
@@ -221,6 +221,7 @@ namespace Services
                     user.Contrasena = DB.Reader["Contrasena"] != DBNull.Value ? DB.Reader["Contrasena"].ToString() : null;
                     user.Rol = DB.Reader["Rol"] != DBNull.Value ? DB.Reader["Rol"].ToString() : null;
                     user.FotoPerfil = DB.Reader["FotoPerfil"] != DBNull.Value ? DB.Reader["FotoPerfil"].ToString() : "/images/user.png";
+                    user.Estado = DB.Reader["Estado"] != DBNull.Value ? Convert.ToBoolean(DB.Reader["Estado"]) : false;
                 }
 
                 if (user.IdUsuario == 0)
@@ -230,9 +231,59 @@ namespace Services
 
                 return user;
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine($"FATAL ERROR: Error al obtener Usuario. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
                 return null;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public void updateEstado(int Id, bool estado)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("UPDATE Usuario SET Estado = @Est WHERE IdUsuario = @Id");
+
+                DB.setParameter("@Id", Id);
+                DB.setParameter("@Est", estado);
+                
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al modificar UserEstado. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public int countActiveAdmins()
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("SELECT COUNT(*) FROM Usuario WHERE Rol = 'Administrador' and Estado = 1");
+
+                DB.excecuteQuery();
+
+                if (DB.Reader.Read())
+                {
+                    return DB.Reader.GetInt32(0);
+                }
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al contar Admins Activos. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return 0;
             }
             finally
             {
