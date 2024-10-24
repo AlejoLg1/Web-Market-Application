@@ -67,12 +67,16 @@ namespace TPC_equipo_9A
                     break;
 
                 case "Desactivar":
-                    int admins = service.countActiveAdmins();
-                    if (Convert.ToInt32(admins) == 1)
+
+                    if (service.getUser(IdUsuario).Rol == "Administrador")
                     {
-                        string script = "alert('No es posible Desactivar al único administrador de la plataforma.');";
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
-                        return;
+                        int admins = service.countActiveAdmins();
+                        if (Convert.ToInt32(admins) == 1)
+                        {
+                            string script = "alert('No es posible Desactivar al único administrador de la plataforma.');";
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
+                            return;
+                        }
                     }
                     service.updateEstado(IdUsuario, false);
                     
