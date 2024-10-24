@@ -32,5 +32,13 @@ namespace TPC_equipo_9A
         {
             Response.Redirect("FormCategoria.aspx", false);
         }
+
+        protected void dgvCategoria_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            dgvCategoria.PageIndex = e.NewPageIndex;
+            CategoriaServices services = new CategoriaServices();
+            dgvCategoria.DataSource = services.listar();
+            dgvCategoria.DataBind();
+        }
     }
 }

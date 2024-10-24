@@ -48,7 +48,7 @@
     <hr />
     <h1>Listado de categorías</h1>
     
-    <asp:GridView ID="dgvCategoria" runat="server" OnSelectedIndexChanged="dgvCategoria_SelectedIndexChanged" DataKeyNames="IdCategoria" CssClass="table" AutoGenerateColumns="false">
+    <asp:GridView ID="dgvCategoria" runat="server" OnSelectedIndexChanged="dgvCategoria_SelectedIndexChanged" DataKeyNames="IdCategoria" CssClass="table" AutoGenerateColumns="false" AllowPaging="True" PageSize="5" OnPageIndexChanging="dgvCategoria_PageIndexChanging">
         <Columns>
             <%--<asp:BoundField DataField="IdCategoria" HeaderText="ID Categoria" Visible="false" />--%>
             <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
