@@ -16,12 +16,12 @@ namespace Services
         {
             try
             {
-                DB.setQuery("INSERT INTO vw_IngresarCompra (IdProveedor, FechaCompra) VALUES (@IdProveedor, @FechaCompra)");
+                dbAccess.setQuery("INSERT INTO vw_IngresarCompra (IdProveedor, FechaCompra) VALUES (@IdProveedor, @FechaCompra)");
 
-                DB.setParameter("@IdProveedor", IdProveedor);
-                DB.setParameter("@FechaCompra", FechaCompra);
+                dbAccess.setParameter("@IdProveedor", IdProveedor);
+                dbAccess.setParameter("@FechaCompra", FechaCompra);
 
-                DB.excecuteAction();
+                dbAccess.excecuteAction();
             }
 
             catch (Exception ex)
