@@ -210,7 +210,7 @@ namespace Services
             {
                 Usuario user = new Usuario();
                 DB.clearParameters();
-                DB.setQuery("SELECT IdUsuario, NombreUsuario, Contrasena, Rol, FotoPerfil FROM Usuario WHERE IdUsuario = @id");
+                DB.setQuery("SELECT IdUsuario, NombreUsuario, Contrasena, Rol, FotoPerfil, Estado FROM Usuario WHERE IdUsuario = @id");
                 DB.setParameter("@id", Id);
                 DB.excecuteQuery();
 
@@ -221,6 +221,7 @@ namespace Services
                     user.Contrasena = DB.Reader["Contrasena"] != DBNull.Value ? DB.Reader["Contrasena"].ToString() : null;
                     user.Rol = DB.Reader["Rol"] != DBNull.Value ? DB.Reader["Rol"].ToString() : null;
                     user.FotoPerfil = DB.Reader["FotoPerfil"] != DBNull.Value ? DB.Reader["FotoPerfil"].ToString() : "/images/user.png";
+                    user.Estado = DB.Reader["Estado"] != DBNull.Value ? Convert.ToBoolean(DB.Reader["Estado"]) : false;
                 }
 
                 if (user.IdUsuario == 0)
