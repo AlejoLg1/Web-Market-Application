@@ -38,7 +38,7 @@ namespace TPC_equipo_9A
 
 
                     txtIdCategoria.Text = "";
-                    txtNombreCategoria.Text = "";
+                    //txtNombreCategoria.Text = "";
 
 
                     txtNombreCategoria.ReadOnly = false;
