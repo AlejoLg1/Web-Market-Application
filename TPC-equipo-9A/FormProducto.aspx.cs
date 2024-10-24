@@ -27,6 +27,8 @@ namespace TPC_equipo_9A
                     ddlCategoria.DataTextField = "Nombre"; // El nombre de la columna que quieres mostrar
                     ddlCategoria.DataValueField = "IdCategoria"; // El valor de la columna (ID)
                     ddlCategoria.DataBind();
+                    // ítem de "placeholder" al DropDownList de Categoría
+                    ddlCategoria.Items.Insert(0, new ListItem("Elija una categoría", ""));
 
                     MarcaServices marcaServices = new MarcaServices();
                     List<Marca> marcas = marcaServices.listar(); 
@@ -35,6 +37,8 @@ namespace TPC_equipo_9A
                     ddlMarca.DataTextField = "Nombre"; // El nombre de la columna que quieres mostrar
                     ddlMarca.DataValueField = "IdMarca"; // El valor de la columna (ID)
                     ddlMarca.DataBind();
+                    // ítem de "placeholder" al DropDownList de Marca
+                    ddlMarca.Items.Insert(0, new ListItem("Elija una marca", ""));
                 }
 
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
@@ -65,11 +69,11 @@ namespace TPC_equipo_9A
                     btnGuardar.Visible = true;
 
 
-                    txtIdProducto.Text = "";
-                    txtNombre.Text = "";
-                    txtPorcentajeGanancia.Text = "";
-                    txtStockActual.Text = "";
-                    txtStockMinimo.Text = "";
+                    //txtIdProducto.Text = "";
+                    //txtNombre.Text = "";
+                    //txtPorcentajeGanancia.Text = "";
+                    //txtStockActual.Text = "";
+                    //txtStockMinimo.Text = "";
                     
                    
                     txtNombre.ReadOnly = false;

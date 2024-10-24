@@ -85,11 +85,11 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("SP_insertProducto");
+                DB.setQuery("SP_insertProducto @Nombre, @IdMarca, @IdCategoria, @StockActual, @StockMinimo, @PorcentajeGanancia");
 
                 DB.setParameter("@Nombre", newProducto.Nombre);
                 DB.setParameter("@IdMarca", newProducto.Marca.IdMarca);
-                DB.setParameter("@IdTipoProducto", newProducto.Categoria.IdCategoria);
+                DB.setParameter("@IdCategoria", newProducto.Categoria.IdCategoria);
                 DB.setParameter("@StockActual", newProducto.StockActual);
                 DB.setParameter("@StockMinimo", newProducto.StockMinimo);
                 DB.setParameter("@PorcentajeGanancia", newProducto.PorcentajeGanancia);

@@ -37,14 +37,8 @@ namespace TPC_equipo_9A
                     btnEliminar.Visible = false;
                     btnModificar.Visible = false;
                     btnGuardar.Visible = true;
-
-
-                    txtIdMarca.Text = "";
-                    //txtNombreMarca.Text = "";
-
-
+                                        
                     txtNombreMarca.ReadOnly = false;
-
                 }
             }
             catch (Exception ex)
