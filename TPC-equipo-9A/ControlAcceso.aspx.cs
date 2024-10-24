@@ -22,11 +22,11 @@ namespace TPC_equipo_9A
             }
         }
 
-        private void BindGrid()
+        private void BindGrid(string filters = null)
         {
             try
             {
-                List<Usuario> list = service.listar();
+                List<Usuario> list = service.listar(filters);
                 if (list != null)
                 {
                     gvUsuarios.DataSource = list;
@@ -94,6 +94,40 @@ namespace TPC_equipo_9A
                     break;
             }
 
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            string nombreUsuario = txtNombreUsuario.Text;
+            string rolSeleccionado = ddlRol.SelectedValue.ToString();
+            string estadoSeleccionado = ddlEstado.SelectedValue.ToString();
+
+            string filters = "";
+
+            if (nombreUsuario != "")
+            {
+                filters += $"NombreUsuario = '{nombreUsuario}'";
+            }
+
+            if (rolSeleccionado != "")
+            {
+                if (filters != "")
+                {
+                    filters += " and ";
+                }
+                filters += $"Rol = '{rolSeleccionado}'";
+            }
+
+            if (estadoSeleccionado != "")
+            {
+                if (filters != "")
+                {
+                    filters += " and ";
+                }
+                filters += $"Estado = '{estadoSeleccionado}'";
+            }
+
+            BindGrid(filters);
         }
     }
 }

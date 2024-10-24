@@ -15,12 +15,18 @@ namespace Services
     {
         private DataBaseAccess DB = new DataBaseAccess();
 
-        public List<Usuario> listar()
+        public List<Usuario> listar(string filters = null)
         {
             List<Usuario> list = new List<Usuario>();
             try
             {
-                DB.setQuery("SELECT * FROM Usuario");
+                string sqlQuery = "SELECT * FROM Usuario";
+                if (!string.IsNullOrEmpty(filters))
+                {
+                    sqlQuery += $" WHERE {filters}";
+                }
+                
+                DB.setQuery(sqlQuery);
                 DB.excecuteQuery();
 
                 while (DB.Reader.Read())
