@@ -37,14 +37,8 @@ namespace TPC_equipo_9A
                     btnEliminar.Visible = false;
                     btnModificar.Visible = false;
                     btnGuardar.Visible = true;
-
-
-                    txtIdMarca.Text = "";
-                    txtNombreMarca.Text = "";
-
-
+                                        
                     txtNombreMarca.ReadOnly = false;
-
                 }
             }
             catch (Exception ex)
@@ -63,12 +57,21 @@ namespace TPC_equipo_9A
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            MarcaServices services = new MarcaServices();
-            Marca nuevo = new Marca();
-            nuevo.Nombre = txtNombreMarca.Text;
+            try
+            {
+                MarcaServices services = new MarcaServices();
+                Marca nuevo = new Marca();
+                nuevo.Nombre = txtNombreMarca.Text;
 
-            services.add(nuevo);
-            Response.Redirect("Marcas.aspx", false);
+                services.add(nuevo);
+                Response.Redirect("Marcas.aspx", false);
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)

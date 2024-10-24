@@ -38,14 +38,16 @@
                     <div class="mb-3">
                         <label for="ddlMarca" class="form-label">Marca</label>
                         <asp:DropDownList ID="ddlMarca" CssClass="form-control" runat="server" Enabled="false"></asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="rfvMarca" runat="server" ControlToValidate="ddlMarca" ErrorMessage="La marca es obligatoria." CssClass="text-danger" Display="Dynamic" />
+                        <asp:ListItem Text="Elija una marca" Value="" Selected="True" />
+                        <asp:RequiredFieldValidator ID="rfvMarca" runat="server" ControlToValidate="ddlMarca" ErrorMessage="La marca es obligatoria." CssClass="text-danger" Display="Dynamic" InitialValue="" />
                     </div>
 
                     <!-- Fila para Categoría -->
                     <div class="mb-3">
                         <label for="ddlCategoria" class="form-label">Categoría</label>
                         <asp:DropDownList ID="ddlCategoria" CssClass="form-control" runat="server" Enabled="false"></asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="rfvCategoria" runat="server" ControlToValidate="ddlCategoria" ErrorMessage="La categoría es obligatoria." CssClass="text-danger" Display="Dynamic" />
+                        <asp:ListItem Text="Elija una Categoría" Value="" Selected="True" />
+                        <asp:RequiredFieldValidator ID="rfvCategoria" runat="server" ControlToValidate="ddlCategoria" ErrorMessage="La categoría es obligatoria." CssClass="text-danger" Display="Dynamic" InitialValue="" />
                     </div>
                 </div>
 
@@ -72,7 +74,13 @@
                         <label for="txtPorcentajeGanancia" class="form-label">Porcentaje de Ganancia</label>
                         <asp:TextBox ID="txtPorcentajeGanancia" CssClass="form-control" runat="server" type="number" step="0.01" ReadOnly="true"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvPorcentajeGanancia" runat="server" ControlToValidate="txtPorcentajeGanancia" ErrorMessage="El porcentaje de ganancia es obligatorio." CssClass="text-danger" Display="Dynamic" />
-                        <asp:RegularExpressionValidator ID="revPorcentajeGanancia" runat="server" ControlToValidate="txtPorcentajeGanancia" ErrorMessage="El porcentaje de ganancia debe incluir una coma decimal." CssClass="text-danger" ValidationExpression="^\d+(\,\d+)?$" Display="Dynamic" />
+                        <asp:RegularExpressionValidator ID="revPorcentajeGanancia"
+                            runat="server"
+                            ControlToValidate="txtPorcentajeGanancia"
+                            ErrorMessage="Solo se permiten números enteros sin puntos ni comas."
+                            CssClass="text-danger"
+                            Display="Dynamic"
+                            ValidationExpression="^\d+$" />
                     </div>
                 </div>
             </div>
