@@ -167,7 +167,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Credenciales inválidas. Acceso denegado.");
+                Console.WriteLine($"FATAL ERROR: Error al obtener UserId. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
                 return 0;
             }
             finally
@@ -195,7 +195,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Credenciales inválidas. Acceso denegado.");
+                Console.WriteLine($"FATAL ERROR: Error al ontemer UserRol. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
                 return "";
             }
             finally
@@ -230,8 +230,9 @@ namespace Services
 
                 return user;
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine($"FATAL ERROR: Error al obtener Usuario. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
                 return null;
             }
             finally
