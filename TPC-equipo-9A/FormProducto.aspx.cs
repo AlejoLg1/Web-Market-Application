@@ -31,7 +31,7 @@ namespace TPC_equipo_9A
                     ddlCategoria.Items.Insert(0, new ListItem("Elija una categoría", ""));
 
                     MarcaServices marcaServices = new MarcaServices();
-                    List<Marca> marcas = marcaServices.listar(); 
+                    List<Marca> marcas = marcaServices.listar();
 
                     ddlMarca.DataSource = marcas;
                     ddlMarca.DataTextField = "Nombre"; // El nombre de la columna que quieres mostrar
@@ -42,7 +42,7 @@ namespace TPC_equipo_9A
                 }
 
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
-                if (id != "")
+                if (id != "" && !IsPostBack)
                 {
                     ProductoServices services = new ProductoServices();
                     List<Producto> lista = services.listar(id);
@@ -57,8 +57,8 @@ namespace TPC_equipo_9A
                     ddlCategoria.SelectedValue = seleccionado.Categoria.IdCategoria.ToString();
                     ddlMarca.SelectedValue = seleccionado.Marca.IdMarca.ToString();
 
+                    btnGuardar.OnClientClick = "return confirmarModificacion('" + id + "', '" + seleccionado.Nombre + "');";
                     btnEliminar.OnClientClick = "return confirmarEliminacion('" + id + "', '" + seleccionado.Nombre + "');";
-
                 }
                 else
                 {
@@ -74,14 +74,16 @@ namespace TPC_equipo_9A
                     //txtPorcentajeGanancia.Text = "";
                     //txtStockActual.Text = "";
                     //txtStockMinimo.Text = "";
-                    
-                   
+
+
                     txtNombre.ReadOnly = false;
                     txtPorcentajeGanancia.ReadOnly = false;
                     txtStockActual.ReadOnly = false;
                     txtStockMinimo.ReadOnly = false;
                     ddlCategoria.Enabled = true;
                     ddlMarca.Enabled = true;
+
+
                 }
             }
             catch (Exception ex)
@@ -90,11 +92,31 @@ namespace TPC_equipo_9A
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
-           
+
         }
 
         protected void btnModificar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                txtNombre.ReadOnly = false;
+                txtPorcentajeGanancia.ReadOnly = false;
+                txtStockActual.ReadOnly = false;
+                txtStockMinimo.ReadOnly = false;
+                ddlCategoria.Enabled = true;
+                ddlMarca.Enabled = true;
+
+                btnEliminar.Visible = false;
+                btnModificar.Visible = false;
+                btnGuardar.Visible = true;
+
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
 
         }
 
@@ -102,7 +124,7 @@ namespace TPC_equipo_9A
         {
             try
             {
-                ProductoServices services = new ProductoServices();
+                ProductoServices services = new ProductoServices();             
                 Producto nuevo = new Producto();
                 nuevo.Nombre = txtNombre.Text;
                 nuevo.Marca = new Marca();
@@ -113,12 +135,24 @@ namespace TPC_equipo_9A
                 nuevo.StockActual = Convert.ToInt32(txtStockActual.Text);
                 nuevo.PorcentajeGanancia = Convert.ToDecimal(txtPorcentajeGanancia.Text);
 
-                services.add(nuevo);
+
+                // Si el ID del producto está presente, estamos modificando
+                string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+                if (id != "")
+                {
+                    nuevo.IdProducto = int.Parse(txtIdProducto.Text);
+                    services.modify(nuevo);
+                }
+                else
+                {
+                    // Nuevo producto
+                    services.add(nuevo);
+                }
+
                 Response.Redirect("Productos.aspx", false);
             }
             catch (Exception ex)
             {
-
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }

@@ -132,7 +132,7 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("SP_insertProducto @IdProducto, @Nombre, @IdMarca, @IdCategoria, @StockActual, @StockMinimo, @PorcentajeGanancia");
+                DB.setQuery("SP_ModifyProducto @IdProducto, @Nombre, @IdMarca, @IdCategoria, @StockActual, @StockMinimo, @PorcentajeGanancia");
 
                 DB.setParameter("@IdProducto", producto.IdProducto);
                 DB.setParameter("@Nombre", producto.Nombre);
