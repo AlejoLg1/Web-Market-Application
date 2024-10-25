@@ -65,7 +65,7 @@
             </div>
 
             <div class="col-md-3 d-flex justify-content-end align-items-center">
-                <asp:Button ID="btnAgregarUsuario" runat="server" Text="Agregar Usuario" CssClass="btn btn-primary" />
+                <asp:Button ID="btnAgregarUsuario" runat="server" Text="Agregar Usuario" CssClass="btn btn-primary" OnClick="btnAgregarUsuario_Click"/>
             </div>
         </div>
 

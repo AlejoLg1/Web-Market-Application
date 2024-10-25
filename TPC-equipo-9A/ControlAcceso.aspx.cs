@@ -81,7 +81,7 @@ namespace TPC_equipo_9A
                             }
                         }
                         service.updateEstado(IdUsuario, false);
-                    
+
                         if (IdUsuario == Convert.ToInt32(Session["id"]))
                         {
                             Session.Abandon();
@@ -137,6 +137,19 @@ namespace TPC_equipo_9A
                 }
 
                 BindGrid(filters);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void btnAgregarUsuario_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Response.Redirect("AgregarUsuario.aspx", false);
             }
             catch (Exception ex)
             {
