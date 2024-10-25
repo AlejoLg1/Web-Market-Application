@@ -62,10 +62,10 @@ namespace Services
                 DB.clearParameters();
                 DB.setQuery("INSERT INTO Usuario (NombreUsuario, Contrasena, Rol, FotoPerfil) VALUES (@NombreUsuario, @Contrasena, @Rol, @FotoPerfil)");
 
-                DB.setParameter("@NombreUsuario", newUsuario.NombreUsuario);
-                DB.setParameter("@Contrasena", newUsuario.Contrasena);
-                DB.setParameter("@Rol", newUsuario.Rol);
-                DB.setParameter("@FotoPerfil", newUsuario.FotoPerfil);
+                DB.setParameter("@Nombre", newUsuario.NombreUsuario);
+                DB.setParameter("@Cont", newUsuario.Contrasena);
+                DB.setParameter("@R", newUsuario.Rol);
+                DB.setParameter("@Est", true);
 
                 DB.excecuteAction();
             }
