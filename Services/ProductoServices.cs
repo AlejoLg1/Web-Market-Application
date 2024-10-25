@@ -126,5 +126,33 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public void modify(Producto producto)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("SP_ModifyProducto @IdProducto, @Nombre, @IdMarca, @IdCategoria, @StockActual, @StockMinimo, @PorcentajeGanancia");
+
+                DB.setParameter("@IdProducto", producto.IdProducto);
+                DB.setParameter("@Nombre", producto.Nombre);
+                DB.setParameter("@IdMarca", producto.Marca.IdMarca);
+                DB.setParameter("@IdCategoria", producto.Categoria.IdCategoria);
+                DB.setParameter("@StockActual", producto.StockActual);
+                DB.setParameter("@StockMinimo", producto.StockMinimo);
+                DB.setParameter("@PorcentajeGanancia", producto.PorcentajeGanancia);
+
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
     }
 }

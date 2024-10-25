@@ -6,6 +6,11 @@
             var mensaje = "¿Estás seguro que deseas eliminar el producto con ID: " + idProducto + " y Nombre: " + nombreProducto + "?";
             return confirm(mensaje);
         }
+
+        function confirmarModificacion(idProducto, nombreProducto) {
+            var mensaje = "¿Estás seguro que deseas modificar el producto con ID: " + idProducto + " y Nombre: " + nombreProducto + "?";
+            return confirm(mensaje);
+        }
     </script>
 </asp:Content>
 
@@ -72,15 +77,15 @@
                     <!-- Fila para Porcentaje de Ganancia -->
                     <div class="mb-3">
                         <label for="txtPorcentajeGanancia" class="form-label">Porcentaje de Ganancia</label>
-                        <asp:TextBox ID="txtPorcentajeGanancia" CssClass="form-control" runat="server" type="number" step="0.01" ReadOnly="true"></asp:TextBox>
+                        <asp:TextBox ID="txtPorcentajeGanancia" CssClass="form-control" runat="server" step="0.01" ReadOnly="true"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvPorcentajeGanancia" runat="server" ControlToValidate="txtPorcentajeGanancia" ErrorMessage="El porcentaje de ganancia es obligatorio." CssClass="text-danger" Display="Dynamic" />
                         <asp:RegularExpressionValidator ID="revPorcentajeGanancia"
                             runat="server"
                             ControlToValidate="txtPorcentajeGanancia"
-                            ErrorMessage="Solo se permiten números enteros sin puntos ni comas."
+                            ErrorMessage="Por favor ingrese un número decimal válido."
                             CssClass="text-danger"
                             Display="Dynamic"
-                            ValidationExpression="^\d+$" />
+                            ValidationExpression="^\d+(\,\d{1,2})?$" />
                     </div>
                 </div>
             </div>
@@ -89,8 +94,8 @@
             <div class="row mt-5">
                 <div class="col text-center">
                     <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-success me-2" OnClick="btnVolver_Click" CausesValidation="false" />
-                    <asp:Button ID="btnModificar" CssClass="btn btn-warning me-2" Text="Modificar Producto" OnClick="btnModificar_Click" runat="server" />
-                    <asp:Button ID="btnGuardar" CssClass="btn btn-success me-2" Text="Guardar Cambios" OnClick="btnGuardar_Click" runat="server" Visible="false" />
+                    <asp:Button ID="btnModificar" CssClass="btn btn-warning me-2" Text="Modificar Producto" OnClick="btnModificar_Click" runat="server"  />
+                    <asp:Button ID="btnGuardar" CssClass="btn btn-success me-2" Text="Guardar Cambios" OnClick="btnGuardar_Click" runat="server" Visible="false" OnClientClick="return confirmarModificacion(txtIdProducto.Text, txtNombre.Text);" />
                     <asp:Button ID="btnEliminar" CssClass="btn btn-danger" Text="Eliminar Producto" OnClientClick="return confirmarEliminacion(txtIdProducto.Text, txtNombre.Text);" OnClick="btnEliminar_Click" runat="server" />
                 </div>
             </div>
