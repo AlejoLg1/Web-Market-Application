@@ -89,6 +89,28 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public void modify(Categoria categoria)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("SP_ModifyCategoria @IdCategoria, @Nombre");
+
+                DB.setParameter("@IdCategoria", categoria.IdCategoria);
+                DB.setParameter("@Nombre", categoria.Nombre);           
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
     }
 
 }

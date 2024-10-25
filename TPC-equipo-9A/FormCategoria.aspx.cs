@@ -18,7 +18,7 @@ namespace TPC_equipo_9A
             {
               
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
-                if (id != "")
+                if (id != "" && !IsPostBack)
                 {
                     CategoriaServices services = new CategoriaServices();
                     List<Categoria> lista = services.listar(id);
@@ -29,6 +29,7 @@ namespace TPC_equipo_9A
                     txtNombreCategoria.Text = seleccionado.Nombre;
 
                     btnEliminar.OnClientClick = "return confirmarEliminacion('" + id + "', '" + seleccionado.Nombre + "');";
+                    btnGuardar.OnClientClick = "return confirmarModificacion('" + id + "', '" + seleccionado.Nombre + "');";
                 }
                 else
                 {
@@ -50,7 +51,11 @@ namespace TPC_equipo_9A
 
         protected void btnModificar_Click(object sender, EventArgs e)
         {
+            btnEliminar.Visible = false;
+            btnModificar.Visible = false;
+            btnGuardar.Visible = true;
 
+            txtNombreCategoria.ReadOnly = false;
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -59,7 +64,17 @@ namespace TPC_equipo_9A
             Categoria nuevo = new Categoria();
             nuevo.Nombre = txtNombreCategoria.Text;
 
-            services.add(nuevo);
+            string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+            if (id != "")
+            {
+                nuevo.IdCategoria = int.Parse(txtIdCategoria.Text);
+                services.modify(nuevo);
+            }
+            else
+            {
+                // Nuevo producto
+                services.add(nuevo);
+            }
             Response.Redirect("Categorias.aspx", false);
         }
 
