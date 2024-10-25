@@ -16,7 +16,7 @@ namespace TPC_equipo_9A
         {
             try
             {
-              
+
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
                 if (id != "" && !IsPostBack)
                 {
@@ -36,7 +36,7 @@ namespace TPC_equipo_9A
                     btnEliminar.Visible = false;
                     btnModificar.Visible = false;
                     btnGuardar.Visible = true;
-                                  
+
                     txtNombreCategoria.ReadOnly = false;
                 }
             }
@@ -51,11 +51,23 @@ namespace TPC_equipo_9A
 
         protected void btnModificar_Click(object sender, EventArgs e)
         {
-            btnEliminar.Visible = false;
-            btnModificar.Visible = false;
-            btnGuardar.Visible = true;
+            try
+            {
+                btnEliminar.Visible = false;
+                btnModificar.Visible = false;
+                btnGuardar.Visible = true;
 
-            txtNombreCategoria.ReadOnly = false;
+                txtNombreCategoria.ReadOnly = false;
+
+                lblTitulo.Text = "Modificando Categoría";
+
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)

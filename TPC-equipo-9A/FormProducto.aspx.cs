@@ -110,6 +110,8 @@ namespace TPC_equipo_9A
                 btnModificar.Visible = false;
                 btnGuardar.Visible = true;
 
+                lblTitulo.Text = "Modificando Producto";
+
             }
             catch (Exception ex)
             {

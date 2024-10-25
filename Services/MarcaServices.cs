@@ -87,5 +87,27 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public void modify(Marca marca)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("SP_ModifyMarca @IdMarca, @Nombre");
+
+                DB.setParameter("@IdMarca", marca.IdMarca);
+                DB.setParameter("@Nombre", marca.Nombre);
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
     }
 }

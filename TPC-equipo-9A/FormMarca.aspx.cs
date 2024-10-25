@@ -18,7 +18,7 @@ namespace TPC_equipo_9A
             {
 
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
-                if (id != "")
+                if (id != "" && !IsPostBack)
                 {
                     MarcaServices services = new MarcaServices();
                     List<Marca> lista = services.listar(id);
@@ -30,6 +30,7 @@ namespace TPC_equipo_9A
 
                     //Pregunta de confirmacion al eliminar
                     btnEliminar.OnClientClick = "return confirmarEliminacion('" + id + "', '" + seleccionado.Nombre + "');";
+                    btnGuardar.OnClientClick = "return confirmarModificacion('" + id + "', '" + seleccionado.Nombre + "');";
 
                 }
                 else
@@ -37,7 +38,7 @@ namespace TPC_equipo_9A
                     btnEliminar.Visible = false;
                     btnModificar.Visible = false;
                     btnGuardar.Visible = true;
-                                        
+
                     txtNombreMarca.ReadOnly = false;
                 }
             }
@@ -52,7 +53,23 @@ namespace TPC_equipo_9A
 
         protected void btnModificar_Click(object sender, EventArgs e)
         {
+            try
+            {
 
+                btnEliminar.Visible = false;
+                btnModificar.Visible = false;
+                btnGuardar.Visible = true;
+
+                txtNombreMarca.ReadOnly = false;
+
+                lblTitulo.Text = "Modificando Marca";
+            }
+            catch (Exception ex)
+            {
+
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -62,8 +79,17 @@ namespace TPC_equipo_9A
                 MarcaServices services = new MarcaServices();
                 Marca nuevo = new Marca();
                 nuevo.Nombre = txtNombreMarca.Text;
-
-                services.add(nuevo);
+                string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+                if (id != "")
+                {
+                    nuevo.IdMarca = int.Parse(txtIdMarca.Text);
+                    services.modify(nuevo);
+                }
+                else
+                {
+                    // Nuevo producto
+                    services.add(nuevo);
+                }
                 Response.Redirect("Marcas.aspx", false);
 
             }
