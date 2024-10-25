@@ -60,7 +60,7 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("INSERT INTO Usuario (NombreUsuario, Contrasena, Rol, FotoPerfil) VALUES (@NombreUsuario, @Contrasena, @Rol, @FotoPerfil)");
+                DB.setQuery("INSERT INTO Usuario (NombreUsuario, Contrasena, Rol, Estado) VALUES (@Nombre, @Cont, @R, @Est)");
 
                 DB.setParameter("@Nombre", newUsuario.NombreUsuario);
                 DB.setParameter("@Cont", newUsuario.Contrasena);
