@@ -297,6 +297,33 @@ namespace Services
             }
         }
 
+        public bool UserNameAvailable(string Nombre)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("SELECT COUNT(*) FROM Usuario WHERE NombreUsuario = @Nombre");
+                DB.setParameter("@Nombre", Nombre);
+                DB.excecuteQuery();
+
+                if (DB.Reader.Read())
+                {
+                    int count = DB.Reader.GetInt32(0);
+                    return count > 0;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al verificar User names. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return false;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }      
+        }
+
     }
 
 }
