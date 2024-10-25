@@ -51,7 +51,7 @@ namespace TPC_equipo_9A
                 switch (e.CommandName)
                 {
                     case "Editar":
-                        Response.Redirect($"Perfil.aspx?id={IdUsuario}&edit={true}");
+                        Response.Redirect($"Perfil.aspx?id={IdUsuario}&edit={true}", false);
                         break;
 
                     case "Eliminar":
@@ -60,7 +60,7 @@ namespace TPC_equipo_9A
                         break;
 
                     case "VerPerfil":
-                        Response.Redirect($"Perfil.aspx?id={IdUsuario}&edit={false}");
+                        Response.Redirect($"Perfil.aspx?id={IdUsuario}&edit={false}", false);
                         break;
 
                     case "Activar":
