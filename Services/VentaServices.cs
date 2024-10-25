@@ -12,6 +12,37 @@ namespace Services
     {
         private DataBaseAccess DB = new DataBaseAccess();
 
+        public List<Venta> listar()
+        {
+            List<Venta> list = new List<Venta>();
+            try
+            {
+                DB.setQuery("Select IdVenta, IdCliente as Cliente, FechaVenta, NumeroFactura from Venta");
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    Venta venta = new Venta();
+                    venta.Id = (int)DB.Reader["IdVenta"];
+                    venta.IdCliente = (int)DB.Reader["Cliente"];
+                    venta.FechaVenta = (DateTime)DB.Reader["FechaVenta"];
+                    venta.NumeroFactura = (string)DB.Reader["NumeroFactura"];
+
+                    list.Add(venta);
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
         public void IngresarCompra(DateTime FechaVenta, String NumeroFactura, int IdCliente)
         {
             try
