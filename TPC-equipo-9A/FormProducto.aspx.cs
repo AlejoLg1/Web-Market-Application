@@ -57,8 +57,11 @@ namespace TPC_equipo_9A
                     ddlCategoria.SelectedValue = seleccionado.Categoria.IdCategoria.ToString();
                     ddlMarca.SelectedValue = seleccionado.Marca.IdMarca.ToString();
 
-                    btnGuardar.OnClientClick = "return confirmarModificacion('" + id + "', '" + seleccionado.Nombre + "');";
+                    
+                    
+                    //btnGuardar.OnClientClick = "return confirmarModificacion('" + id + "', '" + seleccionado.Nombre + "');";
                     btnEliminar.OnClientClick = "return confirmarEliminacion('" + id + "', '" + seleccionado.Nombre + "');";
+                    
                 }
                 else
                 {
@@ -126,7 +129,7 @@ namespace TPC_equipo_9A
         {
             try
             {
-                ProductoServices services = new ProductoServices();             
+                ProductoServices services = new ProductoServices();
                 Producto nuevo = new Producto();
                 nuevo.Nombre = txtNombre.Text;
                 nuevo.Marca = new Marca();
@@ -140,9 +143,13 @@ namespace TPC_equipo_9A
 
                 // Si el ID del producto está presente, estamos modificando
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
-                if (id != "")
+                if (id != "" && Page.IsValid)
                 {
                     nuevo.IdProducto = int.Parse(txtIdProducto.Text);
+
+                    string script = $"if(confirm('¿Estás seguro que deseas modificar el producto con ID: {txtIdProducto.Text} y Nombre: {txtNombre.Text}?')) {{ {ClientScript.GetPostBackEventReference(btnGuardar, null)}; }}";
+                    ClientScript.RegisterStartupScript(this.GetType(), "ConfirmacionGuardar", script, true);
+
                     services.modify(nuevo);
                 }
                 else

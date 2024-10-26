@@ -29,7 +29,6 @@ namespace TPC_equipo_9A
                     txtNombreCategoria.Text = seleccionado.Nombre;
 
                     btnEliminar.OnClientClick = "return confirmarEliminacion('" + id + "', '" + seleccionado.Nombre + "');";
-                    btnGuardar.OnClientClick = "return confirmarModificacion('" + id + "', '" + seleccionado.Nombre + "');";
                 }
                 else
                 {
@@ -77,9 +76,13 @@ namespace TPC_equipo_9A
             nuevo.Nombre = txtNombreCategoria.Text;
 
             string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
-            if (id != "")
+            if (id != "" && Page.IsValid)
             {
                 nuevo.IdCategoria = int.Parse(txtIdCategoria.Text);
+
+                string script = $"if(confirm('¿Estás seguro que deseas modificar la categoría con ID: {txtIdCategoria.Text} y Nombre: {txtNombreCategoria.Text}?')) {{ {ClientScript.GetPostBackEventReference(btnGuardar, null)}; }}";
+                ClientScript.RegisterStartupScript(this.GetType(), "ConfirmacionGuardar", script, true);
+
                 services.modify(nuevo);
             }
             else

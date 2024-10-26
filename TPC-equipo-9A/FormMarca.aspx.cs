@@ -30,7 +30,6 @@ namespace TPC_equipo_9A
 
                     //Pregunta de confirmacion al eliminar
                     btnEliminar.OnClientClick = "return confirmarEliminacion('" + id + "', '" + seleccionado.Nombre + "');";
-                    btnGuardar.OnClientClick = "return confirmarModificacion('" + id + "', '" + seleccionado.Nombre + "');";
 
                 }
                 else
@@ -80,9 +79,13 @@ namespace TPC_equipo_9A
                 Marca nuevo = new Marca();
                 nuevo.Nombre = txtNombreMarca.Text;
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
-                if (id != "")
+                if (id != "" && Page.IsValid)
                 {
                     nuevo.IdMarca = int.Parse(txtIdMarca.Text);
+
+                    string script = $"if(confirm('¿Estás seguro que deseas modificar la marca con ID: {txtIdMarca.Text} y Nombre: {txtNombreMarca.Text}?')) {{ {ClientScript.GetPostBackEventReference(btnGuardar, null)}; }}";
+                    ClientScript.RegisterStartupScript(this.GetType(), "ConfirmacionGuardar", script, true);
+
                     services.modify(nuevo);
                 }
                 else

@@ -6,11 +6,6 @@
             var mensaje = "¿Estás seguro que deseas eliminar la categoría con ID: " + idCategoria + " y Nombre: " + nombreCategoria + "?";
             return confirm(mensaje);
         }
-
-        function confirmarModificacion(idCategoria, nombreCategoria) {
-            var mensaje = "¿Estás seguro que deseas modificar la categoría con ID: " + idCategoria + " y Nombre: " + nombreCategoria + "?";
-            return confirm(mensaje);
-        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -43,7 +38,7 @@
             <div class="mb-3 text-center">
                 <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-success" OnClick="btnVolver_Click" CausesValidation="false" />
                 <asp:Button ID="btnModificar" CssClass="btn btn-warning" Text="Modificar Categoria" OnClick="btnModificar_Click" runat="server" />
-                <asp:Button ID="btnGuardar" CssClass="btn btn-success" Text="Guardar Cambios" OnClick="btnGuardar_Click" runat="server" Visible="false" OnClientClick="return confirmarModificacion(txtIdCategoria.Text, txtNombreCategoria.Text);" />
+                <asp:Button ID="btnGuardar" CssClass="btn btn-success" Text="Guardar Cambios" OnClick="btnGuardar_Click" runat="server" Visible="false" />
                 <asp:Button ID="btnEliminar" CssClass="btn btn-danger" Text="Eliminar Categoria" OnClick="btnEliminar_Click" runat="server" />
             </div>
             <!-- label error-->
