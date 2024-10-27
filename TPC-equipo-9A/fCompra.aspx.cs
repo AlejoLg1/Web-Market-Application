@@ -10,8 +10,10 @@ using System.Web.UI.WebControls;
 namespace TPC_equipo_9A
 {
     public partial class fCompra : System.Web.UI.Page
-    { 
+    {
         private CompraServices compraServices = new CompraServices();
+        private DetalleCompraService detalleCompraService = new DetalleCompraService();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -29,25 +31,30 @@ namespace TPC_equipo_9A
             }
         }
 
-        protected void btnAgregarCompra_Click(object sender, EventArgs e)
+        protected void btnVerDetalle_Click(object sender, EventArgs e)
         {
             try
             {
-                int idProveedor = int.Parse(txtIdProveedor.Value);
+                Button btn = (Button)sender;
+                int idCompra = int.Parse(btn.CommandArgument); // ID de la compra
 
-                string fechaInput = txtFechaCompra.Value;
-                DateTime fechaCompra;
+                List<DetalleCompra> detalles = detalleCompraService.listar().Where(dc => dc.IdCompra == idCompra).ToList();
 
-                if (!DateTime.TryParseExact(fechaInput, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out fechaCompra))
+                if (detalles.Count == 0)
                 {
-                    // Si no se pudo convertir la fecha correctamente, mostrar un mensaje de error
-                    Response.Write("El formato de la fecha es incorrecto. Por favor ingrese una fecha válida.");
-                    return;
+                    LblError.Text = "No se encontraron detalles para esta compra.";
+                    LblError.Visible = true;
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "$('#modalDetalleCompra').modal('show');", true);
                 }
+                else
+                {
+                    gvDetalleCompra.DataSource = detalles;
+                    gvDetalleCompra.DataBind();
+                    gvDetalleCompra.Visible = true;
 
-                compraServices.IngresarCompra(idProveedor, fechaCompra);
-
-                Response.Write("Compra agregada con éxito.");
+                    // Mostrar el modal
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "$('#modalDetalleCompra').modal('show');", true);
+                }
             }
             catch (Exception ex)
             {
@@ -55,6 +62,4 @@ namespace TPC_equipo_9A
             }
         }
     }
-
 }
-    
