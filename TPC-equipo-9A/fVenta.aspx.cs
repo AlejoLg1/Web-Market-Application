@@ -12,6 +12,7 @@ namespace TPC_equipo_9A
     public partial class fVenta : System.Web.UI.Page
     {
         private VentaServices ventaServices = new VentaServices();
+        private DetalleVentaServices detalleVentaServices = new DetalleVentaServices();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -57,5 +58,35 @@ namespace TPC_equipo_9A
             }
         }
 
+        protected void btnVerDetalleVenta_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Button btn = (Button)sender;
+                int idVenta = int.Parse(btn.CommandArgument);
+
+                List<DetalleVenta> detalles = detalleVentaServices.listar().Where(dc => dc.IdVenta == idVenta).ToList();
+
+                if (detalles.Count == 0)
+                {
+                    LblError.Text = "No se encontraron detalles para esta compra.";
+                    LblError.Visible = true;
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "$('#modalDetalleVenta').modal('show');", true);
+                }
+                else
+                {
+                    gvDetalleVenta.DataSource = detalles;
+                    gvDetalleVenta.DataBind();
+                    gvDetalleVenta.Visible = true;
+
+                    // Mostrar el modal
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "$('#modalDetalleVenta').modal('show');", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
