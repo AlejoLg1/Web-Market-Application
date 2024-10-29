@@ -79,5 +79,80 @@ namespace TPC_equipo_9A
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
+        }
+
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string nombre = txtNombreRelacion.Text;
+                string tipoRelacion = ddlTipoRelacion.SelectedValue.ToString();
+
+                string filters = "";
+
+                if (nombre != "")
+                {
+                    filters += $"Nombre LIKE '%{nombre}%'";
+                }
+
+                BindGrid(filters);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
+        protected void btnAgregarRelacion_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        protected void gvRelaciones_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int index = Convert.ToInt32(e.CommandArgument);
+
+            int IdRelacion = Convert.ToInt32(gvRelaciones.DataKeys[index].Value);
+
+            GridViewRow row = gvRelaciones.Rows[index];
+            Label lblRelacion = (Label)row.FindControl("lblRelacion");
+            string relacionTipo = lblRelacion.Text;
+
+            object service;
+            if (lblRelacion.Text == "Proveedor")
+            {
+                service = new ProveedorServices();
+            }
+            else
+            {
+                service = new ClienteServices();
+            }
+
+            switch (e.CommandName)
+            {
+                case "Editar":
+                    break;
+
+                case "Eliminar":
+
+                    if (service is ProveedorServices proveedorService)
+                    {
+                        proveedorService.delete(IdRelacion);
+                    }
+                    else if (service is ClienteServices clienteService)
+                    {
+                        clienteService.delete(IdRelacion);
+                    }
+                    Response.Redirect("RelacionesComerciales.aspx", false);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
     }
 }
