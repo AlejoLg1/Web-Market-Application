@@ -110,7 +110,7 @@ namespace TPC_equipo_9A
 
         protected void btnAgregarRelacion_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("AgregarRelacion.aspx", false);
         }
 
 
