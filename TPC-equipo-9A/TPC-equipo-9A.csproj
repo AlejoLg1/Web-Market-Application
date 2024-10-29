@@ -70,6 +70,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AgregarRelacion.aspx" />
     <Content Include="AgregarUsuario.aspx" />
     <Content Include="Categorias.aspx" />
     <Content Include="ClientePage.aspx" />
@@ -122,6 +123,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgregarRelacion.aspx.cs">
+      <DependentUpon>AgregarRelacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgregarRelacion.aspx.designer.cs">
+      <DependentUpon>AgregarRelacion.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AgregarUsuario.aspx.cs">
       <DependentUpon>AgregarUsuario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
