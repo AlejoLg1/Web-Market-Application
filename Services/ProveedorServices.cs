@@ -119,6 +119,44 @@ namespace Services
             }
         }
 
+        public Proveedor getProvider(int Id)
+        {
+            try
+            {
+                Proveedor proveedor = new Proveedor();
+                DB.clearParameters();
+                DB.setQuery("SELECT IdProveedor, Nombre, Correo, Telefono, Direccion FROM Proveedor WHERE IdProveedor = @id");
+                DB.setParameter("@id", Id);
+                DB.excecuteQuery();
+
+                if (DB.Reader.Read())
+                {
+                    proveedor.IdProveedor = DB.Reader["IdProveedor"] != DBNull.Value ? Convert.ToInt32(DB.Reader["IdProveedor"]) : 0;
+                    proveedor.Nombre = DB.Reader["Nombre"] != DBNull.Value ? DB.Reader["Nombre"].ToString() : null;
+                    proveedor.Correo = DB.Reader["Correo"] != DBNull.Value ? DB.Reader["Correo"].ToString() : null;
+                    proveedor.Telefono = DB.Reader["Telefono"] != DBNull.Value ? DB.Reader["Telefono"].ToString() : null;
+                    proveedor.Direccion = DB.Reader["Direccion"] != DBNull.Value ? DB.Reader["Direccion"].ToString() : null;
+                }
+
+                if (proveedor.IdProveedor == 0)
+                {
+                    return null;
+                }
+
+                return proveedor;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al obtener Proveedor. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return null;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+
     }
 }
 
