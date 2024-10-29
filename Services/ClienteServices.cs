@@ -121,5 +121,44 @@ namespace Services
             }
         }
 
+        public Cliente getClient(int Id)
+        {
+            try
+            {
+                Cliente client = new Cliente();
+                DB.clearParameters();
+                DB.setQuery("SELECT IdCliente, Nombre, Apellido, Correo, Telefono, Direccion FROM Cliente WHERE IdCliente = @id");
+                DB.setParameter("@id", Id);
+                DB.excecuteQuery();
+
+                if (DB.Reader.Read())
+                {
+                    client.IdCliente = DB.Reader["IdCliente"] != DBNull.Value ? Convert.ToInt32(DB.Reader["IdCliente"]) : 0;
+                    client.Nombre = DB.Reader["Nombre"] != DBNull.Value ? DB.Reader["Nombre"].ToString() : null;
+                    client.Apellido = DB.Reader["Apellido"] != DBNull.Value ? DB.Reader["Apellido"].ToString() : null;
+                    client.Correo = DB.Reader["Correo"] != DBNull.Value ? DB.Reader["Correo"].ToString() : null;
+                    client.Telefono = DB.Reader["Telefono"] != DBNull.Value ? DB.Reader["Telefono"].ToString() : null;
+                    client.Direccion = DB.Reader["Direccion"] != DBNull.Value ? DB.Reader["Direccion"].ToString() : null;
+                }
+
+                if (client.IdCliente == 0)
+                {
+                    return null;
+                }
+
+                return client;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al obtener Cliente. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return null;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+
     }
 }
