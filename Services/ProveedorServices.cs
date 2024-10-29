@@ -50,6 +50,75 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public void add(Proveedor newProveedor)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("INSERT INTO Proveedor (Nombre, Correo, Telefono, Direccion) VALUES (@Nom, @Cor, @Tel, @Dir)");
+
+                DB.setParameter("@Nom", newProveedor.Nombre);
+                DB.setParameter("@Cor", newProveedor.Correo);
+                DB.setParameter("@Tel", newProveedor.Telefono);
+                DB.setParameter("@Dir", newProveedor.Direccion);
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al crear Proveedor. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public void modify(Proveedor proveedor)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("UPDATE Proveedor SET Nombre = @Nom, Correo = @Cor, Telefono = @Tel, Direccion = @Dir WHERE IdProveedor = @Id");
+
+                DB.setParameter("@Nom", proveedor.Nombre);
+                DB.setParameter("@Cor", proveedor.Correo);
+                DB.setParameter("@Tel", proveedor.Telefono);
+                DB.setParameter("@Dir", proveedor.Direccion);
+                DB.setParameter("@Id", proveedor.IdProveedor);
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al modificar Proveedor. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public void delete(int id)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("DELETE FROM Proveedor WHERE IdProveedor = @Id");
+                DB.setParameter("@Id", id);
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al eliminar Proveedor. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
     }
 }
 
