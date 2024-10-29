@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Models;
+using Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -34,7 +37,7 @@ namespace TPC_equipo_9A
                     if (tipoRelacion == "Proveedor")
                     {
                         proveedores = serviceProveedor.listar(filters);
-        }
+                    }
                     else if (tipoRelacion == "Cliente")
                     {
                         clientes = serviceCliente.listar(filters);
@@ -121,19 +124,24 @@ namespace TPC_equipo_9A
             Label lblRelacion = (Label)row.FindControl("lblRelacion");
             string relacionTipo = lblRelacion.Text;
 
+            string page;
             object service;
             if (lblRelacion.Text == "Proveedor")
             {
                 service = new ProveedorServices();
+
+                page = "ProveedorPage";
             }
             else
             {
                 service = new ClienteServices();
+                page = "ClientePage";
             }
 
             switch (e.CommandName)
             {
                 case "Editar":
+                    Response.Redirect($"{page}.aspx?id={IdRelacion}", false);
                     break;
 
                 case "Eliminar":
