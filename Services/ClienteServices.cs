@@ -12,12 +12,18 @@ namespace Services
     {
         private DataBaseAccess DB = new DataBaseAccess();
 
-        public List<Cliente> listar()
+        public List<Cliente> listar(string filters = null)
         {
             List<Cliente> list = new List<Cliente>();
             try
             {
-                DB.setQuery("Select IdCliente, Nombre, Apellido, Correo, Telefono, Direccion from Cliente");
+                string sqlQuery = "SELECT * FROM Cliente";
+                if (!string.IsNullOrEmpty(filters))
+                {
+                    sqlQuery += $" WHERE {filters}";
+                }
+
+                DB.setQuery(sqlQuery);
                 DB.excecuteQuery();
 
                 while (DB.Reader.Read())
