@@ -46,7 +46,7 @@
             <div class="col-md-2">
                 <label for="ddlRol">Rol</label>
                 <asp:DropDownList ID="ddlRol" runat="server" CssClass="form-control w-75">
-                    <asp:ListItem Text="" Value="" Selected="True" />
+                    <asp:ListItem Text="Seleccionar" Value="" Selected="True" />
                     <asp:ListItem Text="Vendedor" Value="Vendedor"></asp:ListItem>
                     <asp:ListItem Text="Administrador" Value="Administrador"></asp:ListItem>
                 </asp:DropDownList>
@@ -54,7 +54,7 @@
             <div class="col-md-2">
                 <label for="ddlEstado">Estado</label>
                 <asp:DropDownList ID="ddlEstado" runat="server" CssClass="form-control w-75">
-                    <asp:ListItem Text="" Value="" Selected="True" />
+                    <asp:ListItem Text="Seleccionar" Value="" Selected="True" />
                     <asp:ListItem Text="Activo" Value="true"></asp:ListItem>
                     <asp:ListItem Text="Inactivo" Value="false"></asp:ListItem>
                 </asp:DropDownList>
