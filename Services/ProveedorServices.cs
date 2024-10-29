@@ -32,8 +32,8 @@ namespace Services
                     Proveedor proveedor = new Proveedor();
                     proveedor.IdProveedor = (int)DB.Reader["IdProveedor"];
                     proveedor.Nombre = (string)DB.Reader["Nombre"];
-                    proveedor.Telefono = (string)DB.Reader["Telefono"];
-                    proveedor.Correo = (string)DB.Reader["Correo"];
+                    proveedor.Telefono = (string)DB.Reader["Correo"];
+                    proveedor.Correo = (string)DB.Reader["Telefono"];
                     proveedor.Direccion = (string)DB.Reader["Direccion"];
 
                     list.Add(proveedor);
