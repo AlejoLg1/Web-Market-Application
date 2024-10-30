@@ -16,7 +16,7 @@
         /* Bordes de las celdas */
         .table th, .table td {
             padding: 12px 15px;
-            border-bottom: 1px solid #ddd;
+            border: 1px solid #dddddd;
             text-align: left;
         }
 
