@@ -57,9 +57,8 @@ namespace TPC_equipo_9A
                     ddlCategoria.SelectedValue = seleccionado.Categoria.IdCategoria.ToString();
                     ddlMarca.SelectedValue = seleccionado.Marca.IdMarca.ToString();
                     txtFechaVencimiento.Text = seleccionado.FechaVencimiento?.ToString("yyyy-MM-dd") ?? "";
-                    //txtFechaVencimiento.Text = seleccionado.FechaVencimiento.ToString();
 
-                    
+                    lblOpcional.Visible = false;
                     
                     //btnGuardar.OnClientClick = "return confirmarModificacion('" + id + "', '" + seleccionado.Nombre + "');";
                     btnEliminar.OnClientClick = "return confirmarEliminacion('" + id + "', '" + seleccionado.Nombre + "');";
