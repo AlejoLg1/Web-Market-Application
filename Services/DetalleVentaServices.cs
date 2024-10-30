@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,28 +13,17 @@ namespace Services
     {
         private DataBaseAccess DB = new DataBaseAccess();
 
-        public List<DetalleVenta> listar()
+        public DataTable list(int IdVenta)
         {
-            List<DetalleVenta> list = new List<DetalleVenta>();
+            DataTable table = new DataTable();
             try
             {
-                DB.setQuery("Select IdDetalleVenta, IdVenta, IdProducto, Cantidad, PrecioUnitario, PrecioTotal from DetalleVenta");
+                DB.setQuery("SELECT p.Nombre AS NombreProducto, m.Nombre AS NombreMarca, c.Nombre AS NombreCategoria, dv.Cantidad, dv.PrecioUnitario, dv.PrecioTotal FROM DetalleVenta dv JOIN Producto p ON dv.IdProducto = p.IdProducto JOIN Marca m ON p.IdMarca = m.IdMarca JOIN Categoria c ON p.IdTipoProducto = c.IdCategoria WHERE dv.IdVenta = @IdVenta;");
+                DB.setParameter("@IdVenta", IdVenta);
                 DB.excecuteQuery();
 
-                while (DB.Reader.Read())
-                {
-                    DetalleVenta detalleVenta = new DetalleVenta();
-                    detalleVenta.IdDetalleVenta = (int)DB.Reader["IdDetalleVenta"];
-                    detalleVenta.IdVenta = (int)DB.Reader["IdVenta"];
-                    detalleVenta.IdProducto = (int)DB.Reader["IdProducto"];
-                    detalleVenta.Cantidad = (int)DB.Reader["Cantidad"];
-                    detalleVenta.PrecioUnitario = (decimal)DB.Reader["PrecioUnitario"];
-                    detalleVenta.PrecioTotal = (decimal)DB.Reader["PrecioTotal"];
-
-                    list.Add(detalleVenta);
-                }
-
-                return list;
+                table.Load(DB.Reader);
+                return table;
             }
             catch (Exception ex)
             {
