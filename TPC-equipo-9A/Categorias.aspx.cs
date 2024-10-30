@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Models;
+using System.Globalization;
+using System.Text;
 
 namespace TPC_equipo_9A
 {
@@ -16,8 +18,8 @@ namespace TPC_equipo_9A
             if (!IsPostBack)
             {
                 CategoriaServices services = new CategoriaServices();
-                List<Categoria> categorias = services.listar();
-                dgvCategoria.DataSource = categorias;
+                Session.Add("listaCategorias", services.listar());
+                dgvCategoria.DataSource = Session["listaCategorias"];
                 dgvCategoria.DataBind();
             }
         }
@@ -39,6 +41,27 @@ namespace TPC_equipo_9A
             CategoriaServices services = new CategoriaServices();
             dgvCategoria.DataSource = services.listar();
             dgvCategoria.DataBind();
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            List<Categoria> lista = (List<Categoria>)Session["listaCategorias"];
+            List<Categoria> listaFiltrada = lista.FindAll(x => RemoveAccents(x.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()));
+            dgvCategoria.DataSource = listaFiltrada;
+            dgvCategoria.DataBind();
+        }
+
+        public static string RemoveAccents(string text)
+        {
+            var withAccents = "áéíóúüñ";
+            var withoutAccents = "aeiouun"; // Debe incluir 'u' para la ü.
+
+            for (int i = 0; i < withAccents.Length; i++)
+            {
+                text = text.Replace(withAccents[i], withoutAccents[i]);
+            }
+
+            return text;
         }
     }
 }

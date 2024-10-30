@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using Models;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,8 @@ namespace TPC_equipo_9A
             if (!IsPostBack)
             {
                 MarcaServices services = new MarcaServices();
-                dgvMarca.DataSource = services.listar();
+                Session.Add("listaMarcas", services.listar());
+                dgvMarca.DataSource = Session["listaMarcas"];
                 dgvMarca.DataBind();
             }
         }
@@ -36,6 +38,14 @@ namespace TPC_equipo_9A
             dgvMarca.PageIndex = e.NewPageIndex;
             MarcaServices services = new MarcaServices();
             dgvMarca.DataSource = services.listar();
+            dgvMarca.DataBind();
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            List<Marca> lista = (List<Marca>)Session["listaMarcas"];
+            List<Marca> listaFiltrada = lista.FindAll(x => x.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()));
+            dgvMarca.DataSource = listaFiltrada;
             dgvMarca.DataBind();
         }
     }
