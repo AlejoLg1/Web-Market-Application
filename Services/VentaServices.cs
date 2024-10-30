@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Utils;
 using Models;
+using System.Data;
 
 namespace Services
 {
@@ -12,26 +13,16 @@ namespace Services
     {
         private DataBaseAccess DB = new DataBaseAccess();
 
-        public List<Venta> listar()
+        public DataTable list()
         {
-            List<Venta> list = new List<Venta>();
+            DataTable table = new DataTable();
             try
             {
-                DB.setQuery("Select IdVenta, IdCliente as Cliente, FechaVenta, NumeroFactura from Venta");
+                DB.setQuery("Select V.IdVenta, C.Nombre, C.Apellido, C.Correo, V.FechaVenta, V.NumeroFactura from Venta V Join Cliente C on V.IdCliente = C.IdCliente");
                 DB.excecuteQuery();
 
-                while (DB.Reader.Read())
-                {
-                    Venta venta = new Venta();
-                    venta.Id = (int)DB.Reader["IdVenta"];
-                    venta.IdCliente = (int)DB.Reader["Cliente"];
-                    venta.FechaVenta = (DateTime)DB.Reader["FechaVenta"];
-                    venta.NumeroFactura = (string)DB.Reader["NumeroFactura"];
-
-                    list.Add(venta);
-                }
-
-                return list;
+                table.Load(DB.Reader);
+                return table;
             }
             catch (Exception ex)
             {
