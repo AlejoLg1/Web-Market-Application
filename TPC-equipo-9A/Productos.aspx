@@ -49,6 +49,15 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <hr />
     <h1>Listado de productos</h1>
+     <!-- Caja de búsqueda -->
+<div class="row mb-3 justify-content-center">
+    <div class="col-md-6">
+        <div class="input-group">
+            <asp:TextBox ID="txtBuscar" CssClass="form-control" runat="server" Placeholder="Buscar producto, marca o categoría..."></asp:TextBox>
+            <asp:Button ID="btnBuscar" CssClass="btn btn-primary" Text="Buscar" OnClick="btnBuscar_Click" runat="server" />
+        </div>
+    </div>
+</div>
     <asp:GridView ID="dgvProductos" runat="server" OnSelectedIndexChanged="dgvProductos_SelectedIndexChanged" DataKeyNames="IdProducto" CssClass="table" AutoGenerateColumns="False" AllowPaging="True" PageSize="6" OnPageIndexChanging="dgvProductos_PageIndexChanging">
           <Columns>
         <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
