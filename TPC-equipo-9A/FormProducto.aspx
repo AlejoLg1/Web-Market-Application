@@ -5,8 +5,14 @@
         function confirmarEliminacion(idProducto, nombreProducto) {
             var mensaje = "¿Estás seguro que deseas eliminar el producto con ID: " + idProducto + " y Nombre: " + nombreProducto + "?";
             return confirm(mensaje);
-        }        
+        }
     </script>
+    <style>
+        .text-green-bold {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -82,6 +88,11 @@
                             Display="Dynamic"
                             ValidationExpression="^\d+(\,\d{1,2})?$" />
                     </div>
+                    <div class="mb-3">
+                        <label for="txtFechaVencimiento" class="form-label">Fecha de Vencimiento</label>
+                        <asp:TextBox ID="txtFechaVencimiento" CssClass="form-control" runat="server" ReadOnly="true" Type="date"></asp:TextBox>
+                        <asp:Label ID="lblOpcional" runat="server" Text="(Opcional)" CssClass="text-green-bold"></asp:Label>
+                    </div>
                 </div>
             </div>
 
@@ -89,7 +100,7 @@
             <div class="row mt-5">
                 <div class="col text-center">
                     <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-primary me-3 mb-2" OnClick="btnVolver_Click" CausesValidation="false" />
-                    <asp:Button ID="btnModificar" CssClass="btn btn-warning me-3 mb-2" Text="Modificar Producto" OnClick="btnModificar_Click" runat="server"  />
+                    <asp:Button ID="btnModificar" CssClass="btn btn-warning me-3 mb-2" Text="Modificar Producto" OnClick="btnModificar_Click" runat="server" />
                     <asp:Button ID="btnGuardar" CssClass="btn btn-success me-3 mb-2" Text="Guardar Cambios" OnClick="btnGuardar_Click" runat="server" Visible="false" />
                     <asp:Button ID="btnEliminar" CssClass="btn btn-danger me-3 mb-2" Text="Eliminar Producto" OnClientClick="return confirmarEliminacion(txtIdProducto.Text, txtNombre.Text);" OnClick="btnEliminar_Click" runat="server" />
                 </div>

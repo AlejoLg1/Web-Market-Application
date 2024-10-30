@@ -28,7 +28,7 @@ namespace TPC_equipo_9A
                     ddlCategoria.DataValueField = "IdCategoria"; // El valor de la columna (ID)
                     ddlCategoria.DataBind();
                     // ítem de "placeholder" al DropDownList de Categoría
-                    ddlCategoria.Items.Insert(0, new ListItem("Elija una categoría", ""));
+                    ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", ""));
 
                     MarcaServices marcaServices = new MarcaServices();
                     List<Marca> marcas = marcaServices.listar();
@@ -38,7 +38,7 @@ namespace TPC_equipo_9A
                     ddlMarca.DataValueField = "IdMarca"; // El valor de la columna (ID)
                     ddlMarca.DataBind();
                     // ítem de "placeholder" al DropDownList de Marca
-                    ddlMarca.Items.Insert(0, new ListItem("Elija una marca", ""));
+                    ddlMarca.Items.Insert(0, new ListItem("Seleccione una marca", ""));
                 }
 
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
@@ -85,6 +85,7 @@ namespace TPC_equipo_9A
                     txtStockMinimo.ReadOnly = false;
                     ddlCategoria.Enabled = true;
                     ddlMarca.Enabled = true;
+                    txtFechaVencimiento.ReadOnly = false;
 
 
                 }
