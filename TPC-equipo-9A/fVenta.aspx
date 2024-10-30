@@ -5,22 +5,34 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <style>
+        .centered-gridview {
+            text-align: center; /* Centra el contenido de cada celda */
+        }
+    </style>
+
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-    <asp:GridView ID="gvVentas" runat="server" AutoGenerateColumns="false">
-        <Columns>
-            <asp:BoundField DataField="Id" HeaderText="ID Venta" />
-            <asp:BoundField DataField="IdCliente" HeaderText="ID Cliente" />
-            <asp:BoundField DataField="FechaVenta" HeaderText="Fecha de Venta" DataFormatString="{0:dd/MM/yyyy}" />
-            <asp:BoundField DataField="NumeroFactura" HeaderText="Número de Factura" />
-            <asp:TemplateField HeaderText="Ver Detalle" ItemStyle-HorizontalAlign="Right">
-                <ItemTemplate>
-                    <asp:Button ID="btnVerDetalle" runat="server" Text="Ver Detalle" CommandName="VerDetalle" CommandArgument='<%# Eval("Id") %>' OnClick="btnVerDetalleVenta_Click" CssClass="btn btn-link" />
-                </ItemTemplate>
-            </asp:TemplateField>
-        </Columns>
-    </asp:GridView>
+    <div style="width: 100%; display: flex; justify-content: center;">
+        <asp:GridView ID="gvVentas" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview">
+            <Columns>
+                <asp:BoundField DataField="IdVenta" HeaderText="ID Venta" />
+                <asp:BoundField DataField="Nombre" HeaderText="Nombre Cliente" />
+                <asp:BoundField DataField="Apellido" HeaderText="Apellido Cliente" />
+                <asp:BoundField DataField="Correo" HeaderText="Correo" />
+                <asp:BoundField DataField="FechaVenta" HeaderText="Fecha de Venta" DataFormatString="{0:dd/MM/yyyy}" />
+                <asp:BoundField DataField="NumeroFactura" HeaderText="Número de Factura" />
+                <asp:TemplateField HeaderText="Ver Detalle" ItemStyle-HorizontalAlign="Right">
+                    <ItemTemplate>
+                        <asp:Button ID="btnVerDetalle" runat="server" Text="Ver Detalle" CommandName="VerDetalle" CommandArgument='<%# Eval("IdVenta") %>' OnClick="btnVerDetalleVenta_Click" CssClass="btn btn-link" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
+    </div>
 
 
     <!--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -56,15 +68,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <asp:GridView ID="gvDetalleVenta" runat="server" AutoGenerateColumns="false" Visible="false">
-                        <Columns>
-                            <asp:BoundField DataField="IdDetalleVenta" HeaderText="ID Detalle Venta" />
-                            <asp:BoundField DataField="IdProducto" HeaderText="ID Producto" />
-                            <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
-                            <asp:BoundField DataField="PrecioUnitario" HeaderText="Precio Unitario" DataFormatString="{0:C}" />
-                            <asp:BoundField DataField="PrecioTotal" HeaderText="Precio Total" DataFormatString="{0:C}" />
-                        </Columns>
-                    </asp:GridView>
+                    <div style="width: 100%; display: flex; justify-content: center;">
+                        <asp:GridView ID="gvDetalleVenta" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview" Visible="false">
+                            <Columns>
+                                <asp:BoundField DataField="NombreProducto" HeaderText="Producto" />
+                                <asp:BoundField DataField="NombreMarca" HeaderText="Marca" />
+                                <asp:BoundField DataField="NombreCategoria" HeaderText="Categoria" />
+                                <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
+                                <asp:BoundField DataField="PrecioUnitario" HeaderText="Precio Unitario" DataFormatString="{0:C}" />
+                                <asp:BoundField DataField="PrecioTotal" HeaderText="Precio Total" DataFormatString="{0:C}" />
+                            </Columns>
+                        </asp:GridView>
+                    </div>
                 </div>
                 <!--<asp:Label ID="LblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>-->
                 <div class="modal-footer">
