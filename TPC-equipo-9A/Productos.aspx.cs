@@ -41,7 +41,7 @@ namespace TPC_equipo_9A
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             List<Producto> lista = (List<Producto>)Session["listaProductos"];
-            List<Producto> listaFiltrada = lista.FindAll(x => RemoveAccents(x.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()) || RemoveAccents(x.Categoria.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()) || RemoveAccents(x.Marca.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()));
+            List<Producto> listaFiltrada = lista.FindAll(x => RemoveAccents(x.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()) || x.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()) || RemoveAccents(x.Categoria.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()) || x.Categoria.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()) || RemoveAccents(x.Marca.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()) || x.Marca.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()));
             dgvProductos.DataSource= listaFiltrada;
             dgvProductos.DataBind();
         }
