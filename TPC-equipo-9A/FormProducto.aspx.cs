@@ -117,6 +117,7 @@ namespace TPC_equipo_9A
                 btnGuardar.Visible = true;
 
                 lblTitulo.Text = "Modificando Producto";
+                lblOpcional.Visible = true;
 
             }
             catch (Exception ex)
