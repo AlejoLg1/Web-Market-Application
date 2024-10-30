@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,31 +9,21 @@ using Utils;
 
 namespace Services
 {
-   public class DetalleCompraService
+    public class DetalleCompraService
     {
         private DataBaseAccess DB = new DataBaseAccess();
 
-        public List<DetalleCompra> listar()
+        public DataTable list(int IdCompra)
         {
-            List<DetalleCompra> list = new List<DetalleCompra>();
+            DataTable table = new DataTable();
             try
             {
-                DB.setQuery("Select IdDetalleCompra, IdCompra, IdProducto, Cantidad, PrecioUnitario from DetalleCompra");
+                DB.setQuery("SELECT m.Nombre AS NombreMarca, p.Nombre AS NombreProducto, c.Nombre AS NombreCategoria, dc.Cantidad, dc.PrecioUnitario FROM DetalleCompra dc JOIN Producto p ON dc.IdProducto = p.IdProducto JOIN Marca m ON p.IdMarca = m.IdMarca JOIN Categoria c ON p.IdTipoProducto = c.IdCategoria WHERE dc.IdCompra = @IdCompra;");
+                DB.setParameter("@IdCompra", IdCompra);
                 DB.excecuteQuery();
 
-                while (DB.Reader.Read())
-                {
-                    DetalleCompra detalleCompra = new DetalleCompra();
-                    detalleCompra.IdDetalleCompra = (int)DB.Reader["IdDetalleCompra"];
-                    detalleCompra.IdCompra = (int)DB.Reader["IdCompra"];
-                    detalleCompra.IdProducto = (int)DB.Reader["IdProducto"];
-                    detalleCompra.Cantidad = (int)DB.Reader["Cantidad"];
-                    detalleCompra.PrecioUnitario = (decimal)DB.Reader["PrecioUnitario"];
-
-                    list.Add(detalleCompra);
-                }
-
-                return list;
+                table.Load(DB.Reader);
+                return table;
             }
             catch (Exception ex)
             {
