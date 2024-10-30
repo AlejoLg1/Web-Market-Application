@@ -2,6 +2,8 @@
 using Services;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.EnterpriseServices;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -19,8 +21,8 @@ namespace TPC_equipo_9A
             {
                 if (!IsPostBack)
                 {
-                    List<Venta> ventas = ventaServices.listar();
-                    gvVentas.DataSource = ventas;
+                    VentaServices ventaServices = new VentaServices();
+                    gvVentas.DataSource = ventaServices.list();
                     gvVentas.DataBind();
                 }
             }
@@ -65,9 +67,9 @@ namespace TPC_equipo_9A
                 Button btn = (Button)sender;
                 int idVenta = int.Parse(btn.CommandArgument);
 
-                List<DetalleVenta> detalles = detalleVentaServices.listar().Where(dc => dc.IdVenta == idVenta).ToList();
+                DataTable detalles = detalleVentaServices.list(idVenta);
 
-                if (detalles.Count == 0)
+                if (detalles.Rows.Count == 0)
                 {
                     LblError.Text = "No se encontraron detalles para esta compra.";
                     LblError.Visible = true;
