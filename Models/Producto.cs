@@ -15,5 +15,6 @@ namespace Models
         public int StockMinimo { get; set; }
         public int StockActual { get; set; }
         public decimal PorcentajeGanancia { get; set; }
+        public DateTime? FechaVencimiento { get; set; } // ? = Significa que es nulleable
     }
 }

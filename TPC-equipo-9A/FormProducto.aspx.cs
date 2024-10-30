@@ -56,6 +56,8 @@ namespace TPC_equipo_9A
                     txtStockMinimo.Text = seleccionado.StockMinimo.ToString();
                     ddlCategoria.SelectedValue = seleccionado.Categoria.IdCategoria.ToString();
                     ddlMarca.SelectedValue = seleccionado.Marca.IdMarca.ToString();
+                    txtFechaVencimiento.Text = seleccionado.FechaVencimiento?.ToString("yyyy-MM-dd") ?? "";
+                    //txtFechaVencimiento.Text = seleccionado.FechaVencimiento.ToString();
 
                     
                     
@@ -109,6 +111,7 @@ namespace TPC_equipo_9A
                 txtStockMinimo.ReadOnly = false;
                 ddlCategoria.Enabled = true;
                 ddlMarca.Enabled = true;
+                txtFechaVencimiento.ReadOnly = false;
 
                 btnEliminar.Visible = false;
                 btnModificar.Visible = false;
@@ -140,6 +143,15 @@ namespace TPC_equipo_9A
                 nuevo.StockMinimo = Convert.ToInt32(txtStockMinimo.Text);
                 nuevo.StockActual = Convert.ToInt32(txtStockActual.Text);
                 nuevo.PorcentajeGanancia = Convert.ToDecimal(txtPorcentajeGanancia.Text);
+                // Solo asigna FechaVencimiento si el campo no está vacío
+                if (!string.IsNullOrWhiteSpace(txtFechaVencimiento.Text))
+                {
+                    nuevo.FechaVencimiento = Convert.ToDateTime(txtFechaVencimiento.Text);
+                }
+                else
+                {
+                    nuevo.FechaVencimiento = null; // Asigna null si el campo está vacío
+                }
 
 
                 // Si el ID del producto está presente, estamos modificando

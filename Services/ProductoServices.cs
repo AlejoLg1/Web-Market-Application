@@ -19,9 +19,9 @@ namespace Services
             try
             {
                 DB.setQuery("SELECT * FROM VW_productosGrid");
-                if(id != "")
+                if (id != "")
                 {
-                   DB.setQuery("SELECT * FROM VW_productosGrid WHERE IdProducto =" + id);
+                    DB.setQuery("SELECT * FROM VW_productosGrid WHERE IdProducto =" + id);
                 }
                 DB.excecuteQuery();
 
@@ -35,7 +35,7 @@ namespace Services
                     producto.StockActual = (int)DB.Reader["StockActual"];
                     producto.StockMinimo = (int)DB.Reader["StockMinimo"];
                     producto.PorcentajeGanancia = (decimal)DB.Reader["PorcentajeGanancia"];
-
+                    producto.FechaVencimiento = DB.Reader["FechaVencimiento"] != DBNull.Value ? (DateTime)DB.Reader["FechaVencimiento"] : (DateTime?)null;
 
                     list.Add(producto);
                 }
@@ -85,7 +85,7 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("SP_insertProducto @Nombre, @IdMarca, @IdCategoria, @StockActual, @StockMinimo, @PorcentajeGanancia");
+                DB.setQuery("SP_insertProducto @Nombre, @IdMarca, @IdCategoria, @StockActual, @StockMinimo, @PorcentajeGanancia, @FechaVencimiento");
 
                 DB.setParameter("@Nombre", newProducto.Nombre);
                 DB.setParameter("@IdMarca", newProducto.Marca.IdMarca);
@@ -93,6 +93,7 @@ namespace Services
                 DB.setParameter("@StockActual", newProducto.StockActual);
                 DB.setParameter("@StockMinimo", newProducto.StockMinimo);
                 DB.setParameter("@PorcentajeGanancia", newProducto.PorcentajeGanancia);
+                DB.setParameter("@FechaVencimiento", newProducto.FechaVencimiento != null ? newProducto.FechaVencimiento : (object)DBNull.Value);
 
 
                 DB.excecuteAction();
@@ -132,7 +133,7 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("SP_ModifyProducto @IdProducto, @Nombre, @IdMarca, @IdCategoria, @StockActual, @StockMinimo, @PorcentajeGanancia");
+                DB.setQuery("SP_ModifyProducto @IdProducto, @Nombre, @IdMarca, @IdCategoria, @StockActual, @StockMinimo, @PorcentajeGanancia, @FechaVencimiento");
 
                 DB.setParameter("@IdProducto", producto.IdProducto);
                 DB.setParameter("@Nombre", producto.Nombre);
@@ -141,6 +142,7 @@ namespace Services
                 DB.setParameter("@StockActual", producto.StockActual);
                 DB.setParameter("@StockMinimo", producto.StockMinimo);
                 DB.setParameter("@PorcentajeGanancia", producto.PorcentajeGanancia);
+                DB.setParameter("@FechaVencimiento", producto.FechaVencimiento != null ? producto.FechaVencimiento : (object)DBNull.Value);
 
 
                 DB.excecuteAction();

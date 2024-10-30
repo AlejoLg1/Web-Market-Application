@@ -12,7 +12,7 @@
             background-color: #f9f9f9;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
+        
         /* Bordes de las celdas */
         .table th, .table td {
             padding: 12px 15px;
