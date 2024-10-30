@@ -44,15 +44,16 @@ namespace TPC_equipo_9A
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             List<Marca> lista = (List<Marca>)Session["listaMarcas"];
-            List<Marca> listaFiltrada = lista.FindAll(x => RemoveAccents(x.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()));
+            List<Marca> listaFiltrada = lista.FindAll(x => RemoveAccents(x.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()) || x.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()));
             dgvMarca.DataSource = listaFiltrada;
             dgvMarca.DataBind();
         }
 
+        //Elimina los acentos o tildes de la cadena de caracteres
         public static string RemoveAccents(string text)
         {
             var withAccents = "áéíóúüñ";
-            var withoutAccents = "aeiouun"; // Debe incluir 'u' para la ü.
+            var withoutAccents = "aeiouun";
 
             for (int i = 0; i < withAccents.Length; i++)
             {
