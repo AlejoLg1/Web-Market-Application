@@ -3,11 +3,11 @@
     <style>
         /* Estilo para la tabla */
 .table {
-    width: 100%;
+    width: 50%;
+    max-width: 900px; /* Limitar el tamaño máximo a 900px */
+    margin: 20px auto !important; /* Centrando la tabla horizontalmente */
     border-collapse: collapse;
-    margin: 20px 0;
     font-size: 18px;
-    text-align: left;
     background-color: #f9f9f9;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

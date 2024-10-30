@@ -37,6 +37,7 @@ namespace TPC_equipo_9A
                     }
                     Session.Add("id", IdUsuario);
                     Session.Add("rol", user.Rol);
+                    Session.Add("NombreUsuario", user.NombreUsuario); // Guarda el nombre de usuario en la sesión
                     Response.Redirect("~/Default.aspx", false);
                 }
                 else
