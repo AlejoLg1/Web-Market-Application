@@ -14,7 +14,7 @@ namespace TPC_equipo_9A
         {
             if (!IsPostBack)
             {
-                // Obtener el nombre del usuario de la sesión (ajusta el nombre de la variable si es necesario)
+                // Obtener el nombre del usuario de la sesión
                 string NombreUsuario = Session["NombreUsuario"] != null ? Session["NombreUsuario"].ToString() : "Usuario";
                 litBienvenida.Text = "Hola, " + NombreUsuario + "!";
             }
