@@ -41,9 +41,22 @@ namespace TPC_equipo_9A
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             List<Producto> lista = (List<Producto>)Session["listaProductos"];
-            List<Producto> listaFiltrada = lista.FindAll(x => x.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()) || x.Categoria.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()) || x.Marca.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()));
+            List<Producto> listaFiltrada = lista.FindAll(x => RemoveAccents(x.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()) || x.Categoria.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()) || x.Marca.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()));
             dgvProductos.DataSource= listaFiltrada;
             dgvProductos.DataBind();
+        }
+
+        public static string RemoveAccents(string text)
+        {
+            var withAccents = "áéíóúüñ";
+            var withoutAccents = "aeiouun"; // Debe incluir 'u' para la ü.
+
+            for (int i = 0; i < withAccents.Length; i++)
+            {
+                text = text.Replace(withAccents[i], withoutAccents[i]);
+            }
+
+            return text;
         }
     }
 }
