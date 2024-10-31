@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="DataBaseAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
