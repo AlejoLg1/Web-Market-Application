@@ -58,12 +58,16 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("INSERT INTO Proveedor (Nombre, Correo, Telefono, Direccion) VALUES (@Nom, @Cor, @Tel, @Dir)");
+                DB.setQuery("INSERT INTO Proveedor (Nombre, Apellido, Correo, Telefono, Direccion, DNI, CUIT, TipoPersona) VALUES (@Nom, @Ape, @Cor, @Tel, @Dir, @D, @C, @TPersona)");
 
                 DB.setParameter("@Nom", newProveedor.Nombre);
+                DB.setParameter("@Ape", newProveedor.Apellido);
                 DB.setParameter("@Cor", newProveedor.Correo);
                 DB.setParameter("@Tel", newProveedor.Telefono);
                 DB.setParameter("@Dir", newProveedor.Direccion);
+                DB.setParameter("@D", newProveedor.DNI);
+                DB.setParameter("@C", newProveedor.CUIT);
+                DB.setParameter("@TPersona", newProveedor.TipoPersona);
 
                 DB.excecuteAction();
             }
@@ -77,7 +81,7 @@ namespace Services
             }
         }
 
-        public void modify(Proveedor proveedor)
+        public void modify(Proveedor proveedor) 
         {
             try
             {

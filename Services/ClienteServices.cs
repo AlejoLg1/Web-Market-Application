@@ -59,13 +59,16 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("INSERT INTO Cliente (Nombre, Apellido, Correo, Telefono, Direccion) VALUES (@Nom, @Apel, @Cor, @Tel, @Dir)");
+                DB.setQuery("INSERT INTO Cliente (Nombre, Apellido, Correo, Telefono, Direccion, DNI, CUIT, TipoPersona) VALUES (@Nom, @Ape, @Cor, @Tel, @Dir, @D, @C, @TPersona)");
 
                 DB.setParameter("@Nom", newCliente.Nombre);
-                DB.setParameter("@Apel", newCliente.Apellido);
+                DB.setParameter("@Ape", newCliente.Apellido);
                 DB.setParameter("@Cor", newCliente.Correo);
                 DB.setParameter("@Tel", newCliente.Telefono);
                 DB.setParameter("@Dir", newCliente.Direccion);
+                DB.setParameter("@D", newCliente.DNI);
+                DB.setParameter("@C", newCliente.CUIT);
+                DB.setParameter("@TPersona", newCliente.TipoPersona);
 
                 DB.excecuteAction();
             }
