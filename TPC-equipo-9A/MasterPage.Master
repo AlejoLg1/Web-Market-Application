@@ -67,7 +67,7 @@
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item" OnClick="btnLogout_Click">
+                                    <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item" OnClick="btnLogout_Click" CausesValidation="false">
                                     <img src="/images/logout.png" alt="Cerrar Sesión" style="height: 20px; width: 20px;" /> Cerrar Sesión</asp:LinkButton>
                                 </li>
                             </ul>
