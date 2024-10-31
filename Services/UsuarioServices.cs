@@ -309,7 +309,7 @@ namespace Services
                 if (DB.Reader.Read())
                 {
                     int count = DB.Reader.GetInt32(0);
-                    return count > 0;
+                    return count == 0;
                 }
                 return false;
             }

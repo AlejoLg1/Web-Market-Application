@@ -31,9 +31,12 @@ namespace TPC_equipo_9A
                 newUsuario.Contrasena = txtContrasena.Text;
                 newUsuario.Rol = rol.ToString();
 
-                service.add(newUsuario);
+                if(Page.IsValid)
+                {
+                    service.add(newUsuario);
+                    Response.Redirect("ControlAcceso.aspx", false);
+                }
 
-                Response.Redirect("ControlAcceso.aspx", false);
             }
             catch (Exception ex)
             {
@@ -60,7 +63,7 @@ namespace TPC_equipo_9A
         protected void ValidateUsername(object source, ServerValidateEventArgs args)
         {
             string username = args.Value;
-            args.IsValid = !service.UserNameAvailable(username.ToString());
+            args.IsValid = service.UserNameAvailable(username.ToString());
         }
 
         protected void ValidatePasswords(object source, ServerValidateEventArgs args)
