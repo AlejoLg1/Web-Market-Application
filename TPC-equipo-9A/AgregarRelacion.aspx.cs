@@ -16,52 +16,65 @@ namespace TPC_equipo_9A
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                
+                txtDNI.Text = ""; 
+                txtCUIT.Text = "";
+            }
         }
 
-        protected void ddlTipoRelacion_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlTipoRelacion.SelectedValue == "Cliente")
-            {
-                clienteFields.Attributes.Remove("class");
-                proveedorFields.Attributes.Add("class", "hidden");
+            string tipoRelacion = ddlTipoRelacion.SelectedValue;
+            string tipoPersona = ddlTipoPersona.SelectedValue;
 
-                ActivarValidadoresCliente();
-                DesactivarValidadoresProveedor();
-            }
-            else if (ddlTipoRelacion.SelectedValue == "Proveedor")
-            {
-                proveedorFields.Attributes.Remove("class");
-                clienteFields.Attributes.Add("class", "hidden");
+            txtDNI.Enabled = false;
+            lblDNI.Visible = true; 
+            rfvDNI.Enabled = false;
 
-                ActivarValidadoresProveedor();
-                DesactivarValidadoresCliente();
-            }
-            else
+            txtCUIT.Enabled = false;
+            lblCUIT.Visible = true;
+            rfvCUIT.Enabled = false;
+            
+            if (tipoRelacion != "" && tipoPersona != "")
             {
-                clienteFields.Attributes.Add("class", "hidden");
-                proveedorFields.Attributes.Add("class", "hidden");
+                PersonFields.Attributes.Remove("class");
+                DatosPersonales.Attributes.Remove("class");
 
-                DesactivarValidadoresCliente();
-                DesactivarValidadoresProveedor();
+                if (tipoPersona == "Fisica")
+                {
+                    txtDNI.Enabled = true;
+                    txtCUIT.Text = "";
+                    rfvDNI.Enabled = true;
+                }
+                else
+                {
+                    txtCUIT.Enabled = true;
+                    txtDNI.Text = "";
+                    rfvCUIT.Enabled = true;
+                }
             }
         }
 
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
+
             if (ddlTipoRelacion.SelectedValue == "Cliente")
             {
-                // Validar campos
                 if (Page.IsValid)
                 {
                     Cliente cliente = new Cliente
                     {
-                        Nombre = txtNombreCliente.Text,
-                        Apellido = txtApellidoCliente.Text,
-                        Correo = txtCorreoCliente.Text,
-                        Telefono = txtTelefonoCliente.Text,
-                        Direccion = txtDireccionCliente.Text
+                        Nombre = txtNombre.Text,
+                        Apellido = txtApellido.Text,
+                        Correo = txtCorreo.Text,
+                        Telefono = txtTelefono.Text,
+                        Direccion = txtDireccion.Text,
+                        TipoPersona = ddlTipoPersona.SelectedValue,
+                        DNI = txtDNI.Text,
+                        CUIT = txtCUIT.Text
                     };
 
                     serviceCliente.add(cliente);
@@ -70,15 +83,18 @@ namespace TPC_equipo_9A
             }
             else if (ddlTipoRelacion.SelectedValue == "Proveedor")
             {
-                // Validar campos
                 if (Page.IsValid)
                 {
                     Proveedor proveedor = new Proveedor
                     {
-                        Nombre = txtNombreProveedor.Text,
-                        Correo = txtCorreoProveedor.Text,
-                        Telefono = txtTelefonoProveedor.Text,
-                        Direccion = txtDireccionProveedor.Text
+                        Nombre = txtNombre.Text,
+                        Apellido = txtApellido.Text,
+                        Correo = txtCorreo.Text,
+                        Telefono = txtTelefono.Text,
+                        Direccion = txtDireccion.Text,
+                        TipoPersona = ddlTipoPersona.SelectedValue.ToString(),
+                        DNI = txtDNI.Text,
+                        CUIT = txtCUIT.Text
                     };
 
                     serviceProveedor.add(proveedor);
@@ -93,44 +109,6 @@ namespace TPC_equipo_9A
             Response.Redirect("RelacionesComerciales.aspx", false);
         }
 
-        private void ActivarValidadoresCliente()
-        {
-            rfvNombreCliente.Enabled = true;
-            rfvCorreoCliente.Enabled = true;
-            rfvTelefonoCliente.Enabled = true;
-            rfvDireccionCliente.Enabled = true;
-            revCorreoCliente.Enabled = true;
-            revTelefonoCliente.Enabled = true;
-        }
 
-        private void DesactivarValidadoresCliente()
-        {
-            rfvNombreCliente.Enabled = false;
-            rfvCorreoCliente.Enabled = false;
-            rfvTelefonoCliente.Enabled = false;
-            rfvDireccionCliente.Enabled = false;
-            revCorreoCliente.Enabled = false;
-            revTelefonoCliente.Enabled = false;
-        }
-
-        private void ActivarValidadoresProveedor()
-        {
-            rfvNombreProveedor.Enabled = true;
-            rfvCorreoProveedor.Enabled = true;
-            rfvTelefonoProveedor.Enabled = true;
-            rfvDireccionProveedor.Enabled = true;
-            revCorreoProveedor.Enabled = true;
-            revTelefonoProveedor.Enabled = true;
-        }
-
-        private void DesactivarValidadoresProveedor()
-        {
-            rfvNombreProveedor.Enabled = false;
-            rfvCorreoProveedor.Enabled = false;
-            rfvTelefonoProveedor.Enabled = false;
-            rfvDireccionProveedor.Enabled = false;
-            revCorreoProveedor.Enabled = false;
-            revTelefonoProveedor.Enabled = false;
-        }
     }
 }
