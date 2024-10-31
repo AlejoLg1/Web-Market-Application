@@ -35,6 +35,9 @@ namespace Services
                     cliente.Correo = (string)DB.Reader["Correo"];
                     cliente.Telefono = (string)DB.Reader["Telefono"];
                     cliente.Direccion = (string)DB.Reader["Direccion"];
+                    cliente.DNI = DB.Reader["DNI"] != DBNull.Value ? DB.Reader["DNI"].ToString() : "";
+                    cliente.CUIT = DB.Reader["CUIT"] != DBNull.Value ? DB.Reader["CUIT"].ToString() : "";
+                    
 
                     list.Add(cliente);
                 }

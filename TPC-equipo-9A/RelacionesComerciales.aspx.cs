@@ -56,10 +56,12 @@ namespace TPC_equipo_9A
                 {
                     IdRelacion = proveedor.IdProveedor,
                     Nombre = proveedor.Nombre,
-                    Apellido = "-",
+                    Apellido = proveedor.Apellido,
                     Correo = proveedor.Correo,
                     Telefono = proveedor.Telefono,
                     Direccion = proveedor.Direccion,
+                    DNI = proveedor.DNI,
+                    CUIT = proveedor.CUIT,
                     Relacion = "Proveedor"
                 }));
 
@@ -71,6 +73,8 @@ namespace TPC_equipo_9A
                     Correo = cliente.Correo,
                     Telefono = cliente.Telefono,
                     Direccion = cliente.Direccion,
+                    DNI = cliente.DNI,
+                    CUIT = cliente.CUIT,
                     Relacion = "Cliente"
                 }));
 

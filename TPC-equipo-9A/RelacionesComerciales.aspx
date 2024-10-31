@@ -67,10 +67,30 @@
                 <asp:GridView ID="gvRelaciones" runat="server" CssClass="table table-striped" DataKeyNames="IdRelacion" AutoGenerateColumns="False" OnRowCommand="gvRelaciones_RowCommand">
                     <Columns>
                         <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                        <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
+
+                        <asp:TemplateField HeaderText="Apellido">
+                            <ItemTemplate>
+                                <asp:Label ID="lblApellido" runat="server" Text='<%# string.IsNullOrWhiteSpace(Convert.ToString(Eval("Apellido"))) ? "-" : Eval("Apellido") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+
+
                         <asp:BoundField DataField="Correo" HeaderText="Correo" />
                         <asp:BoundField DataField="Telefono" HeaderText="Teléfono" />
                         <asp:BoundField DataField="Direccion" HeaderText="Dirección" />
+
+                        <asp:TemplateField HeaderText="DNI">
+                            <ItemTemplate>
+                                <asp:Label ID="lblDNI" runat="server" Text='<%# string.IsNullOrEmpty(Eval("DNI").ToString()) ? "-" : Eval("DNI") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="CUIT">
+                            <ItemTemplate>
+                                <asp:Label ID="lblCUIT" runat="server" Text='<%# string.IsNullOrEmpty(Eval("CUIT").ToString()) ? "-" : Eval("CUIT") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
 
                         <asp:TemplateField HeaderText="Relación">
                             <ItemTemplate>
@@ -89,7 +109,9 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
+
                 </asp:GridView>
+
             </div>
         </div>
     </div>
