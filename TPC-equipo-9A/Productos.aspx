@@ -2,18 +2,17 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        /* Estilo para la tabla */
-        .table {
-            width: 50%;
-            max-width: 900px;
-            margin: 20px auto;
-            border-collapse: collapse;
-            font-size: 18px;
-            background-color: #f9f9f9;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra suave */
-            border-radius: 10px; /* Bordes redondeados */
-            overflow: hidden;
-        }
+       .table {
+        width: 50%;
+        max-width: 900px;
+        margin: 20px auto !important;
+        border-collapse: collapse;
+        font-size: 18px;
+        background-color: #f9f9f9;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px; /* Bordes redondeados */
+        overflow: hidden; /* Para asegurar que los bordes redondeados se vean correctamente */
+    }
 
         /* Bordes de las celdas */
         .table th, .table td {
@@ -24,7 +23,7 @@
         /* Estilo para el encabezado */
         .table th {
             background-color: #4CAF50;
-            color: #ffffff;
+            color: white;
             font-weight: bold;
             text-align: center;
         }
@@ -34,34 +33,30 @@
             background-color: #f2f2f2;
         }
 
-        /* Efecto hover en las filas */
+        /* Efecto hover */
         .table tr:hover {
-            background-color: #e0e0e0; /* Resalta la fila */
-            cursor: pointer;
+            background-color: #f1f1f1;
         }
 
-        /* Centrar texto de las celdas */
+        /* Estilo para alinear los números en el centro */
         .table td {
             text-align: center;
-            color: #333333; /* Color con buen contraste */
         }
 
-        /* Estilo del título */
+        /* Estilo para el título */
         h1 {
+            font-family: 'Arial', sans-serif;
             text-align: center;
-            font-family: Arial, sans-serif; /* Fuente más moderna */
             font-size: 2em;
-            font-weight: bold;
-            color: #333333;
+            color: #333;
             text-decoration: underline;
-            text-decoration-color: #4CAF50; /* Subrayado en verde */
         }
 
-        /* Botón de Agregar Producto */
+        /* Estilo para el botón Agregar */
         .btn-success {
             background-color: #28a745;
-            color: #ffffff;
-            font-size: 18px;
+            color: white;
+            font-size: 16px;
             padding: 10px 20px;
             border-radius: 5px;
             transition: background-color 0.3s ease;
@@ -70,29 +65,12 @@
         .btn-success:hover {
             background-color: #218838;
         }
-
-        /* Botón Ver detalle */
-        .btn-ver-detalle {
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-ver-detalle:hover {
-            background-color: #0056b3;
-        }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <hr />
     <h1>Listado de productos</h1>
-
     <!-- Caja de búsqueda -->
     <div class="row mb-3 justify-content-center">
         <div class="col-md-6">
@@ -102,7 +80,6 @@
             </div>
         </div>
     </div>
-
     <asp:GridView ID="dgvProductos" runat="server" OnSelectedIndexChanged="dgvProductos_SelectedIndexChanged" DataKeyNames="IdProducto" CssClass="table" AutoGenerateColumns="False" AllowPaging="True" PageSize="6" OnPageIndexChanging="dgvProductos_PageIndexChanging">
         <Columns>
             <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
@@ -112,14 +89,15 @@
             <asp:BoundField DataField="Marca.Nombre" HeaderText="Marca" />
             <asp:BoundField DataField="PorcentajeGanancia" HeaderText="Porcentaje Ganancia" />
             <asp:BoundField DataField="FechaVencimiento" HeaderText="Fecha de vencimiento" Visible="false" />
-            <asp:TemplateField HeaderText="Acción">
+            <asp:TemplateField HeaderText="Ver detalle">
                 <ItemTemplate>
-                    <asp:Button ID="btnVerDetalle" runat="server" CssClass="btn-ver-detalle" Text="Ver detalle" CommandName="Select" />
+                    <asp:LinkButton ID="btnVerDetalle" runat="server" CommandName="Select">
+                        <i class="fa fa-eye"></i> <!-- Ícono de ojo -->
+                    </asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-
     <div style="text-align: center; margin-top: 20px;">
         <asp:Button ID="btnAgregarProducto" runat="server" CssClass="btn btn-success mt-3" Text="Agregar" OnClick="btnAgregarProducto_Click" />
     </div>
