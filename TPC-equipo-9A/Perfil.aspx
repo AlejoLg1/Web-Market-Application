@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-center">
                         <h3>Perfil de Usuario</h3>
@@ -17,17 +17,21 @@
                                 <asp:FileUpload ID="fuFotoPerfil" runat="server" CssClass="form-control-file" />
                             </div>
                             <div class="mt-3">
-                                <asp:Button ID="btnEliminarFoto" runat="server" CssClass="btn btn-danger mt-2" Text="Eliminar Foto" OnClick="btnEliminarFoto_Click" visible="false" />
+                                <asp:Button ID="btnEliminarFoto" runat="server" CssClass="btn btn-danger mt-2" Text="Eliminar Foto" OnClick="btnEliminarFoto_Click" Visible="false" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="txtNombreUsuario">Nombre de Usuario:</label>
-                            <asp:TextBox ID="txtNombreUsuario" runat="server" CssClass="form-control" />
+                            <div class="col-md-4">
+                                <asp:TextBox ID="txtNombreUsuario" runat="server" CssClass="form-control" />
+                            </div>
                         </div>
                         <div class="form-group mt-3">
                             <label for="lblContrasena">Contraseña:</label>
                             <div class="input-group">
-                                <asp:TextBox ID="txtContrasena" runat="server" CssClass="form-control" TextMode="Password" />
+                                <div class="col-md-4">
+                                    <asp:TextBox ID="txtContrasena" runat="server" CssClass="form-control" TextMode="Password" />
+                                </div>
                                 <span class="input-group-text" onclick="togglePasswordVisibility()">
                                     <i class="bi bi-eye" id="toggleEye"></i>
                                 </span>
@@ -35,11 +39,13 @@
                         </div>
                         <div class="form-group mt-3">
                             <label for="lblRol">Rol:</label>
-                            <asp:Label ID="lblRol" runat="server" CssClass="form-control" Enabled="false" />
+                            <div class="col-md-3">
+                                <asp:Label ID="lblRol" runat="server" CssClass="form-control" Enabled="false" />
+                            </div>
                         </div>
                         <div class="d-flex justify-content-between mt-4">
                             <asp:Button ID="btnGuardarCambios" runat="server" CssClass="btn btn-success" Text="Guardar Cambios" OnClick="btnGuardarCambios_Click" />
-                            <asp:Button ID="btnControlAcceso" runat="server" CssClass="btn btn-primary" Text="Volver" visible="false" OnClick="btnIrAControlAcceso_Click" />
+                            <asp:Button ID="btnControlAcceso" runat="server" CssClass="btn btn-primary" Text="Volver" Visible="false" OnClick="btnIrAControlAcceso_Click" />
                         </div>
                     </div>
                 </div>
