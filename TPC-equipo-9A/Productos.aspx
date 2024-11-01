@@ -49,7 +49,7 @@
             text-align: center;
             font-size: 2em;
             color: #333;
-            text-decoration: underline;
+            text-decoration-color: #4CAF50;
         }
 
         /* Estilo para el botón Agregar */
