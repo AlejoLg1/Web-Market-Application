@@ -62,5 +62,20 @@ namespace TPC_equipo_9A
                 throw ex;
             }
         }
+
+        protected void btnGenerarCompra_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, GetType(), "showStaticModal", "$('#staticBackdrop').modal('show');", true);
+        }
+
+        protected void btnGenerarCompra_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnAceptarGenerarCompra_ServerClick(object sender, EventArgs e)
+        {
+
+        }
     }
 }
