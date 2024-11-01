@@ -9,14 +9,57 @@
     <link rel="icon" href="/images/icon.png" type="logo" />
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <script src="Scripts/bootstrap.bundle.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+
     <style>
         body {
             background-color: #e7e7e7;
+            font-family: 'Roboto', sans-serif;
         }
 
         .image-button {
             height: 30px;
             width: 30px;
+        }
+
+        .navbar, .navbar-nav .nav-link, .navbar-brand, .dropdown-menu, .dropdown-item {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: 500;
+            font-size: 1rem;
+            background-color: #495057; /* Color de fondo para simular el botón */
+            color: white !important;
+            border-radius: 15px; /* Bordes redondeados */
+            padding: 8px 16px; /* Espaciado interno */
+            margin: 0 5px; /* Espaciado entre los botones */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra */
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: #6c757d; /* Color al pasar el mouse */
+            color: white !important;
+            box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+        }
+
+        .dropdown-menu .dropdown-item {
+            border-radius: 10px;
+            margin: 3px;
+        }
+
+        .dropdown-menu:hover{
+            background-color: royalblue; /* Color al pasar el mouse */
+            box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+        }
+
+        /* Estilo para "AEC Distribution" */
+        .navbar-brand {
+            font-family: 'Poppins', sans-serif; /* Fuente moderna y fina */
+            font-weight: 400; /* Ajuste de grosor de letra */
+            font-size: 1.5rem; /* Tamaño de letra */
+            color: white !important;
         }
     </style>
 </head>
