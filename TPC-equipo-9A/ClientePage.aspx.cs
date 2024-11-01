@@ -27,15 +27,42 @@ namespace TPC_equipo_9A
 
         private void CargarCliente(int idCliente)
         {
-            Cliente cliente = clienteService.getClient(idCliente);
-            if (cliente != null)
+            try
             {
-                hfIdCliente.Value = cliente.IdCliente.ToString();
-                txtNombre.Text = cliente.Nombre;
-                txtApellido.Text = cliente.Apellido;
-                txtCorreo.Text = cliente.Correo;
-                txtTelefono.Text = cliente.Telefono;
-                txtDireccion.Text = cliente.Direccion;
+                Cliente cliente = clienteService.getClient(idCliente);
+                if (cliente != null)
+                {
+                    hfIdCliente.Value = cliente.IdCliente.ToString();
+                    txtNombre.Text = cliente.Nombre;
+                    txtApellido.Text = cliente.Apellido;
+                    txtDNI.Text = cliente.DNI;
+                    txtCUIT.Text = cliente.CUIT;
+                    txtCorreo.Text = cliente.Correo;
+                    txtTelefono.Text = cliente.Telefono;
+                    txtDireccion.Text = cliente.Direccion;
+                }
+                else
+                {
+                    Response.Redirect("ErrorPage.aspx");
+                }
+
+                if (cliente.TipoPersona == "Fisica")
+                {
+                    txtCUIT.Visible = false;
+                    lblCUIT.Visible = false;
+                    txtDNI.Enabled = false;
+                }
+                else
+                {
+                    txtDNI.Visible = false;
+                    lblDNI.Visible = false;
+                    txtCUIT.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
             }
         }
 
@@ -48,6 +75,8 @@ namespace TPC_equipo_9A
                     IdCliente = int.Parse(hfIdCliente.Value),
                     Nombre = txtNombre.Text,
                     Apellido = txtApellido.Text,
+                    DNI = txtDNI.Text,
+                    CUIT = txtCUIT.Text,
                     Correo = txtCorreo.Text,
                     Telefono = txtTelefono.Text,
                     Direccion = txtDireccion.Text

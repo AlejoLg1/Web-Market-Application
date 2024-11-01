@@ -87,13 +87,15 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("UPDATE Cliente SET Nombre = @Nom, Apellido = @Apel, Correo = @Cor, Telefono = @Tel, Direccion = @Dir WHERE IdCliente = @Id");
+                DB.setQuery("UPDATE Cliente SET Nombre = @Nom, Apellido = @Ape, Correo = @Cor, Telefono = @Tel, Direccion = @Dir, DNI = @D, CUIT = @C WHERE IdCliente = @Id");
 
                 DB.setParameter("@Nom", cliente.Nombre);
-                DB.setParameter("@Apel", cliente.Apellido);
+                DB.setParameter("@Ape", cliente.Apellido);
                 DB.setParameter("@Cor", cliente.Correo);
                 DB.setParameter("@Tel", cliente.Telefono);
                 DB.setParameter("@Dir", cliente.Direccion);
+                DB.setParameter("@D", cliente.DNI);
+                DB.setParameter("@C", cliente.CUIT);
                 DB.setParameter("@Id", cliente.IdCliente);
 
                 DB.excecuteAction();
@@ -133,7 +135,7 @@ namespace Services
             {
                 Cliente client = new Cliente();
                 DB.clearParameters();
-                DB.setQuery("SELECT IdCliente, Nombre, Apellido, Correo, Telefono, Direccion FROM Cliente WHERE IdCliente = @id");
+                DB.setQuery("SELECT IdCliente, Nombre, Apellido, Correo, Telefono, Direccion, DNI, CUIT, TipoPersona FROM Cliente WHERE IdCliente = @id");
                 DB.setParameter("@id", Id);
                 DB.excecuteQuery();
 
@@ -145,6 +147,9 @@ namespace Services
                     client.Correo = DB.Reader["Correo"] != DBNull.Value ? DB.Reader["Correo"].ToString() : null;
                     client.Telefono = DB.Reader["Telefono"] != DBNull.Value ? DB.Reader["Telefono"].ToString() : null;
                     client.Direccion = DB.Reader["Direccion"] != DBNull.Value ? DB.Reader["Direccion"].ToString() : null;
+                    client.DNI = DB.Reader["DNI"] != DBNull.Value ? DB.Reader["DNI"].ToString() : null;
+                    client.CUIT = DB.Reader["CUIT"] != DBNull.Value ? DB.Reader["CUIT"].ToString() : null;
+                    client.TipoPersona = DB.Reader["TipoPersona"] != DBNull.Value ? DB.Reader["TipoPersona"].ToString() : null;
                 }
 
                 if (client.IdCliente == 0)

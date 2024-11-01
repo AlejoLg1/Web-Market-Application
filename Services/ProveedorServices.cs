@@ -86,12 +86,15 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("UPDATE Proveedor SET Nombre = @Nom, Correo = @Cor, Telefono = @Tel, Direccion = @Dir WHERE IdProveedor = @Id");
+                DB.setQuery("UPDATE Proveedor SET Nombre = @Nom, Apellido = @Ape, Correo = @Cor, Telefono = @Tel, Direccion = @Dir, DNI = @D, CUIT = @C WHERE IdProveedor = @Id");
 
                 DB.setParameter("@Nom", proveedor.Nombre);
+                DB.setParameter("@Ape", proveedor.Apellido);
                 DB.setParameter("@Cor", proveedor.Correo);
                 DB.setParameter("@Tel", proveedor.Telefono);
                 DB.setParameter("@Dir", proveedor.Direccion);
+                DB.setParameter("@D", proveedor.DNI);
+                DB.setParameter("@C", proveedor.CUIT);
                 DB.setParameter("@Id", proveedor.IdProveedor);
 
                 DB.excecuteAction();
@@ -131,7 +134,7 @@ namespace Services
             {
                 Proveedor proveedor = new Proveedor();
                 DB.clearParameters();
-                DB.setQuery("SELECT IdProveedor, Nombre, Correo, Telefono, Direccion FROM Proveedor WHERE IdProveedor = @id");
+                DB.setQuery("SELECT IdProveedor, Nombre, Correo, Telefono, Direccion, DNI, CUIT, TipoPersona FROM Proveedor WHERE IdProveedor = @id");
                 DB.setParameter("@id", Id);
                 DB.excecuteQuery();
 
@@ -142,6 +145,9 @@ namespace Services
                     proveedor.Correo = DB.Reader["Correo"] != DBNull.Value ? DB.Reader["Correo"].ToString() : null;
                     proveedor.Telefono = DB.Reader["Telefono"] != DBNull.Value ? DB.Reader["Telefono"].ToString() : null;
                     proveedor.Direccion = DB.Reader["Direccion"] != DBNull.Value ? DB.Reader["Direccion"].ToString() : null;
+                    proveedor.DNI = DB.Reader["DNI"] != DBNull.Value ? DB.Reader["DNI"].ToString() : null;
+                    proveedor.CUIT = DB.Reader["CUIT"] != DBNull.Value ? DB.Reader["CUIT"].ToString() : null;
+                    proveedor.TipoPersona = DB.Reader["TipoPersona"] != DBNull.Value ? DB.Reader["TipoPersona"].ToString() : null;
                 }
 
                 if (proveedor.IdProveedor == 0)
