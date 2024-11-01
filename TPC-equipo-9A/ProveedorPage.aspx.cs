@@ -47,16 +47,20 @@ namespace TPC_equipo_9A
             {
                 txtCUIT.Visible = false;
                 lblCUIT.Visible = false;
+                txtDNI.Enabled = false;
             }
             else
             {
                 txtDNI.Visible = false;
                 lblDNI.Visible = false;
+                txtCUIT.Enabled = false;
             }
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+            try
+            {
             Proveedor proveedor = new Proveedor
             {
                 IdProveedor = Convert.ToInt32(hfIdProveedor.Value),
@@ -73,6 +77,13 @@ namespace TPC_equipo_9A
             proveedorService.modify(proveedor);
 
             Response.Redirect("RelacionesComerciales.aspx", false);
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)

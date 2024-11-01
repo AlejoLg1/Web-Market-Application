@@ -5,17 +5,35 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h3>Editar Proveedor</h3>
+                        <h3>Editando Proveedor</h3>
                     </div>
+
                     <div class="card-body">
                         <asp:HiddenField ID="hfIdProveedor" runat="server" />
+                        <h4 id="DatosPersonales" runat="server">Datos Personales</h4>
 
-                        <div class="form-group">
+                        <div class="form-group mt-3">
+                            <label id="lblDNI" runat="server" for="txtDNI">DNI:</label>
+                            <div class="col-md-3">
+                                <asp:TextBox ID="txtDNI" runat="server" CssClass="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label id="lblCUIT" runat="server" for="txtCUIT">CUIT:</label>
+                            <div class="col-md-3">
+                                <asp:TextBox ID="txtCUIT" runat="server" CssClass="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-3">
                             <label for="txtNombre">Nombre:</label>
-                            <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
+                            <div class="col-md-4">
+                                <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" />
+                            </div>
                             <asp:RequiredFieldValidator
                                 ID="rfvNombre"
                                 runat="server"
@@ -27,52 +45,19 @@
 
                         <div class="form-group mt-3">
                             <label for="txtApellido">Apellido:</label>
-                            <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" />
+                            <div class="col-md-4">
+                                <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" />
+                            </div>
                         </div>
 
-                        <div class="form-group mt-3">
-                            <label ID="lblDNI" runat="server" for="txtDNI">DNI:</label>
-                            <asp:TextBox ID="txtDNI" runat="server" CssClass="form-control" />
-                            <asp:RequiredFieldValidator
-                                ID="rfvDNI"
-                                runat="server"
-                                ControlToValidate="txtDNI"
-                                ErrorMessage="El DNI es requerido."
-                                CssClass="text-danger"
-                                Display="Dynamic" />
-                            <asp:RegularExpressionValidator
-                                ID="revDNI"
-                                runat="server"
-                                ControlToValidate="txtDNI"
-                                ErrorMessage="Formato inválido. Debe ser xx.xxx.xxx."
-                                CssClass="text-danger"
-                                Display="Dynamic"
-                                ValidationExpression="^\d{1,2}\.\d{3}\.\d{3}$" />
-                        </div>
-
-                        <div class="form-group mt-3">
-                            <label ID="lblCUIT" runat="server" for="txtCUIT">CUIT:</label>
-                            <asp:TextBox ID="txtCUIT" runat="server" CssClass="form-control" />
-                            <asp:RequiredFieldValidator
-                                ID="rfvCUIT"
-                                runat="server"
-                                ControlToValidate="txtCUIT"
-                                ErrorMessage="El CUIT es requerido."
-                                CssClass="text-danger"
-                                Display="Dynamic" />
-                            <asp:RegularExpressionValidator
-                                ID="revCUIT"
-                                runat="server"
-                                ControlToValidate="txtCUIT"
-                                ErrorMessage="Formato inválido. Debe ser xx-xxxxxxxx-x."
-                                CssClass="text-danger"
-                                Display="Dynamic"
-                                ValidationExpression="^\d{1,2}-\d{8}-\d{1}$" />
-                        </div>
+                        <br />
+                        <h4 id="DatosContacto" runat="server">Datos de Contacto</h4>
 
                         <div class="form-group mt-3">
                             <label for="txtCorreo">Correo:</label>
-                            <asp:TextBox ID="txtCorreo" runat="server" CssClass="form-control" />
+                            <div class="col-md-5">
+                                <asp:TextBox ID="txtCorreo" runat="server" CssClass="form-control" />
+                            </div>
                             <asp:RequiredFieldValidator
                                 ID="rfvCorreo"
                                 runat="server"
@@ -84,7 +69,7 @@
                                 ID="revCorreo"
                                 runat="server"
                                 ControlToValidate="txtCorreo"
-                                ErrorMessage="El correo no es válido."
+                                ErrorMessage="El correo es inválido."
                                 CssClass="text-danger"
                                 Display="Dynamic"
                                 ValidationExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
@@ -92,12 +77,14 @@
 
                         <div class="form-group mt-3">
                             <label for="txtTelefono">Teléfono:</label>
-                            <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" />
+                            <div class="col-md-5">
+                                <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" />
+                            </div>
                             <asp:RegularExpressionValidator
                                 ID="revTelefono"
                                 runat="server"
                                 ControlToValidate="txtTelefono"
-                                ErrorMessage="El teléfono solo debe contener números, espacios, guiones y el signo +."
+                                ErrorMessage="El teléfono solo puede contener números, espacios, y +/-"
                                 CssClass="text-danger"
                                 Display="Dynamic"
                                 ValidationExpression="^[\d\s-+]+$" />
@@ -105,7 +92,9 @@
 
                         <div class="form-group mt-3">
                             <label for="txtDireccion">Dirección:</label>
-                            <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" />
+                            <div class="col-md-5">
+                                <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" />
+                            </div>
                             <asp:RequiredFieldValidator
                                 ID="rfvDireccion"
                                 runat="server"
