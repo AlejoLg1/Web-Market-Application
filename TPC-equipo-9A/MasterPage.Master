@@ -16,6 +16,9 @@
         body {
             background-color: #e7e7e7;
             font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Asegura que el body ocupe toda la altura */
         }
 
         .image-button {
@@ -62,10 +65,20 @@
             font-size: 1.5rem; /* Tamaño de letra */
             color: white !important;
         }
+
+        footer {
+            background-color: #212529;
+            padding: 10px 0;
+            text-align: center;
+            position: relative; /* Cambiado a relative para evitar superposición */
+            width: 100%;
+            color: #ffffff;
+            margin-top: auto; /* Empuja el footer hacia abajo */
+        }
     </style>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" style="flex: 1;">
         <div>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
@@ -112,7 +125,7 @@
                                 </li>
                                 <li>
                                     <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item" OnClick="btnLogout_Click" CausesValidation="false">
-                                    <img src="/images/logout.png" alt="Cerrar Sesión" style="height: 20px; width: 20px;" /> Cerrar Sesión</asp:LinkButton>
+                                        <img src="/images/logout.png" alt="Cerrar Sesión" style="height: 20px; width: 20px;" /> Cerrar Sesión</asp:LinkButton>
                                 </li>
                             </ul>
                         </div>
@@ -121,10 +134,10 @@
             </nav>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
-            <footer style="background-color: #212529; padding: 10px 0; text-align: center; position: fixed; width: 100%; bottom: 0; color: #ffffff;">
-                <p>© 2024 G9. Todos los derechos reservados.</p>
-            </footer>
         </div>
     </form>
+    <footer>
+        <p>© 2024 G9. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>

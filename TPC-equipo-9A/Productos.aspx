@@ -2,46 +2,46 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-       .table {
-        width: 50%;
-        max-width: 900px;
-        margin: 20px auto !important;
-        border-collapse: collapse;
-        font-size: 18px;
-        background-color: #f9f9f9;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        border-radius: 8px; /* Bordes redondeados */
-        overflow: hidden; /* Para asegurar que los bordes redondeados se vean correctamente */
-    }
-
-        /* Bordes de las celdas */
-        .table th, .table td {
-            padding: 12px 15px;
-            border: 1px solid #dddddd;
+        .table {
+            width: 50%;
+            max-width: 900px;
+            margin: 20px auto !important;
+            border-collapse: collapse;
+            font-size: 18px;
+            background-color: #f9f9f9;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px; /* Bordes redondeados */
+            overflow: hidden; /* Para asegurar que los bordes redondeados se vean correctamente */
         }
 
-        /* Estilo para el encabezado */
-        .table th {
-            background-color: #4CAF50;
-            color: white;
-            font-weight: bold;
-            text-align: center;
-        }
+            /* Bordes de las celdas */
+            .table th, .table td {
+                padding: 12px 15px;
+                border: 1px solid #dddddd;
+            }
 
-        /* Cambiar color de las filas alternas */
-        .table tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+            /* Estilo para el encabezado */
+            .table th {
+                background-color: #4CAF50;
+                color: white;
+                font-weight: bold;
+                text-align: center;
+            }
 
-        /* Efecto hover */
-        .table tr:hover {
-            background-color: #f1f1f1;
-        }
+            /* Cambiar color de las filas alternas */
+            .table tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
 
-        /* Estilo para alinear los números en el centro */
-        .table td {
-            text-align: center;
-        }
+            /* Efecto hover */
+            .table tr:hover {
+                background-color: #f1f1f1;
+            }
+
+            /* Estilo para alinear los números en el centro */
+            .table td {
+                text-align: center;
+            }
 
         /* Estilo para el título */
         h1 {
@@ -49,7 +49,8 @@
             text-align: center;
             font-size: 2em;
             color: #333;
-            text-decoration-color: #4CAF50;
+            text-decoration: underline;
+            text-decoration-color: #4CAF50; /* Subrayado verde */
         }
 
         /* Estilo para el botón Agregar */
@@ -62,9 +63,9 @@
             transition: background-color 0.3s ease;
         }
 
-        .btn-success:hover {
-            background-color: #218838;
-        }
+            .btn-success:hover {
+                background-color: #218838;
+            }
     </style>
 </asp:Content>
 
