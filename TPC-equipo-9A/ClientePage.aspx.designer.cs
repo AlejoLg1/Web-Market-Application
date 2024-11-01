@@ -96,13 +96,13 @@ namespace TPC_equipo_9A
         protected global::System.Web.UI.WebControls.TextBox txtApellido;
 
         /// <summary>
-        /// rfvApellido control.
+        /// revApellido control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvApellido;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revApellido;
 
         /// <summary>
         /// DatosContacto control.
@@ -148,6 +148,15 @@ namespace TPC_equipo_9A
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTelefono;
+
+        /// <summary>
+        /// rfvTelefono control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTelefono;
 
         /// <summary>
         /// revTelefono control.

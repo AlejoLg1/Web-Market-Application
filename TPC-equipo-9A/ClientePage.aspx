@@ -47,13 +47,14 @@
                             <div class="col-md-4">
                                 <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" />
                             </div>
-                            <asp:RequiredFieldValidator
-                                ID="rfvApellido"
+                            <asp:RegularExpressionValidator
+                                ID="revApellido"
                                 runat="server"
                                 ControlToValidate="txtApellido"
-                                ErrorMessage="El apellido es requerido."
+                                ErrorMessage="El apellido solo puede contener letras y espacios."
                                 CssClass="text-danger"
-                                Display="Dynamic" />
+                                Display="Dynamic"
+                                ValidationExpression="^[a-zA-Z\s]*$" />
                         </div>
 
                         <br />
@@ -86,6 +87,13 @@
                             <div class="col-md-5">
                                 <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" />
                             </div>
+                            <asp:RequiredFieldValidator
+                                ID="rfvTelefono"
+                                runat="server"
+                                ControlToValidate="txtTelefono"
+                                ErrorMessage="El teléfono es requerido."
+                                CssClass="text-danger"
+                                Display="Dynamic" />
                             <asp:RegularExpressionValidator
                                 ID="revTelefono"
                                 runat="server"
