@@ -86,12 +86,15 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("UPDATE Proveedor SET Nombre = @Nom, Correo = @Cor, Telefono = @Tel, Direccion = @Dir WHERE IdProveedor = @Id");
+                DB.setQuery("UPDATE Proveedor SET Nombre = @Nom, Apellido = @Ape Correo = @Cor, Telefono = @Tel, Direccion = @Dir, DNI = @D, CUIT = @C WHERE IdProveedor = @Id");
 
                 DB.setParameter("@Nom", proveedor.Nombre);
+                DB.setParameter("@Ape", proveedor.Apellido);
                 DB.setParameter("@Cor", proveedor.Correo);
                 DB.setParameter("@Tel", proveedor.Telefono);
                 DB.setParameter("@Dir", proveedor.Direccion);
+                DB.setParameter("@D", proveedor.DNI);
+                DB.setParameter("@C", proveedor.CUIT);
                 DB.setParameter("@Id", proveedor.IdProveedor);
 
                 DB.excecuteAction();
