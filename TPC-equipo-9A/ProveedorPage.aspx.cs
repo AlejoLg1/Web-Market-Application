@@ -31,6 +31,9 @@ namespace TPC_equipo_9A
             {
                 hfIdProveedor.Value = proveedor.IdProveedor.ToString();
                 txtNombre.Text = proveedor.Nombre;
+                txtApellido.Text = proveedor.Apellido;
+                txtDNI.Text = proveedor.DNI;
+                txtCUIT.Text = proveedor.CUIT;
                 txtCorreo.Text = proveedor.Correo;
                 txtTelefono.Text = proveedor.Telefono;
                 txtDireccion.Text = proveedor.Direccion;
@@ -38,6 +41,17 @@ namespace TPC_equipo_9A
             else
             {
                 Response.Redirect("ErrorPage.aspx");
+            }
+
+            if(proveedor.TipoPersona == "Fisica")
+            {
+                txtCUIT.Visible = false;
+                lblCUIT.Visible = false;
+            }
+            else
+            {
+                txtDNI.Visible = false;
+                lblDNI.Visible = false;
             }
         }
 
