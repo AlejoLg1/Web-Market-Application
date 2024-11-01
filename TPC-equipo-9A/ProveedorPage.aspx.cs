@@ -61,6 +61,9 @@ namespace TPC_equipo_9A
             {
                 IdProveedor = Convert.ToInt32(hfIdProveedor.Value),
                 Nombre = txtNombre.Text,
+                Apellido = txtApellido.Text,
+                DNI = txtDNI.Text,
+                CUIT = txtCUIT.Text,
                 Correo = txtCorreo.Text,
                 Telefono = txtTelefono.Text,
                 Direccion = txtDireccion.Text
