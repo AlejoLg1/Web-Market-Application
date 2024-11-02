@@ -33,23 +33,22 @@ namespace Services
                 DB.CloseConnection();
             }
         }
-        public void IngresarCompra(int IdProveedor, DateTime FechaCompra)
+        public void add(Compra compra)
         {
             try
             {
-                DB.setQuery("INSERT INTO vw_IngresarCompra (IdProveedor, FechaCompra) VALUES (@IdProveedor, @FechaCompra)");
+                DB.clearParameters();
+                DB.setQuery("sp_InsertarCompra @IdProveedor, @FechaCompra");
 
-                DB.setParameter("@IdProveedor", IdProveedor);
-                DB.setParameter("@FechaCompra", FechaCompra);
+                DB.setParameter("@Nombre", compra.IdProveedor);
+                DB.setParameter("@IdMarca", compra.FechaCompra);
 
                 DB.excecuteAction();
             }
-
             catch (Exception ex)
             {
                 throw ex;
             }
-
             finally
             {
                 DB.CloseConnection();
