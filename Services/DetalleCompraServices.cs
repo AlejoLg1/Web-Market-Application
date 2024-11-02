@@ -34,5 +34,32 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public void add(DetalleCompra detalleCompra)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("sp_InsertarDetalleCompra @IdCompra, @IdProducto, @Cantidad, @PrecioUnitario");
+
+                DB.setParameter("@IdCompra", detalleCompra.IdCompra);
+                DB.setParameter("@IdProducto", detalleCompra.IdProducto);
+                DB.setParameter("@Cantidad", detalleCompra.Cantidad);
+                DB.setParameter("@PrecioUnitario", detalleCompra.PrecioUnitario);
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
     }
 }
+
+
+
