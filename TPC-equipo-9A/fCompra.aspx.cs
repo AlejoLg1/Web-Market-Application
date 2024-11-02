@@ -14,6 +14,10 @@ namespace TPC_equipo_9A
     {
         private CompraServices compraServices = new CompraServices();
         private DetalleCompraService detalleCompraService = new DetalleCompraService();
+        private ProveedorServices proveedorServices = new ProveedorServices();
+        private MarcaServices marcaServices = new MarcaServices();
+        private CategoriaServices categoriaServices = new CategoriaServices();
+        private ProductoServices productoServices = new ProductoServices();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -65,17 +69,36 @@ namespace TPC_equipo_9A
 
         protected void btnGenerarCompra_Click(object sender, EventArgs e)
         {
+            cargarDropDownLists();
             ScriptManager.RegisterStartupScript(this, GetType(), "showStaticModal", "$('#staticBackdrop').modal('show');", true);
-        }
-
-        protected void btnGenerarCompra_ServerClick(object sender, EventArgs e)
-        {
-
         }
 
         protected void btnAceptarGenerarCompra_ServerClick(object sender, EventArgs e)
         {
 
+        }
+
+        private void cargarDropDownLists()
+        {
+            ddlProveedor.DataSource = proveedorServices.listar();
+            ddlProveedor.DataTextField = "Nombre";
+            ddlProveedor.DataValueField = "IdProveedor";
+            ddlProveedor.DataBind();
+
+            ddlMarca.DataSource = marcaServices.listar();
+            ddlMarca.DataTextField = "Nombre";
+            ddlMarca.DataValueField = "IdMarca";
+            ddlMarca.DataBind();
+
+            ddlCategoria.DataSource = categoriaServices.listar();
+            ddlCategoria.DataTextField = "Nombre";
+            ddlCategoria.DataValueField = "IdCategoria";
+            ddlCategoria.DataBind();
+
+            ddlProducto.DataSource = productoServices.listar();
+            ddlProducto.DataTextField = "Nombre";
+            ddlProducto.DataValueField = "IdProducto";
+            ddlProducto.DataBind();
         }
     }
 }
