@@ -102,7 +102,16 @@
                             CssClass="text-danger"
                             ValidationExpression="^\d{1,2}\.\d{3}\.\d{3}$"
                             Display="Dynamic" />
+                        <asp:CustomValidator
+                            ID="cvDNI"
+                            runat="server"
+                            ControlToValidate="txtDNI"
+                            ErrorMessage="El DNI ya se encuentra registrado."
+                            CssClass="text-danger"
+                            Display="Dynamic"
+                            OnServerValidate="ValidateDNI" />
                     </div>
+
                     <div class="col-md-3">
                         <label id="lblCUIT" for="txtCUIT" runat="server">CUIT</label>
                         <asp:TextBox ID="txtCUIT" runat="server" CssClass="form-control" Enabled="false" />
@@ -121,6 +130,14 @@
                             CssClass="text-danger"
                             ValidationExpression="^\d{1,2}-\d{8}-\d{1}$"
                             Display="Dynamic" />
+                        <asp:CustomValidator
+                            ID="cvcuit"
+                            runat="server"
+                            ControlToValidate="txtCUIT"
+                            ErrorMessage="El CUIT ya se encuentra registrado."
+                            CssClass="text-danger"
+                            Display="Dynamic"
+                            OnServerValidate="ValidateCUIT" />
                     </div>
                 </div>
 

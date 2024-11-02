@@ -141,6 +141,15 @@ namespace TPC_equipo_9A
         protected global::System.Web.UI.WebControls.RegularExpressionValidator revDNI;
 
         /// <summary>
+        /// cvDNI control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator cvDNI;
+
+        /// <summary>
         /// lblCUIT control.
         /// </summary>
         /// <remarks>
@@ -175,6 +184,15 @@ namespace TPC_equipo_9A
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator revCUIT;
+
+        /// <summary>
+        /// cvcuit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator cvcuit;
 
         /// <summary>
         /// txtCorreo control.
