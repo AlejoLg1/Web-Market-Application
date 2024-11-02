@@ -98,11 +98,6 @@
                     <!-- Columna 2 -->
                     <div class="col-6">
                         <div class="mb-3">
-                            <label for="ddlCategoria" class="form-label">Categoria: </label>
-                            <asp:DropDownList ID="ddlCategoria" CssClass="form-select" runat="server"></asp:DropDownList>
-                        </div>
-
-                        <div class="mb-3">
                             <label for="txtCantidad" class="form-label">Cantidad: </label>
                             <asp:TextBox runat="server" ID="txtCantidad" CssClass="form-control" />
                         </div>

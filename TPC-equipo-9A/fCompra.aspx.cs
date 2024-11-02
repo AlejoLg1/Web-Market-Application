@@ -90,11 +90,6 @@ namespace TPC_equipo_9A
             ddlMarca.DataValueField = "IdMarca";
             ddlMarca.DataBind();
 
-            ddlCategoria.DataSource = categoriaServices.listar();
-            ddlCategoria.DataTextField = "Nombre";
-            ddlCategoria.DataValueField = "IdCategoria";
-            ddlCategoria.DataBind();
-
             ddlProducto.DataSource = productoServices.listar();
             ddlProducto.DataTextField = "Nombre";
             ddlProducto.DataValueField = "IdProducto";
