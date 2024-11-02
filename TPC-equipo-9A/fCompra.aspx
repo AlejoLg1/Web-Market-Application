@@ -103,11 +103,6 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="ddlDebilidad" class="form-label">Debilidad</label>
-                            <asp:DropDownList ID="ddlDebilidad" CssClass="form-select" runat="server"></asp:DropDownList>
-                        </div>
-
-                        <div class="mb-3">
                             <label for="txtCantidad" class="form-label">Cantidad: </label>
                             <asp:TextBox runat="server" ID="txtCantidad" CssClass="form-control" />
                         </div>
