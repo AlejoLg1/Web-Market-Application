@@ -34,30 +34,6 @@
         </asp:GridView>
     </div>
 
-
-    <!--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
-    <ContentTemplate>
-        <div>
-            <label for="txtIdCliente">ID Cliente:</label>
-            <input type="text" id="txtIdCliente" runat="server" class="form-control" />
-
-            <label for="txtFechaVenta">Fecha de Venta:</label>
-            <input type="date" id="txtFechaVenta" runat="server" class="form-control" />
-
-            <label for="txtNumeroFactura">Numero Factura:</label>
-            <input type="text" id="txtNumeroFactura" runat="server" class="form-control" />
-
-            <button type="button" class="btn btn-primary" id="btnAgregarVenta" runat="server" onserverclick="btnAgregarVenta_Click">
-                Agregar Venta
-            </button>
-
-        </div>
-    </ContentTemplate>
-    <Triggers>
-        <asp:AsyncPostBackTrigger ControlID="btnAgregarVenta" EventName="ServerClick" />
-    </Triggers>
-</asp:UpdatePanel>-->
-
     <div class="modal fade" id="modalDetalleVenta" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -84,6 +60,65 @@
                 <!--<asp:Label ID="LblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>-->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <asp:Button ID="btnGenerarVenta" runat="server" Text="Generar Venta" CssClass="btn btn-success" OnClick="btnGenerarVenta_Click" />
+
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Generar Venta</h1>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Columna 1 -->
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="ddlCliente" class="form-label">Cliente: </label>
+                                <asp:DropDownList ID="ddlCliente" CssClass="form-select" runat="server"></asp:DropDownList>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="txtFechaVenta">Fecha de Venta: </label>
+                                <input type="date" id="txtFechaVenta" runat="server" class="form-control" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="txtNumeroFactura" class="form-label">Numero de Factura: </label>
+                                <asp:TextBox runat="server" ID="txtNumeroFactura" CssClass="form-control" />
+                            </div>
+
+                        </div>
+
+                        <!-- Columna 2 -->
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="ddlProducto" class="form-label">Producto: </label>
+                                <asp:DropDownList ID="ddlProducto" CssClass="form-select" runat="server"></asp:DropDownList>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="txtCantidad" class="form-label">Cantidad: </label>
+                                <asp:TextBox runat="server" ID="txtCantidad" CssClass="form-control" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="txtPrecioUnitario" class="form-label">Precio Unitario: </label>
+                                <asp:TextBox runat="server" ID="txtPrecioUnitario" CssClass="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="btnAceptarGenerarVenta" runat="server" onserverclick="btnAceptarGenerarVenta_ServerClick">
+                        Generar Venta
+                    </button>
                 </div>
             </div>
         </div>
