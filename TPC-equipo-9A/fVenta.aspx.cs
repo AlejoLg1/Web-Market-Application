@@ -34,30 +34,7 @@ namespace TPC_equipo_9A
 
         protected void btnAgregarVenta_Click(object sender, EventArgs e)
         {
-            try
-            {
-                int idCliente = int.Parse(txtIdCliente.Value);
-
-                string fechaInput = txtFechaVenta.Value;
-                DateTime fechaVenta;
-
-                string NumeroFactura = txtNumeroFactura.Value;
-
-                if (!DateTime.TryParseExact(fechaInput, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out fechaVenta))
-                {
-                    // Si no se pudo convertir la fecha correctamente, mostrar un mensaje de error
-                    Response.Write("El formato de la fecha es incorrecto. Por favor ingrese una fecha válida.");
-                    return;
-                }
-
-               //ventaServices.IngresarCompra(fechaVenta, NumeroFactura, idCliente);
-
-                Response.Write("Compra agregada con éxito.");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "showStaticModal", "$('#staticBackdrop').modal('show');", true);
         }
 
         protected void btnVerDetalleVenta_Click(object sender, EventArgs e)
@@ -89,6 +66,16 @@ namespace TPC_equipo_9A
             {
                 throw ex;
             }
+        }
+
+        protected void btnGenerarVenta_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, GetType(), "showStaticModal", "$('#staticBackdrop').modal('show');", true);
+        }
+
+        protected void btnAceptarGenerarVenta_ServerClick(object sender, EventArgs e)
+        {
+
         }
     }
 }
