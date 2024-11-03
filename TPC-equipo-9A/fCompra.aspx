@@ -85,11 +85,6 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="ddlMarca" class="form-label">Marca: </label>
-                            <asp:DropDownList ID="ddlMarca" CssClass="form-select" runat="server"></asp:DropDownList>
-                        </div>
-
-                        <div class="mb-3">
                             <label for="ddlProducto" class="form-label">Producto: </label>
                             <asp:DropDownList ID="ddlProducto" CssClass="form-select" runat="server"></asp:DropDownList>
                         </div>
