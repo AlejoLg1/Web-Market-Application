@@ -15,6 +15,8 @@ namespace TPC_equipo_9A
     {
         private VentaServices ventaServices = new VentaServices();
         private DetalleVentaServices detalleVentaServices = new DetalleVentaServices();
+        private ClienteServices clienteServices = new ClienteServices();
+        private ProductoServices productoServices = new ProductoServices();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -30,11 +32,6 @@ namespace TPC_equipo_9A
             {
                 throw ex;
             }
-        }
-
-        protected void btnAgregarVenta_Click(object sender, EventArgs e)
-        {
-            ScriptManager.RegisterStartupScript(this, GetType(), "showStaticModal", "$('#staticBackdrop').modal('show');", true);
         }
 
         protected void btnVerDetalleVenta_Click(object sender, EventArgs e)
@@ -70,6 +67,7 @@ namespace TPC_equipo_9A
 
         protected void btnGenerarVenta_Click(object sender, EventArgs e)
         {
+            cargarDropDownLists();
             ScriptManager.RegisterStartupScript(this, GetType(), "showStaticModal", "$('#staticBackdrop').modal('show');", true);
         }
 
@@ -77,5 +75,20 @@ namespace TPC_equipo_9A
         {
 
         }
+
+        private void cargarDropDownLists()
+        {
+            ddlCliente.DataSource = clienteServices.listar();
+            ddlCliente.DataTextField = "Nombre";
+            ddlCliente.DataValueField = "IdCliente";
+            ddlCliente.DataBind();
+
+            ddlProducto.DataSource = productoServices.listar();
+            ddlProducto.DataTextField = "Nombre";
+            ddlProducto.DataValueField = "IdProducto";
+            ddlProducto.DataBind();
+
+        }
+
     }
 }
