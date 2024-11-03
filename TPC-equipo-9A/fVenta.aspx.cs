@@ -73,7 +73,37 @@ namespace TPC_equipo_9A
 
         protected void btnAceptarGenerarVenta_ServerClick(object sender, EventArgs e)
         {
+            try
+            {
+                int IdProveedor = int.Parse(ddlCliente.SelectedValue);
+                string fechaInput = txtFechaVenta.Value;
+                string NumeroFactura = txtNumeroFactura.Text;
 
+                DateTime fechaVenta;
+                if (!DateTime.TryParseExact(fechaInput, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out fechaVenta))
+                {
+                    Response.Write("El formato de la fecha es incorrecto. Por favor ingrese una fecha válida.");
+                    return;
+                }
+
+                int IdVenta = ventaServices.add(IdProveedor, fechaVenta, NumeroFactura);
+
+                int IdProducto = int.Parse(ddlProducto.SelectedValue);
+                int Cantidad = int.Parse(txtCantidad.Text);
+                decimal PrecioUnitario = decimal.Parse(txtPrecioUnitario.Text);
+
+                detalleVentaServices.add(IdVenta, IdProducto, Cantidad, PrecioUnitario);
+
+                gvVentas.DataSource = ventaServices.list();
+                gvVentas.DataBind();
+
+                ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
+            }
+            catch (Exception ex)
+            {
+                LblError.Text = "Error al agregar la compra: " + ex.Message;
+                LblError.Visible = true;
+            }
         }
 
         private void cargarDropDownLists()
