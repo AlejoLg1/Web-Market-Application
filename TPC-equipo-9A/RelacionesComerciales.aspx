@@ -30,6 +30,10 @@
         .btn {
             min-width: 100px;
         }
+
+        .btn-custom-margin {
+            margin-left: auto; /* Empuja el botón a la derecha */
+        }
     </style>
 </asp:Content>
 
@@ -37,10 +41,15 @@
     <div class="container mt-5">
         <h2>Relaciones Comerciales</h2>
         <div class="row mb-3">
-
             <div class="col-md-2">
                 <label for="txtNombreRelacion">Nombre</label>
                 <asp:TextBox ID="txtNombreRelacion" runat="server" CssClass="form-control w-75" />
+            </div>
+
+
+            <div class="col-md-2">
+                <label for="txtNombreRelacion">DNI / CUIT</label>
+                <asp:TextBox ID="txtDNICUIT" runat="server" CssClass="form-control w-75" />
             </div>
 
             <div class="col-md-2">
@@ -56,10 +65,12 @@
                 <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-secondary" OnClick="btnBuscar_Click" />
             </div>
 
-            <div class="col-md-2 offset-md-4 d-flex align-items-end justify-content-end">
-                <asp:Button ID="btnAgregarRelacion" runat="server" Text="Agregar Relación" CssClass="btn btn-primary" OnClick="btnAgregarRelacion_Click" />
+            <div class="col-md-4 d-flex justify-content-end align-items-end">
+                <asp:Button ID="btnAgregarRelacion" runat="server" Text="Agregar Relación" CssClass="btn btn-primary btn-custom-margin" OnClick="btnAgregarRelacion_Click" />
             </div>
+
         </div>
+
 
 
         <div class="row mt-5">

@@ -1,7 +1,56 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="TPC_equipo_9A.Login" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Color de fondo claro */
+        }
+
+        .card {
+            border: none; /* Sin borde para un aspecto limpio */
+            border-radius: 15px; /* Bordes redondeados */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+
+        .card-header {
+            background-color: #007bff; /* Color del encabezado */
+            color: white; /* Texto blanco */
+            border-top-left-radius: 15px; /* Bordes redondeados en la parte superior */
+            border-top-right-radius: 15px;
+        }
+
+        .form-group label {
+            font-weight: 500; /* Peso de la fuente */
+            margin-bottom: 5px; /* Espacio entre etiqueta y campo */
+        }
+
+        .form-control {
+            border-radius: 10px; /* Bordes redondeados en los campos de texto */
+            border: 1px solid #ced4da; /* Borde gris claro */
+            transition: border-color 0.3s ease; /* Transición suave al enfocar */
+        }
+
+        .form-control:focus {
+            border-color: #007bff; /* Cambia el color del borde al enfocar */
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra al enfocar */
+        }
+
+        .btn {
+            border-radius: 10px; /* Bordes redondeados en los botones */
+            transition: background-color 0.3s ease, transform 0.2s; /* Transiciones para el botón */
+        }
+
+        .btn:hover {
+            background-color: #0056b3; /* Color de fondo al pasar el mouse */
+            transform: translateY(-2px); /* Efecto de elevar el botón */
+        }
+
+        .text-danger {
+            font-weight: 400; /* Peso de la fuente para errores */
+        }
+    </style>
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-5">
         <div class="row justify-content-center">

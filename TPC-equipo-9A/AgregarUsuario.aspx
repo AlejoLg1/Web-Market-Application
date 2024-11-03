@@ -6,7 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-center">
                         <h3>Agregar Usuario</h3>
@@ -14,7 +14,9 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="txtNombreUsuario">Nombre de Usuario:</label>
-                            <asp:TextBox ID="txtNombreUsuario" runat="server" CssClass="form-control" />
+                            <div class="col-md-4">
+                                <asp:TextBox ID="txtNombreUsuario" runat="server" CssClass="form-control" />
+                            </div>
                             <asp:RequiredFieldValidator
                                 ID="rfvNombreUsuario"
                                 runat="server"
@@ -34,7 +36,9 @@
                         <div class="form-group mt-3">
                             <label for="txtContrasena">Contraseña:</label>
                             <div class="input-group">
-                                <asp:TextBox ID="txtContrasena" runat="server" CssClass="form-control" TextMode="Password" />
+                                <div class="col-md-4">
+                                    <asp:TextBox ID="txtContrasena" runat="server" CssClass="form-control" TextMode="Password" />
+                                </div>
                                 <span class="input-group-text" onclick="togglePasswordVisibility('<%= txtContrasena.ClientID %>', 'toggleEye')">
                                     <i class="bi bi-eye" id="toggleEye"></i>
                                 </span>
@@ -50,7 +54,9 @@
                         <div class="form-group mt-3">
                             <label for="txtConfirmarContrasena">Confirmar Contraseña:</label>
                             <div class="input-group">
-                                <asp:TextBox ID="txtConfirmarContrasena" runat="server" CssClass="form-control" TextMode="Password" />
+                                <div class="col-md-4">
+                                    <asp:TextBox ID="txtConfirmarContrasena" runat="server" CssClass="form-control" TextMode="Password" />
+                                </div>
                                 <span class="input-group-text" onclick="togglePasswordVisibility('<%= txtConfirmarContrasena.ClientID %>', 'toggleEyeConfirm')">
                                     <i class="bi bi-eye" id="toggleEyeConfirm"></i>
                                 </span>
@@ -73,10 +79,12 @@
                         </div>
                         <div class="form-group mt-3">
                             <label for="ddlRol">Rol:</label>
-                            <asp:DropDownList ID="ddlRol" runat="server" CssClass="form-control" Required="true">
-                                <asp:ListItem Text="Administrador" Value="Administrador"></asp:ListItem>
-                                <asp:ListItem Text="Vendedor" Value="Vendedor"></asp:ListItem>
-                            </asp:DropDownList>
+                            <div class="col-md-4">
+                                <asp:DropDownList ID="ddlRol" runat="server" CssClass="form-control" Required="true">
+                                    <asp:ListItem Text="Administrador" Value="Administrador"></asp:ListItem>
+                                    <asp:ListItem Text="Vendedor" Value="Vendedor"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
                         </div>
                         <div class="d-flex justify-content-between mt-4">
                             <asp:Button ID="btnAgregarUsuario" runat="server" CssClass="btn btn-success" Text="Agregar Usuario" OnClick="btnAgregarUsuario_Click" CausesValidation="true" />

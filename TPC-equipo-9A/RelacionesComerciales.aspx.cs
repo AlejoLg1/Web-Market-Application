@@ -94,6 +94,7 @@ namespace TPC_equipo_9A
             try
             {
                 string nombre = txtNombreRelacion.Text;
+                string dni_cuit = txtDNICUIT.Text;
                 string tipoRelacion = ddlTipoRelacion.SelectedValue.ToString();
 
                 string filters = "";
@@ -101,6 +102,11 @@ namespace TPC_equipo_9A
                 if (nombre != "")
                 {
                     filters += $"Nombre LIKE '%{nombre}%'";
+                }
+
+                if (dni_cuit != "")
+                {
+                    filters += $"(DNI LIKE '%{dni_cuit}%' OR CUIT LIKE '%{dni_cuit}%')";
                 }
 
                 BindGrid(filters);

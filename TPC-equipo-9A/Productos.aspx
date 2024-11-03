@@ -2,21 +2,22 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        /* Estilo para la tabla */
         .table {
             width: 50%;
-            max-width: 900px; /* Limitar el tamaño máximo a 900px */
-            margin: 20px auto !important; /* Centrando la tabla horizontalmente */
-            border-collapse: collapse; /* Asegúrate de que los bordes se colapsen */
+            max-width: 900px;
+            margin: 20px auto !important;
+            border-collapse: collapse;
             font-size: 18px;
             background-color: #f9f9f9;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px; /* Bordes redondeados */
+            overflow: hidden; /* Para asegurar que los bordes redondeados se vean correctamente */
         }
 
             /* Bordes de las celdas */
             .table th, .table td {
                 padding: 12px 15px;
-                border: 1px solid #dddddd; 
+                border: 1px solid #dddddd;
             }
 
             /* Estilo para el encabezado */
@@ -24,6 +25,7 @@
                 background-color: #4CAF50;
                 color: white;
                 font-weight: bold;
+                text-align: center;
             }
 
             /* Cambiar color de las filas alternas */
@@ -41,12 +43,32 @@
                 text-align: center;
             }
 
-            /* Centrar texto del encabezado */
-            .table th {
-                text-align: center;
+        /* Estilo para el título */
+        h1 {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+            text-decoration: underline;
+            text-decoration-color: #4CAF50; /* Subrayado verde */
+        }
+
+        /* Estilo para el botón Agregar */
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-success:hover {
+                background-color: #218838;
             }
     </style>
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <hr />
     <h1>Listado de productos</h1>
@@ -68,7 +90,13 @@
             <asp:BoundField DataField="Marca.Nombre" HeaderText="Marca" />
             <asp:BoundField DataField="PorcentajeGanancia" HeaderText="Porcentaje Ganancia" />
             <asp:BoundField DataField="FechaVencimiento" HeaderText="Fecha de vencimiento" Visible="false" />
-            <asp:CommandField ShowSelectButton="true" SelectText="Ver detalle" HeaderText="Acción" />
+            <asp:TemplateField HeaderText="Ver detalle">
+                <ItemTemplate>
+                    <asp:LinkButton ID="btnVerDetalle" runat="server" CommandName="Select">
+                        <i class="fa fa-eye"></i> <!-- Ícono de ojo -->
+                    </asp:LinkButton>
+                </ItemTemplate>
+            </asp:TemplateField>
         </Columns>
     </asp:GridView>
     <div style="text-align: center; margin-top: 20px;">

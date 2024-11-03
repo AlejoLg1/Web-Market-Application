@@ -55,6 +55,16 @@ namespace TPC_equipo_9A
                         break;
 
                     case "Eliminar":
+                        if (service.getUser(IdUsuario).Rol == "Administrador")
+                        {
+                            int admins = service.countActiveAdmins();
+                            if (Convert.ToInt32(admins) == 1)
+                            {
+                                string script = "alert('No es posible Eliminar al único administrador de la plataforma.');";
+                                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
+                                return;
+                            }
+                        }
                         service.delete(IdUsuario);
                         Response.Redirect("ControlAcceso.aspx", false);
                         break;

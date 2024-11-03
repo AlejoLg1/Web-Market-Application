@@ -31,6 +31,9 @@ namespace TPC_equipo_9A
             {
                 hfIdProveedor.Value = proveedor.IdProveedor.ToString();
                 txtNombre.Text = proveedor.Nombre;
+                txtApellido.Text = proveedor.Apellido;
+                txtDNI.Text = proveedor.DNI;
+                txtCUIT.Text = proveedor.CUIT;
                 txtCorreo.Text = proveedor.Correo;
                 txtTelefono.Text = proveedor.Telefono;
                 txtDireccion.Text = proveedor.Direccion;
@@ -39,14 +42,32 @@ namespace TPC_equipo_9A
             {
                 Response.Redirect("ErrorPage.aspx");
             }
+
+            if(proveedor.TipoPersona == "Fisica")
+            {
+                txtCUIT.Visible = false;
+                lblCUIT.Visible = false;
+                txtDNI.Enabled = false;
+            }
+            else
+            {
+                txtDNI.Visible = false;
+                lblDNI.Visible = false;
+                txtCUIT.Enabled = false;
+            }
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
+            try
+            {
             Proveedor proveedor = new Proveedor
             {
                 IdProveedor = Convert.ToInt32(hfIdProveedor.Value),
                 Nombre = txtNombre.Text,
+                Apellido = txtApellido.Text,
+                DNI = txtDNI.Text,
+                CUIT = txtCUIT.Text,
                 Correo = txtCorreo.Text,
                 Telefono = txtTelefono.Text,
                 Direccion = txtDireccion.Text
@@ -56,6 +77,13 @@ namespace TPC_equipo_9A
             proveedorService.modify(proveedor);
 
             Response.Redirect("RelacionesComerciales.aspx", false);
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
