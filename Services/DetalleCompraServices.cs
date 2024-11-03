@@ -35,17 +35,17 @@ namespace Services
             }
         }
 
-        public void add(DetalleCompra detalleCompra)
+        public void add(int IdCompra, int IdProducto, int Cantidad, decimal PrecioUnitario)
         {
             try
             {
                 DB.clearParameters();
-                DB.setQuery("sp_InsertarDetalleCompra @IdCompra, @IdProducto, @Cantidad, @PrecioUnitario");
+                DB.setQuery("EXEC sp_InsertarDetalleCompra @IdCompra, @IdProducto, @Cantidad, @PrecioUnitario");
 
-                DB.setParameter("@IdCompra", detalleCompra.IdCompra);
-                DB.setParameter("@IdProducto", detalleCompra.IdProducto);
-                DB.setParameter("@Cantidad", detalleCompra.Cantidad);
-                DB.setParameter("@PrecioUnitario", detalleCompra.PrecioUnitario);
+                DB.setParameter("@IdCompra", IdCompra);
+                DB.setParameter("@IdProducto", IdProducto);
+                DB.setParameter("@Cantidad", Cantidad);
+                DB.setParameter("@PrecioUnitario", PrecioUnitario);
 
                 DB.excecuteAction();
             }
