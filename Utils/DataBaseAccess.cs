@@ -18,11 +18,23 @@ namespace Utils
         private SqlCommand command;
         private SqlDataReader reader;
 
+        public SqlDataReader excecuteQueryWithResult()
+        {
+            command.Connection = connection;
+            try
+            {
+                connection.Open();
+                return command.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public SqlDataReader Reader
         {
             get { return reader; }
         }
-
         public DataBaseAccess()
         {
         
