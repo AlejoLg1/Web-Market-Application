@@ -50,7 +50,7 @@ namespace TPC_equipo_9A
                     return;
                 }
 
-               ventaServices.IngresarCompra(fechaVenta, NumeroFactura, idCliente);
+               //ventaServices.IngresarCompra(fechaVenta, NumeroFactura, idCliente);
 
                 Response.Write("Compra agregada con éxito.");
             }

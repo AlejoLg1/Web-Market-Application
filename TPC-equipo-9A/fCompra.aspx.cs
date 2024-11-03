@@ -75,7 +75,36 @@ namespace TPC_equipo_9A
 
         protected void btnAceptarGenerarCompra_ServerClick(object sender, EventArgs e)
         {
+            try
+            {
+                int IdProveedor = int.Parse(ddlProveedor.SelectedValue);
+                string fechaInput = txtFechaCompra.Value;
 
+                DateTime fechaCompra;
+                if (!DateTime.TryParseExact(fechaInput, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out fechaCompra))
+                {
+                    Response.Write("El formato de la fecha es incorrecto. Por favor ingrese una fecha válida.");
+                    return;
+                }
+
+                int IdCompra = compraServices.add(IdProveedor, fechaCompra);
+
+                int IdProducto = int.Parse(ddlProducto.SelectedValue);
+                int Cantidad = int.Parse(txtCantidad.Text);
+                decimal PrecioUnitario = decimal.Parse(txtPrecioUnitario.Text);
+
+                detalleCompraService.add(IdCompra, IdProducto, Cantidad, PrecioUnitario);
+
+                gvCompras.DataSource = compraServices.list();
+                gvCompras.DataBind();
+
+                ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
+            }
+            catch (Exception ex)
+            {
+                LblError.Text = "Error al agregar la compra: " + ex.Message;
+                LblError.Visible = true;
+            }
         }
 
         private void cargarDropDownLists()
@@ -84,11 +113,6 @@ namespace TPC_equipo_9A
             ddlProveedor.DataTextField = "Nombre";
             ddlProveedor.DataValueField = "IdProveedor";
             ddlProveedor.DataBind();
-
-            ddlMarca.DataSource = marcaServices.listar();
-            ddlMarca.DataTextField = "Nombre";
-            ddlMarca.DataValueField = "IdMarca";
-            ddlMarca.DataBind();
 
             ddlProducto.DataSource = productoServices.listar();
             ddlProducto.DataTextField = "Nombre";
