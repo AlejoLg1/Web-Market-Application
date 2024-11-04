@@ -53,11 +53,13 @@
             </div>
 
             <!-- Botón para habilitar la edición -->
-            <div class="mb-3 text-center">
-                <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-primary" OnClick="btnVolver_Click" CausesValidation="false" />
-                <asp:Button ID="btnModificar" CssClass="btn btn-warning" Text="Modificar Marca" OnClick="btnModificar_Click" runat="server" />
-                <asp:Button ID="btnGuardar" CssClass="btn btn-success" Text="Guardar Cambios" OnClick="btnGuardar_Click" runat="server" Visible="false" />
-                <asp:Button ID="btnEliminar" CssClass="btn btn-danger" Text="Eliminar Marca" OnClick="btnEliminar_Click" runat="server" />
+            <div class="row mt-5">
+                <div class="col text-center">
+                    <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-primary me-3 mb-2" OnClick="btnVolver_Click" CausesValidation="false" />
+                    <asp:Button ID="btnModificar" CssClass="btn btn-warning me-3 mb-2" Text="Modificar Marca" OnClick="btnModificar_Click" runat="server" />
+                    <asp:Button ID="btnGuardar" CssClass="btn btn-success me-3 mb-2" Text="Guardar Cambios" OnClick="btnGuardar_Click" runat="server" Visible="false" />
+                    <asp:Button ID="btnEliminar" CssClass="btn btn-danger me-3 mb-2" Text="Eliminar Marca" OnClick="btnEliminar_Click" runat="server" />
+                </div>
             </div>
 
             <!-- label error-->
