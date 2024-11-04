@@ -7,6 +7,24 @@
             return confirm(mensaje);
         }
     </script>
+    <style>
+        h1 {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+        }
+
+        .row {
+            font-weight: bold;
+        }
+
+        .btn {
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row justify-content-center mt-5">
@@ -44,7 +62,7 @@
 
             <!-- label error-->
             <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
-            
+
         </div>
 
     </div>
