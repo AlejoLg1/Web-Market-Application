@@ -61,10 +61,6 @@
                 transform: translateY(-2px); /* Efecto de elevar el botón */
             }
 
-                .btn:hover:before {
-                    transform: translateX(100%);
-                }
-
         .text-danger {
             font-weight: 400; /* Peso de la fuente para errores */
         }

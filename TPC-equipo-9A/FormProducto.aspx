@@ -29,6 +29,9 @@
             padding: 10px 20px;
             border-radius: 5px;
         }
+        .btn:hover{
+             transform: translateY(-2px); /* Efecto de elevar el botón */
+        }
     </style>
 </asp:Content>
 
