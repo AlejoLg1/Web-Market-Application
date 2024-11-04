@@ -49,9 +49,7 @@
             font-family: 'Arial', sans-serif;
             text-align: center;
             font-size: 2em;
-            color: #333;
-            text-decoration: underline;
-            text-decoration-color: #4CAF50; /* Subrayado verde */
+            color: #333;          
         }
     </style>
 </asp:Content>

@@ -66,7 +66,7 @@ namespace TPC_equipo_9A
                 }
                 else
                 {
-                    lblTitulo.Text = "Registrar Producto";
+                    lblTitulo.Text = "Registrando Producto";
 
                     btnEliminar.Visible = false;
                     btnModificar.Visible = false;

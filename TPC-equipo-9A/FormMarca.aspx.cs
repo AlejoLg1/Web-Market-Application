@@ -39,7 +39,7 @@ namespace TPC_equipo_9A
                     btnGuardar.Visible = true;
 
                     txtNombreMarca.ReadOnly = false;
-                    lblTitulo.Text = "Registrar marca";
+                    lblTitulo.Text = "Registrando marca";
                 }
             }
             catch (Exception ex)
