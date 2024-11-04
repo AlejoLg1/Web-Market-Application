@@ -168,15 +168,6 @@ namespace TPC_equipo_9A
         protected global::System.Web.UI.WebControls.RegularExpressionValidator revPorcentajeGanancia;
 
         /// <summary>
-        /// Control txtFechaVencimiento.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFechaVencimiento;
-
-        /// <summary>
         /// Control lblOpcional.
         /// </summary>
         /// <remarks>
@@ -184,6 +175,15 @@ namespace TPC_equipo_9A
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblOpcional;
+
+        /// <summary>
+        /// Control txtFechaVencimiento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFechaVencimiento;
 
         /// <summary>
         /// Control btnVolver.
