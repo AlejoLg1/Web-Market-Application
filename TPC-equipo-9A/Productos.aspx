@@ -61,9 +61,13 @@
             transition: background-color 0.3s ease;
         }
 
-            .btn-success:hover {
-                background-color: #218838;
-            }
+        .btn:hover {
+            transform: translateY(-2px); /* Efecto de elevar el botón */
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
     </style>
 </asp:Content>
 

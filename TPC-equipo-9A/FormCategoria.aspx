@@ -24,6 +24,10 @@
             padding: 10px 20px;
             border-radius: 5px;
         }
+
+        .btn:hover{
+            transform: translateY(-2px);
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

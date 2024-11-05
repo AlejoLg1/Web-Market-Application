@@ -49,7 +49,11 @@
             font-family: 'Arial', sans-serif;
             text-align: center;
             font-size: 2em;
-            color: #333;          
+            color: #333;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px); /* Efecto de elevar el botón */
         }
     </style>
 </asp:Content>
