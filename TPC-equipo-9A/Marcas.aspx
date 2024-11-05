@@ -27,6 +27,12 @@
             background-color: #4CAF50;
             color: white;
             font-weight: bold;
+            width: 50%;
+        }
+
+        /* Estilo para el cuerpo de la tabla */
+        .table td {
+            width: 50%;
         }
 
         /* Cambiar color de las filas alternas */
@@ -77,8 +83,8 @@
     </div>
     <asp:GridView ID="dgvMarca" runat="server" OnSelectedIndexChanged="dgvMarca_SelectedIndexChanged" DataKeyNames="IdMarca" CssClass="table" AutoGenerateColumns="false" AllowPaging="True" PageSize="5" OnPageIndexChanging="dgvMarca_PageIndexChanging">
         <Columns>
-            <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-            <asp:TemplateField HeaderText="Ver detalle" ItemStyle-HorizontalAlign="Center">
+            <asp:BoundField DataField="Nombre" HeaderText="Nombre" ItemStyle-Width="50%" />
+            <asp:TemplateField HeaderText="Ver detalle" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50%">
                 <ItemTemplate>
                     <asp:LinkButton ID="btnVerDetalle" runat="server" CommandName="Select" CommandArgument='<%# Eval("IdMarca") %>'>
                         <i class="fa fa-eye"></i> <!-- Ícono de ojo -->
