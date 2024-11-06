@@ -13,5 +13,6 @@ namespace Models
         public int IdProveedor { get; set; }
 
         public DateTime FechaCompra { get; set; }
+        public bool Estado {  get; set; }
     }
 }
