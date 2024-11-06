@@ -18,7 +18,7 @@ namespace Services
             DataTable table = new DataTable();
             try
             {
-                DB.setQuery("SELECT Compra.IdCompra, Compra.IdProveedor, Proveedor.Nombre AS NombreProveedor, Compra.FechaCompra FROM Compra JOIN Proveedor ON Compra.IdProveedor = Proveedor.IdProveedor");
+                DB.setQuery("SELECT Compra.IdCompra, Compra.IdProveedor, Proveedor.Nombre AS NombreProveedor, Compra.FechaCompra, Compra.Estado FROM Compra JOIN Proveedor ON Compra.IdProveedor = Proveedor.IdProveedor");
                 DB.excecuteQuery();
 
                 table.Load(DB.Reader);
@@ -58,5 +58,45 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        /*public void delete(int IdCompra)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("EXEC sp_AnularCompra @IdCompra");
+                DB.setParameter("@IdCompra", IdCompra);
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }*/
+
+        public void ActualizarEstadoCompra(int IdCompra, int nuevoEstado)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("UPDATE Compra SET Estado = @Estado WHERE IdCompra = @IdCompra");
+                DB.setParameter("@Estado", nuevoEstado);
+                DB.setParameter("@IdCompra", IdCompra);
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
     }
 }
