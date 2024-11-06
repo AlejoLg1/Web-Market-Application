@@ -15,6 +15,8 @@ namespace TPC_equipo_9A
     {
         private VentaServices ventaServices = new VentaServices();
         private DetalleVentaServices detalleVentaServices = new DetalleVentaServices();
+        private ClienteServices clienteServices = new ClienteServices();
+        private ProductoServices productoServices = new ProductoServices();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -25,34 +27,6 @@ namespace TPC_equipo_9A
                     gvVentas.DataSource = ventaServices.list();
                     gvVentas.DataBind();
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        protected void btnAgregarVenta_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int idCliente = int.Parse(txtIdCliente.Value);
-
-                string fechaInput = txtFechaVenta.Value;
-                DateTime fechaVenta;
-
-                string NumeroFactura = txtNumeroFactura.Value;
-
-                if (!DateTime.TryParseExact(fechaInput, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out fechaVenta))
-                {
-                    // Si no se pudo convertir la fecha correctamente, mostrar un mensaje de error
-                    Response.Write("El formato de la fecha es incorrecto. Por favor ingrese una fecha válida.");
-                    return;
-                }
-
-               //ventaServices.IngresarCompra(fechaVenta, NumeroFactura, idCliente);
-
-                Response.Write("Compra agregada con éxito.");
             }
             catch (Exception ex)
             {
@@ -90,5 +64,61 @@ namespace TPC_equipo_9A
                 throw ex;
             }
         }
+
+        protected void btnGenerarVenta_Click(object sender, EventArgs e)
+        {
+            cargarDropDownLists();
+            ScriptManager.RegisterStartupScript(this, GetType(), "showStaticModal", "$('#staticBackdrop').modal('show');", true);
+        }
+
+        protected void btnAceptarGenerarVenta_ServerClick(object sender, EventArgs e)
+        {
+            try
+            {
+                int IdProveedor = int.Parse(ddlCliente.SelectedValue);
+                string fechaInput = txtFechaVenta.Value;
+                string NumeroFactura = txtNumeroFactura.Text;
+
+                DateTime fechaVenta;
+                if (!DateTime.TryParseExact(fechaInput, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out fechaVenta))
+                {
+                    Response.Write("El formato de la fecha es incorrecto. Por favor ingrese una fecha válida.");
+                    return;
+                }
+
+                int IdVenta = ventaServices.add(IdProveedor, fechaVenta, NumeroFactura);
+
+                int IdProducto = int.Parse(ddlProducto.SelectedValue);
+                int Cantidad = int.Parse(txtCantidad.Text);
+                decimal PrecioUnitario = decimal.Parse(txtPrecioUnitario.Text);
+
+                detalleVentaServices.add(IdVenta, IdProducto, Cantidad, PrecioUnitario);
+
+                gvVentas.DataSource = ventaServices.list();
+                gvVentas.DataBind();
+
+                ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
+            }
+            catch (Exception ex)
+            {
+                LblError.Text = "Error al agregar la compra: " + ex.Message;
+                LblError.Visible = true;
+            }
+        }
+
+        private void cargarDropDownLists()
+        {
+            ddlCliente.DataSource = clienteServices.listar();
+            ddlCliente.DataTextField = "Nombre";
+            ddlCliente.DataValueField = "IdCliente";
+            ddlCliente.DataBind();
+
+            ddlProducto.DataSource = productoServices.listar();
+            ddlProducto.DataTextField = "Nombre";
+            ddlProducto.DataValueField = "IdProducto";
+            ddlProducto.DataBind();
+
+        }
+
     }
 }

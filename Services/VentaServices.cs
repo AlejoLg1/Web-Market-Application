@@ -34,5 +34,32 @@ namespace Services
             }
         }
 
+        public int add(int IdCliente, DateTime FechaVenta, string NumeroFactura)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("EXEC sp_GenerarVenta @IdCliente, @FechaVenta, @NumeroFactura");
+                DB.setParameter("@IdCliente", IdCliente);
+                DB.setParameter("@FechaVenta", FechaVenta);
+                DB.setParameter("@NumeroFactura", NumeroFactura);
+
+                DataTable table = new DataTable();
+                table.Load(DB.excecuteQueryWithResult());
+
+                int NewID = Convert.ToInt32(table.Rows[0]["IdVenta"]);
+
+                return NewID;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
     }
 }

@@ -34,5 +34,30 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public void add(int IdVenta, int IdProducto, int Cantidad, decimal PrecioUnitario)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("EXEC sp_GenerarDetalleVenta @IdCompra, @IdProducto, @Cantidad, @PrecioUnitario");
+
+                DB.setParameter("@IdCompra", IdVenta);
+                DB.setParameter("@IdProducto", IdProducto);
+                DB.setParameter("@Cantidad", Cantidad);
+                DB.setParameter("@PrecioUnitario", PrecioUnitario);
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
     }
 }

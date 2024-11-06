@@ -12,6 +12,26 @@
             color: green;
             font-weight: bold;
         }
+
+        h1 {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+        }
+
+        .row {
+            font-weight: bold;
+        }
+
+        .btn {
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .btn:hover{
+             transform: translateY(-2px); /* Efecto de elevar el botón */
+        }
     </style>
 </asp:Content>
 
@@ -90,8 +110,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="txtFechaVencimiento" class="form-label">Fecha de Vencimiento</label>
-                        <asp:TextBox ID="txtFechaVencimiento" CssClass="form-control" runat="server" ReadOnly="true" Type="date"></asp:TextBox>
                         <asp:Label ID="lblOpcional" runat="server" Text="(Opcional)" CssClass="text-green-bold"></asp:Label>
+                        <asp:TextBox ID="txtFechaVencimiento" CssClass="form-control" runat="server" ReadOnly="true" Type="date"></asp:TextBox>
                     </div>
                 </div>
             </div>
@@ -100,7 +120,7 @@
             <div class="row mt-5">
                 <div class="col text-center">
                     <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-primary me-3 mb-2" OnClick="btnVolver_Click" CausesValidation="false" />
-                    <asp:Button ID="btnModificar" CssClass="btn btn-warning me-3 mb-2" Text="Modificar Producto" OnClick="btnModificar_Click" runat="server" />
+                    <asp:Button ID="btnModificar" CssClass="btn btn-warning me-3 mb-2" Text="Editar Producto" OnClick="btnModificar_Click" runat="server" />
                     <asp:Button ID="btnGuardar" CssClass="btn btn-success me-3 mb-2" Text="Guardar Cambios" OnClick="btnGuardar_Click" runat="server" Visible="false" />
                     <asp:Button ID="btnEliminar" CssClass="btn btn-danger me-3 mb-2" Text="Eliminar Producto" OnClientClick="return confirmarEliminacion(txtIdProducto.Text, txtNombre.Text);" OnClick="btnEliminar_Click" runat="server" />
                 </div>

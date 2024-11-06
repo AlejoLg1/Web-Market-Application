@@ -37,6 +37,7 @@ namespace TPC_equipo_9A
                     btnGuardar.Visible = true;
 
                     txtNombreCategoria.ReadOnly = false;
+                    lblTitulo.Text = "Registrando categoría";
                 }
             }
             catch (Exception ex)
