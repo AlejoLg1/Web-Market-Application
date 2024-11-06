@@ -119,5 +119,29 @@ namespace TPC_equipo_9A
             ddlProducto.DataValueField = "IdProducto";
             ddlProducto.DataBind();
         }
+
+        protected void chkVerificacion_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                CheckBox chk = (CheckBox)sender;
+                GridViewRow row = (GridViewRow)chk.NamingContainer;
+                int idCompra = Convert.ToInt32(gvCompras.DataKeys[row.RowIndex].Value);
+
+                bool nuevoEstado = chk.Checked;
+
+                compraServices.ActualizarEstadoCompra(idCompra, nuevoEstado ? 1 : 0);
+
+                gvCompras.DataSource = compraServices.list();
+                gvCompras.DataBind();
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores
+                LblError.Text = "Error al actualizar el estado de la compra: " + ex.Message;
+                LblError.Visible = true;
+            }
+        }
+
     }
 }
