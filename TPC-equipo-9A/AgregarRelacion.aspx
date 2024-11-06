@@ -29,7 +29,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container form-container mt-5">
-        <h2 class="form-header">Agregando Relación</h2>
+        <h2 class="form-header">Agregar Relación</h2>
 
         <div class="row mb-3">
             <div class="col-md-6">
@@ -211,18 +211,10 @@
 
                 </div>
             </div>
-<%--            <div class="row mt-3">
-                <div class="col-md-2">
-                    <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-secondary" OnClick="btnVolver_Click" CausesValidation="false" />
-                </div>
-                <div class="col-md-2">
-                    <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="btn btn-success" OnClick="btnAgregar_Click" />
-            </div>
-        </div>--%>
 
         <div class="btn-container">
             <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-secondary" OnClick="btnVolver_Click" CausesValidation="false" />
-            <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="btn btn-success" OnClick="btnAgregar_Click" />
+            <asp:Button ID="btnAgregar" runat="server" Text="Guardar Cambios" CssClass="btn btn-success" OnClick="btnAgregar_Click" />
         </div>
     </div>
 </asp:Content>

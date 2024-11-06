@@ -87,8 +87,8 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-between mt-4">
-                            <asp:Button ID="btnAgregarUsuario" runat="server" CssClass="btn btn-success" Text="Agregar Usuario" OnClick="btnAgregarUsuario_Click" CausesValidation="true" />
-                            <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-secondary" Text="Cancelar" OnClick="btnCancelar_Click" CausesValidation="false" />
+                            <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-secondary" Text="Volver" OnClick="btnCancelar_Click" CausesValidation="false" />
+                            <asp:Button ID="btnAgregarUsuario" runat="server" CssClass="btn btn-success" Text="Guardar Cambios" OnClick="btnAgregarUsuario_Click" CausesValidation="true" />
                         </div>
                     </div>
                 </div>
