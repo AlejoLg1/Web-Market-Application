@@ -14,8 +14,11 @@
     <link href="Styles/styles.css" rel="stylesheet" />
     <style>
         body {
-            background-color: #e7e7e7;
+            background-color: #A7D8FF !important; /* Celeste pastel con !important */
             font-family: 'Roboto', sans-serif;
+            background-size: cover;
+            background-position: center;
+            color: #333;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -30,32 +33,59 @@
             font-family: 'Roboto', sans-serif;
         }
 
+        .navbar {
+            background-color: #f5f5f5; /* Fondo gris claro */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+        }
+
         .navbar-nav .nav-link {
+            color: white !important; /* Color blanco para los enlaces */
             font-weight: 500;
             font-size: 1rem;
-            background-color: #495057;
-            color: white !important;
+            background-color: #495057; /* Fondo oscuro */
             border-radius: 15px;
             padding: 8px 16px;
             margin: 0 5px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s ease;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+            transition: background-color 0.3s ease; /* Transición suave */
         }
 
-            .navbar-nav .nav-link:hover {
-                background-color: #6c757d;
-                color: white !important;
-                box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+            .navbar-nav .nav-link:hover,
+            .dropdown-menu .dropdown-item:hover,
+            #dropdownMenuButton:hover {
+                background-color: #a7c4ff; /* Color al pasar el ratón */
+                color: white !important; /* Texto blanco */
             }
+
+        .navbar-nav .nav-item.dropdown .dropdown-menu {
+            padding: 5px 10px;
+            background-color: #f5f5f5;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+        }
 
         .dropdown-menu .dropdown-item {
             border-radius: 10px;
-            margin: 3px;
+            margin-right: 3px;
+            transition: background-color 0.3s ease; /* Transición suave */
+            padding: 5px 10px; /* Espaciado interno */
         }
 
-        .dropdown-menu:hover {
-            background-color: royalblue;
-            box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+            .dropdown-menu .dropdown-item:hover {
+                background-color: #a7c4ff; /* Color al pasar el ratón */
+                margin-right: 3px;
+                color: white; /* Texto blanco */
+                padding: 5px 10px; /* Mantener el mismo padding en hover */
+            }
+
+        #dropdownMenuButton {
+            background-color: #495057; /* Fondo oscuro */
+            color: white !important; /* Texto blanco */
+            font-weight: 500;
+            font-size: 1rem;
+            border-radius: 15px;
+            padding: 8px 16px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transición suave para fondo y sombra */
         }
 
         .navbar-brand {
@@ -124,7 +154,8 @@
                                 </li>
                                 <li>
                                     <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item" OnClick="btnLogout_Click" CausesValidation="false">
-                                        <img src="/images/logout.png" alt="Cerrar Sesión" style="height: 20px; width: 20px;" /> Cerrar Sesión</asp:LinkButton>
+                <img src="/images/logout.png" alt="Cerrar Sesión" style="height: 20px; width: 20px;" /> Cerrar Sesión
+                                    </asp:LinkButton>
                                 </li>
                             </ul>
                         </div>
