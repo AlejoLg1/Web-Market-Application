@@ -59,7 +59,7 @@
                         <asp:BoundField DataField="Rol" HeaderText="Rol" />
                         <asp:TemplateField HeaderText="Estado">
                             <ItemTemplate>
-                                <span class='<%# Convert.ToBoolean(Eval("Estado")) ? "estado-activo" : "estado-inactivo" %>'>
+                                <span class='<%# Convert.ToBoolean(Eval("Estado")) ? "estado-activo" : "estado-inactivo" %>' style="width: 50px; display: inline-block;">
                                     <%# Convert.ToBoolean(Eval("Estado")) ? "Activo" : "Inactivo" %>
                                 </span>
                             </ItemTemplate>
@@ -73,10 +73,10 @@
                                 <span class="btn-separator"></span>
 
                                 <asp:Button ID="btnActivar" runat="server" Text="Activar" CommandName="Activar" CommandArgument='<%# Container.DataItemIndex %>'
-                                    CssClass="btn btn-success btn-sm" Visible='<%# !Convert.ToBoolean(Eval("Estado")) %>' />
+                                    CssClass="btn btn-secondary btn-sm" Style="background-color: #198754; border-color: #198754; width: 105px;" Visible='<%# !Convert.ToBoolean(Eval("Estado")) %>' />
 
                                 <asp:Button ID="btnDesactivar" runat="server" Text="Desactivar" CommandName="Desactivar" CommandArgument='<%# Container.DataItemIndex %>'
-                                    CssClass="btn btn-secondary btn-sm" Visible='<%# Convert.ToBoolean(Eval("Estado")) %>' />
+                                    CssClass="btn btn-secondary btn-sm" Style="width: 105px;" Visible='<%# Convert.ToBoolean(Eval("Estado")) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
