@@ -16,5 +16,6 @@ namespace Models
         public DateTime FechaVenta { get; set; }
 
         public string NumeroFactura { get; set; }
+        public bool Estado { get; set; }
     }
 }
