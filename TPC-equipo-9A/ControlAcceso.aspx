@@ -35,11 +35,11 @@
                         </asp:DropDownList>
                     </div>
 
-                    <div class="col-md-3 d-flex align-items-end">
+                    <div class="col-md-2 d-flex align-items-end">
                         <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-secondary" OnClick="btnBuscar_Click"/>
                     </div>
 
-                    <div class="col-md-3 d-flex justify-content-end align-items-center">
+                    <div class="col-md-4 d-flex justify-content-end align-items-end">
                         <asp:Button ID="btnAgregarUsuario" runat="server" Text="Agregar Usuario" CssClass="btn btn-primary" OnClick="btnAgregarUsuario_Click"/>
                     </div>
                 </div>
