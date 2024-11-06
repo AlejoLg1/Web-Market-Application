@@ -12,6 +12,17 @@
         }
     </style>
 
+    <script type="text/javascript">
+        function toggleSwitchLabel(checkbox) {
+            var label = checkbox.nextElementSibling;
+            if (checkbox.checked) {
+                label.textContent = "Confirmada";
+            } else {
+                label.textContent = "Anulada";
+            }
+        }
+    </script>
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -22,6 +33,14 @@
                 <asp:BoundField DataField="IdCompra" HeaderText="ID Compra" />
                 <asp:BoundField DataField="NombreProveedor" HeaderText="Proveedor" />
                 <asp:BoundField DataField="FechaCompra" HeaderText="Fecha de Compra" DataFormatString="{0:dd/MM/yyyy}" />
+                <asp:TemplateField HeaderText="Verificacion" ItemStyle-HorizontalAlign="Right">
+                    <ItemTemplate>
+                        <div Cssclass="form-check form-switch">
+                            <input Cssclass="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onclick="toggleSwitchLabel(this)">
+                            <label Cssclass="form-check-input" for="flexSwitchCheckDefault">Anulada</label>
+                        </div>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Ver Detalle" ItemStyle-HorizontalAlign="Right">
                     <ItemTemplate>
                         <asp:Button ID="btnVerDetalle" runat="server" Text="Ver Detalle" CommandName="VerDetalle" CommandArgument='<%# Eval("IdCompra") %>' OnClick="btnVerDetalle_Click" CssClass="btn btn-link" />
@@ -63,56 +82,56 @@
 
     <asp:Button ID="btnGenerarCompra" runat="server" Text="Generar Compra" CssClass="btn btn-success" OnClick="btnGenerarCompra_Click" />
 
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Generar Compra</h1>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <!-- Columna 1 -->
-                    <div class="col-6">
-                        <div class="mb-3">
-                            <label for="ddlProveedor" class="form-label">Proveedor: </label>
-                            <asp:DropDownList ID="ddlProveedor" CssClass="form-select" runat="server"></asp:DropDownList>
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Generar Compra</h1>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Columna 1 -->
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="ddlProveedor" class="form-label">Proveedor: </label>
+                                <asp:DropDownList ID="ddlProveedor" CssClass="form-select" runat="server"></asp:DropDownList>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="txtFechaCompra">Fecha de Compra: </label>
+                                <input type="date" id="txtFechaCompra" runat="server" class="form-control" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="ddlProducto" class="form-label">Producto: </label>
+                                <asp:DropDownList ID="ddlProducto" CssClass="form-select" runat="server"></asp:DropDownList>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="txtFechaCompra">Fecha de Compra: </label>
-                            <input type="date" id="txtFechaCompra" runat="server" class="form-control" />
-                        </div>
+                        <!-- Columna 2 -->
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="txtCantidad" class="form-label">Cantidad: </label>
+                                <asp:TextBox runat="server" ID="txtCantidad" CssClass="form-control" />
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="ddlProducto" class="form-label">Producto: </label>
-                            <asp:DropDownList ID="ddlProducto" CssClass="form-select" runat="server"></asp:DropDownList>
-                        </div>
-                    </div>
-
-                    <!-- Columna 2 -->
-                    <div class="col-6">
-                        <div class="mb-3">
-                            <label for="txtCantidad" class="form-label">Cantidad: </label>
-                            <asp:TextBox runat="server" ID="txtCantidad" CssClass="form-control" />
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="txtPrecioUnitario" class="form-label">Precio Unitario: </label>
-                            <asp:TextBox runat="server" ID="txtPrecioUnitario" CssClass="form-control" />
+                            <div class="mb-3">
+                                <label for="txtPrecioUnitario" class="form-label">Precio Unitario: </label>
+                                <asp:TextBox runat="server" ID="txtPrecioUnitario" CssClass="form-control" />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="btnAceptarGenerarCompra" runat="server" onserverclick="btnAceptarGenerarCompra_ServerClick">
-                    Generar Compra
-                </button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="btnAceptarGenerarCompra" runat="server" onserverclick="btnAceptarGenerarCompra_ServerClick">
+                        Generar Compra
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 </asp:Content>
