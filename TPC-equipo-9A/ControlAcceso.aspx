@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ControlAcceso.aspx.cs" Inherits="TPC_equipo_9A.ControlAcceso" %>
+﻿<%@ Page Title="Control de Acceso" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ControlAcceso.aspx.cs" Inherits="TPC_equipo_9A.ControlAcceso" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -59,7 +59,7 @@
                         <asp:BoundField DataField="Rol" HeaderText="Rol" />
                         <asp:TemplateField HeaderText="Estado">
                             <ItemTemplate>
-                                <span class='<%# Convert.ToBoolean(Eval("Estado")) ? "estado-activo" : "estado-inactivo" %>' style="width: 50px; display: inline-block;">
+                                <span class='<%# Convert.ToBoolean(Eval("Estado")) ? "estado-activo" : "estado-inactivo" %>' style="width: 70px; display: inline-block;">
                                     <%# Convert.ToBoolean(Eval("Estado")) ? "Activo" : "Inactivo" %>
                                 </span>
                             </ItemTemplate>
