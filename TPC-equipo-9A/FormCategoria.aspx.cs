@@ -16,6 +16,12 @@ namespace TPC_equipo_9A
         {
             try
             {
+                // Verificar si el botón de eliminar fue el disparador de la carga de página
+                if (IsPostBack && Request.Form[btnEliminar.UniqueID] != null)
+                {
+                    // No habilitar los campos si se trata de una eliminación
+                    return;
+                }
 
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
                 if (id != "" && !IsPostBack)
@@ -98,11 +104,13 @@ namespace TPC_equipo_9A
         {
             try
             {
+                
                 CategoriaServices services = new CategoriaServices();
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
 
                 // Intentar eliminar la categoría
                 services.delete(id);
+
 
                 // Redirigir solo si no hubo errores
                 Response.Redirect("Categorias.aspx", false);
