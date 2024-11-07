@@ -47,10 +47,16 @@ namespace TPC_equipo_9A
             lblCUIT.Visible = true;
             rfvCUIT.Enabled = false;
 
+            string currentClass = DatosPersonales.Attributes["class"];
             if (tipoRelacion != "" && tipoPersona != "")
             {
                 PersonFields.Attributes.Remove("class");
-                DatosPersonales.Attributes.Remove("class");
+
+                if (!string.IsNullOrEmpty(currentClass))
+                {
+                    currentClass = currentClass.Replace("hidden", "").Trim();
+                    DatosPersonales.Attributes["class"] = currentClass;
+                }
 
                 if (tipoPersona == "Fisica")
                 {
@@ -65,6 +71,14 @@ namespace TPC_equipo_9A
                     rfvCUIT.Enabled = true;
                 }
             }
+            else
+            {
+                if (string.IsNullOrEmpty(currentClass) || !currentClass.Contains("hidden"))
+                {
+                    DatosPersonales.Attributes["class"] += " hidden";
+                }
+            }
+
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)

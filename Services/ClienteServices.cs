@@ -223,5 +223,32 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public bool verifySells(int Id)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("SELECT COUNT(*) FROM Venta WHERE IdCliente = @Id");
+                DB.setParameter("@Id", Id);
+                DB.excecuteQuery();
+
+                if (DB.Reader.Read())
+                {
+                    int count = DB.Reader.GetInt32(0);
+                    return count == 0;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al verificar Ventas. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return false;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Services.Description;
 using System.Web.UI;
@@ -163,11 +164,34 @@ namespace TPC_equipo_9A
 
                     if (service is ProveedorServices proveedorService)
                     {
-                        proveedorService.delete(IdRelacion);
+                        bool withoutProducts = proveedorService.verifyProducts(IdRelacion);
+                        bool withoutBuys = proveedorService.verifyBuys(IdRelacion);
+
+                        if (withoutProducts && withoutBuys)
+                        {
+                            proveedorService.delete(IdRelacion);
+                        }
+                        else
+                        {
+                            string script = "alert('El Proveedor tiene Productos u Operaciones asociadas. De ser necesario, desactívelo.');";
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
+                            return;
+                        }
                     }
                     else if (service is ClienteServices clienteService)
                     {
-                        clienteService.delete(IdRelacion);
+                        bool withoutSells = clienteService.verifySells(IdRelacion);
+
+                        if (withoutSells)
+                        {
+                            clienteService.delete(IdRelacion);
+                        }
+                        else
+                        {
+                            string script = "alert('El Cliente tiene Ventas asociadas. De ser necesario, desactívelo.');";
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
+                            return;
+                        }
                     }
                     Response.Redirect("RelacionesComerciales.aspx", false);
                     break;
