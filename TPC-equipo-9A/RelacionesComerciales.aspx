@@ -1,6 +1,18 @@
 ﻿<%@ Page Title="Relaciones Comerciales" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="RelacionesComerciales.aspx.cs" Inherits="TPC_equipo_9A.RelacionesComerciales" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        table .custom-active {
+            width: 115px;
+            background-color: #198754;
+            border-color: #198754;
+        }
+
+        table .custom-active:hover, .btn-secondary:hover {
+            background-color: #198754;
+            border-color: #198754;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -77,19 +89,42 @@
                         <asp:TemplateField HeaderText="Relación">
                             <ItemTemplate>
                                 <asp:Label ID="lblRelacion" runat="server" Text='<%# Eval("Relacion") %>'
-                                    ForeColor='<%# Eval("Relacion").ToString() == "Proveedor" ? System.Drawing.Color.Green : System.Drawing.Color.Blue %>'
+                                    ForeColor='<%# Eval("Relacion").ToString() == "Proveedor" ? System.Drawing.Color.Orange : System.Drawing.Color.Blue %>'
                                     Font-Bold="True">
                                 </asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField>
+                        <asp:TemplateField HeaderText="Estado">
                             <ItemTemplate>
-                                <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning btn-sm" />
-                                <span class="btn-separator"></span>
-                                <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-danger btn-sm" />
+                                <span class='<%# Convert.ToBoolean(Eval("Estado")) ? "estado-activo" : "estado-inactivo" %>' style="width: 70px; display: inline-block;">
+                                    <%# Convert.ToBoolean(Eval("Estado")) ? "Activo" : "Inactivo" %>
+                                </span>
                             </ItemTemplate>
                         </asp:TemplateField>
+
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <div class="d-flex align-items-center">
+                                    <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning btn-sm" />
+
+                                    <span class="btn-separator mx-2"></span>
+
+                                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-danger btn-sm" />
+
+                                    <span class="btn-separator mx-2"></span>
+
+                                    <asp:Button
+                                        ID="btnEstado"
+                                        runat="server"
+                                        Text='<%# Convert.ToBoolean(Eval("Estado")) ? "Desactivar" : "Activar" %>'
+                                        CommandName="Estado"
+                                        CommandArgument='<%# Container.DataItemIndex %>'
+                                        CssClass='<%# Convert.ToBoolean(Eval("Estado")) ? "btn btn-secondary" : "btn btn-secondary custom-active" %>' />
+                                </div>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
                     </Columns>
                 </asp:GridView>
             </div>

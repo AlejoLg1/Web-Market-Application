@@ -37,6 +37,7 @@ namespace Services
                     proveedor.Direccion = (string)DB.Reader["Direccion"];
                     proveedor.DNI = DB.Reader["DNI"] != DBNull.Value ? DB.Reader["DNI"].ToString() : "";
                     proveedor.CUIT = DB.Reader["CUIT"] != DBNull.Value ? DB.Reader["CUIT"].ToString() : "";
+                    proveedor.Estado = (bool)DB.Reader["Estado"];
 
                     list.Add(proveedor);
                 }
@@ -275,6 +276,30 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public void setEstado(bool estado, int id)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("UPDATE Proveedor SET Estado = @est WHERE IdProveedor = @Id");
+
+                DB.setParameter("@est", estado);
+                DB.setParameter("@id", id);
+
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al modificar Estado Proveedor. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
     }
 }
 

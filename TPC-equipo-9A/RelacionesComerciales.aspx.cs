@@ -63,7 +63,8 @@ namespace TPC_equipo_9A
                     Direccion = proveedor.Direccion,
                     DNI = proveedor.DNI,
                     CUIT = proveedor.CUIT,
-                    Relacion = "Proveedor"
+                    Relacion = "Proveedor",
+                    Estado = proveedor.Estado
                 }));
 
                 relaciones.AddRange(clientes.Select(cliente => new
@@ -76,7 +77,8 @@ namespace TPC_equipo_9A
                     Direccion = cliente.Direccion,
                     DNI = cliente.DNI,
                     CUIT = cliente.CUIT,
-                    Relacion = "Cliente"
+                    Relacion = "Cliente",
+                    Estado = cliente.Estado
                 }));
 
                 gvRelaciones.DataSource = relaciones;
@@ -195,10 +197,37 @@ namespace TPC_equipo_9A
                     }
                     Response.Redirect("RelacionesComerciales.aspx", false);
                     break;
+                case "Estado":
+                    Button btnEstado = (Button)e.CommandSource;
+
+                    if (btnEstado.Text == "Activar")
+                    {
+                        if (service is ProveedorServices proveedorServiceEstado)
+                        {
+                            proveedorServiceEstado.setEstado(true, IdRelacion);
+                        }
+                        else if (service is ClienteServices clienteServiceEstado)
+                        {
+                            clienteServiceEstado.setEstado(true, IdRelacion);
+                        }
+                    }
+                    else if (btnEstado.Text == "Desactivar")
+                    {
+                        if (service is ProveedorServices proveedorServiceEstado)
+                        {
+                            proveedorServiceEstado.setEstado(false, IdRelacion);
+                        }
+                        else if (service is ClienteServices clienteServiceEstado)
+                        {
+                            clienteServiceEstado.setEstado(false, IdRelacion);
+                        }
+                    }
+                    break;
 
                 default:
                     break;
             }
+            BindGrid();
         }
 
     }

@@ -37,7 +37,8 @@ namespace Services
                     cliente.Direccion = (string)DB.Reader["Direccion"];
                     cliente.DNI = DB.Reader["DNI"] != DBNull.Value ? DB.Reader["DNI"].ToString() : "";
                     cliente.CUIT = DB.Reader["CUIT"] != DBNull.Value ? DB.Reader["CUIT"].ToString() : "";
-                    
+                    cliente.Estado = (bool)DB.Reader["Estado"];
+
 
                     list.Add(cliente);
                 }
@@ -244,6 +245,29 @@ namespace Services
             {
                 Console.WriteLine($"FATAL ERROR: Error al verificar Ventas. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
                 return false;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public void setEstado(bool estado, int id)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("UPDATE Cliente SET Estado = @est WHERE IdCliente = @id");
+
+                DB.setParameter("@est", estado);
+                DB.setParameter("@id", id);
+
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al modificar Estado Cliente. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
             }
             finally
             {
