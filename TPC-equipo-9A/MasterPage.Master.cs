@@ -39,7 +39,7 @@ namespace TPC_equipo_9A
 
                         if (!string.IsNullOrEmpty(userRole))
                         {
-                            divUser.Visible = true;
+                            liPerfil.Visible = true;
 
                             if (userRole == "Administrador")
                             {
