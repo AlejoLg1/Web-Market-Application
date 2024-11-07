@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         function confirmarEliminacion(idMarca, nombreMarca) {
-            var mensaje = "¿Estás seguro que deseas eliminar la categoría con ID: " + idMarca + " y Nombre: " + nombreMarca + "?";
+            var mensaje = "¿Estás seguro que deseas eliminar la marca con ID: " + idMarca + " y Nombre: " + nombreMarca + "?";
             return confirm(mensaje);
         }
     </script>
