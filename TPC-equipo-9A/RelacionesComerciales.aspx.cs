@@ -106,6 +106,11 @@ namespace TPC_equipo_9A
 
                 if (dni_cuit != "")
                 {
+                    if (filters != "")
+                    {
+                        filters += " and ";
+                    }
+
                     filters += $"(DNI LIKE '%{dni_cuit}%' OR CUIT LIKE '%{dni_cuit}%')";
                 }
 
