@@ -79,6 +79,7 @@ namespace TPC_equipo_9A
                     //txtStockActual.Text = "";
                     //txtStockMinimo.Text = "";
 
+                    btnVolver.Text = "Cancelar";
 
                     txtNombre.ReadOnly = false;
                     txtPorcentajeGanancia.ReadOnly = false;
@@ -111,6 +112,8 @@ namespace TPC_equipo_9A
         {
             try
             {
+                btnVolver.Text = "Cancelar";
+
                 txtNombre.ReadOnly = false;
                 txtPorcentajeGanancia.ReadOnly = false;
                 txtStockActual.ReadOnly = false;
