@@ -12,12 +12,23 @@
         }
     </style>
 
+        <script type="text/javascript">
+        function toggleSwitchLabel(checkbox) {
+            var label = checkbox.nextElementSibling;
+            if (checkbox.checked) {
+                label.textContent = "Confirmada";
+            } else {
+                label.textContent = "Anulada";
+            }
+        }
+        </script>
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div style="width: 100%; display: flex; justify-content: center;">
-        <asp:GridView ID="gvVentas" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview">
+        <asp:GridView ID="gvVentas" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview"  DataKeyNames="IdVenta">
             <Columns>
                 <asp:BoundField DataField="IdVenta" HeaderText="ID Venta" />
                 <asp:BoundField DataField="Nombre" HeaderText="Nombre Cliente" />
@@ -25,9 +36,19 @@
                 <asp:BoundField DataField="Correo" HeaderText="Correo" />
                 <asp:BoundField DataField="FechaVenta" HeaderText="Fecha de Venta" DataFormatString="{0:dd/MM/yyyy}" />
                 <asp:BoundField DataField="NumeroFactura" HeaderText="Número de Factura" />
+                <asp:TemplateField HeaderText="Verificación">
+                    <ItemTemplate>
+                        <asp:CheckBox ID="chkVerificacion" runat="server"
+                            AutoPostBack="true"
+                            Checked='<%# Convert.ToInt32(Eval("Estado")) == 1 %>'
+                            OnCheckedChanged="chkVerificacion_CheckedChanged" />
+                        <asp:Label ID="lblEstado" runat="server"
+                            Text='<%# Convert.ToInt32(Eval("Estado")) == 1 ? "Confirmada" : "Anulada" %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Ver Detalle" ItemStyle-HorizontalAlign="Right">
                     <ItemTemplate>
-                        <asp:Button ID="btnVerDetalle" runat="server" Text="Ver Detalle" CommandName="VerDetalle" CommandArgument='<%# Eval("IdVenta") %>' OnClick="btnVerDetalleVenta_Click" CssClass="btn btn-link" />
+                        <asp:Button ID="btnVerDetalle" runat="server" Text="Ver Detalle" CommandName="VerDetalle" CommandArgument='<%# Eval("IdVenta") %>' OnClick="btnVerDetalle_Click" CssClass="btn btn-link" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
