@@ -38,6 +38,8 @@ namespace TPC_equipo_9A
                 }
                 else
                 {
+                    btnVolver.Text = "Cancelar";
+
                     btnEliminar.Visible = false;
                     btnModificar.Visible = false;
                     btnGuardar.Visible = true;
@@ -59,6 +61,7 @@ namespace TPC_equipo_9A
         {
             try
             {
+                btnVolver.Text = "Cancelar";
 
                 btnEliminar.Visible = false;
                 btnModificar.Visible = false;
