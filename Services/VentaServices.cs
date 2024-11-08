@@ -18,7 +18,7 @@ namespace Services
             DataTable table = new DataTable();
             try
             {
-                DB.setQuery("Select V.IdVenta, C.Nombre, C.Apellido, C.Correo, V.FechaVenta, V.NumeroFactura from Venta V Join Cliente C on V.IdCliente = C.IdCliente");
+                DB.setQuery("SELECT V.IdVenta, C.Nombre, C.Apellido, C.Correo, V.FechaVenta, V.NumeroFactura, V.Estado FROM Venta V JOIN Cliente C ON V.IdCliente = C.IdCliente");
                 DB.excecuteQuery();
 
                 table.Load(DB.Reader);
@@ -34,15 +34,16 @@ namespace Services
             }
         }
 
-        public int add(int IdCliente, DateTime FechaVenta, string NumeroFactura)
+        public int add(int IdCliente, DateTime FechaVenta, string NumeroFactura, bool Estado)
         {
             try
             {
                 DB.clearParameters();
-                DB.setQuery("EXEC sp_GenerarVenta @IdCliente, @FechaVenta, @NumeroFactura");
+                DB.setQuery("EXEC sp_GenerarVenta @IdCliente, @FechaVenta, @NumeroFactura, @Estado");
                 DB.setParameter("@IdCliente", IdCliente);
                 DB.setParameter("@FechaVenta", FechaVenta);
                 DB.setParameter("@NumeroFactura", NumeroFactura);
+                DB.setParameter("Estado", Estado);
 
                 DataTable table = new DataTable();
                 table.Load(DB.excecuteQueryWithResult());
@@ -50,6 +51,26 @@ namespace Services
                 int NewID = Convert.ToInt32(table.Rows[0]["IdVenta"]);
 
                 return NewID;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public void ActualizarEstadoVenta(int IdVenta, int nuevoEstado)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("UPDATE Venta SET Estado = @Estado WHERE IdVenta = @IdVenta");
+                DB.setParameter("@Estado", nuevoEstado);
+                DB.setParameter("@IdVenta", IdVenta);
+                DB.excecuteAction();
             }
             catch (Exception ex)
             {
