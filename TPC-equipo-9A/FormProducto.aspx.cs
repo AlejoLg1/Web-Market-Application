@@ -82,7 +82,14 @@ namespace TPC_equipo_9A
 
                     txtNombre.ReadOnly = false;
                     txtPorcentajeGanancia.ReadOnly = false;
-                    txtStockActual.ReadOnly = false;
+
+                    txtIdProducto.Visible = false;
+                    lblIdProducto.Visible = false;
+                    txtStockActual.Visible = false;
+                    lblStockActual.Visible = false;
+
+                    
+
                     txtStockMinimo.ReadOnly = false;
                     ddlCategoria.Enabled = true;
                     ddlMarca.Enabled = true;
@@ -141,7 +148,7 @@ namespace TPC_equipo_9A
                 nuevo.Categoria = new Categoria();
                 nuevo.Categoria.IdCategoria = Convert.ToInt32(ddlCategoria.SelectedValue);
                 nuevo.StockMinimo = Convert.ToInt32(txtStockMinimo.Text);
-                nuevo.StockActual = Convert.ToInt32(txtStockActual.Text);
+                nuevo.StockActual = Convert.ToInt32(0);
                 nuevo.PorcentajeGanancia = Convert.ToDecimal(txtPorcentajeGanancia.Text);
                 // Solo asigna FechaVencimiento si el campo no está vacío
                 if (!string.IsNullOrWhiteSpace(txtFechaVencimiento.Text))

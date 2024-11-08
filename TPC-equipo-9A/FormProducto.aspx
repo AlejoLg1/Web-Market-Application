@@ -49,7 +49,7 @@
                 <div class="col-md-6">
                     <!-- Fila para ID Producto -->
                     <div class="mb-3">
-                        <label for="txtIdProducto" class="form-label">ID Producto</label>
+                        <asp:label ID="lblIdProducto" runat="server" for="txtIdProducto" class="form-label">ID Producto</asp:label>
                         <asp:TextBox ID="txtIdProducto" CssClass="form-control" ReadOnly="true" runat="server"></asp:TextBox>
                     </div>
 
@@ -81,7 +81,7 @@
                 <div class="col-md-6">
                     <!-- Fila para Stock Actual -->
                     <div class="mb-3">
-                        <label for="txtStockActual" class="form-label">Stock Actual</label>
+                        <asp:label ID="lblStockActual" runat="server" for="txtStockActual" class="form-label">Stock Actual</asp:label>
                         <asp:TextBox ID="txtStockActual" CssClass="form-control" runat="server" type="number" min="0" step="1" ReadOnly="true"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvStockActual" runat="server" ControlToValidate="txtStockActual" ErrorMessage="El stock actual es obligatorio." CssClass="text-danger" Display="Dynamic" />
                         <asp:RegularExpressionValidator ID="revStockActual" runat="server" ControlToValidate="txtStockActual" ErrorMessage="Solo se permiten números." CssClass="text-danger" ValidationExpression="^\d+$" Display="Dynamic" />
