@@ -2,37 +2,15 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .image-thumbnail {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
+        table .custom-active {
+            width: 115px;
+            background-color: #198754;
+            border-color: #198754;
         }
 
-        .table td, .table th {
-            vertical-align: middle;
-            text-align: center;
-        }
-
-        .btn-separator {
-            margin-left: 25px;
-        }
-
-        .estado-activo {
-            color: green;
-            font-weight: bold;
-        }
-
-        .estado-inactivo {
-            color: red;
-            font-weight: bold;
-        }
-
-        .btn {
-            min-width: 100px;
-        }
-
-        .btn-custom-margin {
-            margin-left: auto; /* Empuja el botón a la derecha */
+        table .custom-active:hover, .btn-secondary:hover {
+            background-color: #198754;
+            border-color: #198754;
         }
     </style>
 </asp:Content>
@@ -40,42 +18,49 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-5">
         <h2>Relaciones Comerciales</h2>
-        <div class="row mb-3">
-            <div class="col-md-2">
-                <label for="txtNombreRelacion">Nombre</label>
-                <asp:TextBox ID="txtNombreRelacion" runat="server" CssClass="form-control w-75" />
+
+        <div class="card">
+            <div class="card-header">
+                Buscar Relación
             </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label for="txtNombreRelacion">Nombre</label>
+                        <asp:TextBox ID="txtNombreRelacion" runat="server" CssClass="form-control w-75" />
+                    </div>
 
+                    <div class="col-md-2">
+                        <label for="txtDNICUIT">DNI / CUIT</label>
+                        <asp:TextBox ID="txtDNICUIT" runat="server" CssClass="form-control w-75" />
+                    </div>
 
-            <div class="col-md-2">
-                <label for="txtNombreRelacion">DNI / CUIT</label>
-                <asp:TextBox ID="txtDNICUIT" runat="server" CssClass="form-control w-75" />
+                    <div class="col-md-2">
+                        <label for="ddlTipoRelacion">Tipo de Relación</label>
+                        <asp:DropDownList ID="ddlTipoRelacion" runat="server" CssClass="form-control w-75">
+                            <asp:ListItem Text="Seleccionar" Value="" Selected="True" />
+                            <asp:ListItem Text="Cliente" Value="Cliente"></asp:ListItem>
+                            <asp:ListItem Text="Proveedor" Value="Proveedor"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+
+                    <div class="col-md-2 d-flex align-items-end">
+                        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-secondary" OnClick="btnBuscar_Click" ToolTip="Buscar relaciones comerciales por los criterios seleccionados" />
+                    </div>
+
+                    <div class="col-md-4 d-flex justify-content-end align-items-end">
+                        <asp:Button ID="btnAgregarRelacion" runat="server" Text="Agregar Relación" CssClass="btn btn-primary btn-custom-margin" OnClick="btnAgregarRelacion_Click" ToolTip="Agregar una nueva relación comercial" />
+                    </div>
+                </div>
             </div>
-
-            <div class="col-md-2">
-                <label for="ddlTipoRelacion">Tipo de Relación</label>
-                <asp:DropDownList ID="ddlTipoRelacion" runat="server" CssClass="form-control w-75">
-                    <asp:ListItem Text="Seleccionar" Value="" Selected="True" />
-                    <asp:ListItem Text="Cliente" Value="Cliente"></asp:ListItem>
-                    <asp:ListItem Text="Proveedor" Value="Proveedor"></asp:ListItem>
-                </asp:DropDownList>
-            </div>
-
-            <div class="col-md-2 d-flex align-items-end">
-                <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-secondary" OnClick="btnBuscar_Click" />
-            </div>
-
-            <div class="col-md-4 d-flex justify-content-end align-items-end">
-                <asp:Button ID="btnAgregarRelacion" runat="server" Text="Agregar Relación" CssClass="btn btn-primary btn-custom-margin" OnClick="btnAgregarRelacion_Click" />
-            </div>
-
         </div>
 
-
-
-        <div class="row mt-5">
-            <div class="col">
-                <asp:GridView ID="gvRelaciones" runat="server" CssClass="table table-striped" DataKeyNames="IdRelacion" AutoGenerateColumns="False" OnRowCommand="gvRelaciones_RowCommand">
+        <div class="card mt-5">
+            <div class="card-header">
+                Lista de Relaciones
+            </div>
+            <div class="card-body">
+                <asp:GridView ID="gvRelaciones" runat="server" CssClass="table table-hover table-bordered" DataKeyNames="IdRelacion" AutoGenerateColumns="False" OnRowCommand="gvRelaciones_RowCommand">
                     <Columns>
                         <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
 
@@ -84,8 +69,6 @@
                                 <asp:Label ID="lblApellido" runat="server" Text='<%# string.IsNullOrWhiteSpace(Convert.ToString(Eval("Apellido"))) ? "-" : Eval("Apellido") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-
-
 
                         <asp:BoundField DataField="Correo" HeaderText="Correo" />
                         <asp:BoundField DataField="Telefono" HeaderText="Teléfono" />
@@ -106,23 +89,44 @@
                         <asp:TemplateField HeaderText="Relación">
                             <ItemTemplate>
                                 <asp:Label ID="lblRelacion" runat="server" Text='<%# Eval("Relacion") %>'
-                                    ForeColor='<%# Eval("Relacion").ToString() == "Proveedor" ? System.Drawing.Color.Green : System.Drawing.Color.Blue %>'
+                                    ForeColor='<%# Eval("Relacion").ToString() == "Proveedor" ? System.Drawing.Color.Orange : System.Drawing.Color.Blue %>'
                                     Font-Bold="True">
                                 </asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField>
+                        <asp:TemplateField HeaderText="Estado">
                             <ItemTemplate>
-                                <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning btn-sm" />
-                                <span class="btn-separator"></span>
-                                <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-danger btn-sm" />
+                                <span class='<%# Convert.ToBoolean(Eval("Estado")) ? "estado-activo" : "estado-inactivo" %>' style="width: 70px; display: inline-block;">
+                                    <%# Convert.ToBoolean(Eval("Estado")) ? "Activo" : "Inactivo" %>
+                                </span>
                             </ItemTemplate>
                         </asp:TemplateField>
+
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <div class="d-flex align-items-center">
+                                    <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning btn-sm" />
+
+                                    <span class="btn-separator mx-2"></span>
+
+                                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-danger btn-sm" />
+
+                                    <span class="btn-separator mx-2"></span>
+
+                                    <asp:Button
+                                        ID="btnEstado"
+                                        runat="server"
+                                        Text='<%# Convert.ToBoolean(Eval("Estado")) ? "Desactivar" : "Activar" %>'
+                                        CommandName="Estado"
+                                        CommandArgument='<%# Container.DataItemIndex %>'
+                                        CssClass='<%# Convert.ToBoolean(Eval("Estado")) ? "btn btn-secondary" : "btn btn-secondary custom-active" %>' />
+                                </div>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
                     </Columns>
-
                 </asp:GridView>
-
             </div>
         </div>
     </div>

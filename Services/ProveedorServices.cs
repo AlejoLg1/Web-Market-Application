@@ -37,6 +37,7 @@ namespace Services
                     proveedor.Direccion = (string)DB.Reader["Direccion"];
                     proveedor.DNI = DB.Reader["DNI"] != DBNull.Value ? DB.Reader["DNI"].ToString() : "";
                     proveedor.CUIT = DB.Reader["CUIT"] != DBNull.Value ? DB.Reader["CUIT"].ToString() : "";
+                    proveedor.Estado = (bool)DB.Reader["Estado"];
 
                     list.Add(proveedor);
                 }
@@ -221,6 +222,84 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public bool verifyProducts(int Id)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("SELECT COUNT(*) FROM ProveedorProducto WHERE IdProveedor = @Id");
+                DB.setParameter("@Id", Id);
+                DB.excecuteQuery();
+
+                if (DB.Reader.Read())
+                {
+                    int count = DB.Reader.GetInt32(0);
+                    return count == 0;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al verificar Productos. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return false;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public bool verifyBuys(int Id)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("SELECT COUNT(*) FROM Compra WHERE IdProveedor = @Id");
+                DB.setParameter("@Id", Id);
+                DB.excecuteQuery();
+
+                if (DB.Reader.Read())
+                {
+                    int count = DB.Reader.GetInt32(0);
+                    return count == 0;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al verificar Compras. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return false;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public void setEstado(bool estado, int id)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("UPDATE Proveedor SET Estado = @est WHERE IdProveedor = @Id");
+
+                DB.setParameter("@est", estado);
+                DB.setParameter("@id", id);
+
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al modificar Estado Proveedor. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
     }
 }
 

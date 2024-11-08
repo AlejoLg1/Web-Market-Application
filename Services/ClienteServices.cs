@@ -37,7 +37,8 @@ namespace Services
                     cliente.Direccion = (string)DB.Reader["Direccion"];
                     cliente.DNI = DB.Reader["DNI"] != DBNull.Value ? DB.Reader["DNI"].ToString() : "";
                     cliente.CUIT = DB.Reader["CUIT"] != DBNull.Value ? DB.Reader["CUIT"].ToString() : "";
-                    
+                    cliente.Estado = (bool)DB.Reader["Estado"];
+
 
                     list.Add(cliente);
                 }
@@ -217,6 +218,56 @@ namespace Services
             {
                 Console.WriteLine($"FATAL ERROR: Error al verificar CUIT. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
                 return false;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public bool verifySells(int Id)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("SELECT COUNT(*) FROM Venta WHERE IdCliente = @Id");
+                DB.setParameter("@Id", Id);
+                DB.excecuteQuery();
+
+                if (DB.Reader.Read())
+                {
+                    int count = DB.Reader.GetInt32(0);
+                    return count == 0;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al verificar Ventas. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return false;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public void setEstado(bool estado, int id)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("UPDATE Cliente SET Estado = @est WHERE IdCliente = @id");
+
+                DB.setParameter("@est", estado);
+                DB.setParameter("@id", id);
+
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al modificar Estado Cliente. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
             }
             finally
             {

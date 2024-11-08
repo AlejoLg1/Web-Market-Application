@@ -16,6 +16,7 @@ namespace Models
         public string Direccion { get; set; }
         public string TipoPersona { get; set; }  
         public string DNI { get; set; }            
-        public string CUIT { get; set; }          
+        public string CUIT { get; set; }
+        public bool Estado { get; set; }
     }
 }

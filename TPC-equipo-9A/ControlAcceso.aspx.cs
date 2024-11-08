@@ -125,7 +125,7 @@ namespace TPC_equipo_9A
 
                 if (nombreUsuario != "")
                 {
-                    filters += $"NombreUsuario = '{nombreUsuario}'";
+                    filters += $"NombreUsuario LIKE '%{nombreUsuario}%'";
                 }
 
                 if (rolSeleccionado != "")

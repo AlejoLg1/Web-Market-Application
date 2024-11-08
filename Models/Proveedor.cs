@@ -17,6 +17,7 @@ namespace Models
         public string TipoPersona { get; set; }
         public string DNI { get; set; }
         public string CUIT { get; set; }
+        public bool Estado { get; set; }
     }
 
 }

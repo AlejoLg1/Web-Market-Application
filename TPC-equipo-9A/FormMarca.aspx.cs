@@ -16,6 +16,10 @@ namespace TPC_equipo_9A
         {
             try
             {
+                if (IsPostBack && Request.Form[btnEliminar.UniqueID] != null) 
+                {
+                    return;
+                }
 
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
                 if (id != "" && !IsPostBack)
