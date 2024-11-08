@@ -41,7 +41,7 @@ namespace TPC_equipo_9A
             try
             {
                 Button btn = (Button)sender;
-                int idCompra = int.Parse(btn.CommandArgument); // ID de la compra
+                int idCompra = int.Parse(btn.CommandArgument);
 
                 DataTable detalles = detalleCompraService.list(idCompra);
 
@@ -49,21 +49,24 @@ namespace TPC_equipo_9A
                 {
                     LblError.Text = "No se encontraron detalles para esta compra.";
                     LblError.Visible = true;
-                    ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "$('#modalDetalleCompra').modal('show');", true);
+                    gvDetalleCompra.Visible = false; // Ocultar el GridView si no hay datos
                 }
                 else
                 {
                     gvDetalleCompra.DataSource = detalles;
                     gvDetalleCompra.DataBind();
-                    gvDetalleCompra.Visible = true;
-
-                    // Mostrar el modal
-                    ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "$('#modalDetalleCompra').modal('show');", true);
+                    gvDetalleCompra.Visible = true; // Mostrar el GridView solo si tiene datos
+                    LblError.Visible = false;
                 }
+
+                // Mostrar el modal
+                ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "$('#modalDetalleCompra').modal('show');", true);
             }
             catch (Exception ex)
             {
-                throw ex;
+                LblError.Text = "Error al cargar detalles: " + ex.Message;
+                LblError.Visible = true;
+                ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "$('#modalDetalleCompra').modal('show');", true);
             }
         }
 
@@ -77,6 +80,7 @@ namespace TPC_equipo_9A
         {
             try
             {
+                bool Estado = true;
                 int IdProveedor = int.Parse(ddlProveedor.SelectedValue);
                 string fechaInput = txtFechaCompra.Value;
 
@@ -87,7 +91,7 @@ namespace TPC_equipo_9A
                     return;
                 }
 
-                int IdCompra = compraServices.add(IdProveedor, fechaCompra);
+                int IdCompra = compraServices.add(IdProveedor, fechaCompra, Estado);
 
                 int IdProducto = int.Parse(ddlProducto.SelectedValue);
                 int Cantidad = int.Parse(txtCantidad.Text);
@@ -128,16 +132,16 @@ namespace TPC_equipo_9A
                 GridViewRow row = (GridViewRow)chk.NamingContainer;
                 int idCompra = Convert.ToInt32(gvCompras.DataKeys[row.RowIndex].Value);
 
+                // Cambiar el estado en la base de datos
                 bool nuevoEstado = chk.Checked;
-
                 compraServices.ActualizarEstadoCompra(idCompra, nuevoEstado ? 1 : 0);
 
-                gvCompras.DataSource = compraServices.list();
-                gvCompras.DataBind();
+                // Actualizar el texto de la etiqueta
+                Label lblEstado = (Label)row.FindControl("lblEstado");
+                lblEstado.Text = nuevoEstado ? "Confirmada" : "Anulada";
             }
             catch (Exception ex)
             {
-                // Manejo de errores
                 LblError.Text = "Error al actualizar el estado de la compra: " + ex.Message;
                 LblError.Visible = true;
             }
