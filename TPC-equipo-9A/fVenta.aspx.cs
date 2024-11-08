@@ -34,7 +34,7 @@ namespace TPC_equipo_9A
             }
         }
 
-        protected void btnVerDetalleVenta_Click(object sender, EventArgs e)
+        protected void btnVerDetalle_Click(object sender, EventArgs e)
         {
             try
             {
@@ -47,21 +47,23 @@ namespace TPC_equipo_9A
                 {
                     LblError.Text = "No se encontraron detalles para esta compra.";
                     LblError.Visible = true;
-                    ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "$('#modalDetalleVenta').modal('show');", true);
+                    gvDetalleVenta.Visible = false;
                 }
                 else
                 {
                     gvDetalleVenta.DataSource = detalles;
                     gvDetalleVenta.DataBind();
                     gvDetalleVenta.Visible = true;
-
-                    // Mostrar el modal
-                    ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "$('#modalDetalleVenta').modal('show');", true);
+                    LblError.Visible = false;
                 }
+
+                ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "$('#modalDetalleVenta').modal('show');", true);
             }
             catch (Exception ex)
             {
-                throw ex;
+                LblError.Text = "Error al cargar detalles: " + ex.Message;
+                LblError.Visible = true;
+                ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "$('#modalDetalleVenta').modal('show');", true);
             }
         }
 
@@ -78,6 +80,7 @@ namespace TPC_equipo_9A
                 int IdProveedor = int.Parse(ddlCliente.SelectedValue);
                 string fechaInput = txtFechaVenta.Value;
                 string NumeroFactura = txtNumeroFactura.Text;
+                bool Estado = true;
 
                 DateTime fechaVenta;
                 if (!DateTime.TryParseExact(fechaInput, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out fechaVenta))
@@ -86,7 +89,7 @@ namespace TPC_equipo_9A
                     return;
                 }
 
-                int IdVenta = ventaServices.add(IdProveedor, fechaVenta, NumeroFactura);
+                int IdVenta = ventaServices.add(IdProveedor, fechaVenta, NumeroFactura,Estado);
 
                 int IdProducto = int.Parse(ddlProducto.SelectedValue);
                 int Cantidad = int.Parse(txtCantidad.Text);
@@ -118,6 +121,27 @@ namespace TPC_equipo_9A
             ddlProducto.DataValueField = "IdProducto";
             ddlProducto.DataBind();
 
+        }
+
+        protected void chkVerificacion_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                CheckBox chk = (CheckBox)sender;
+                GridViewRow row = (GridViewRow)chk.NamingContainer;
+                int idVenta = Convert.ToInt32(gvVentas.DataKeys[row.RowIndex].Value);
+
+                bool nuevoEstado = chk.Checked;
+                ventaServices.ActualizarEstadoVenta(idVenta, nuevoEstado ? 1 : 0);
+
+                Label lblEstado = (Label)row.FindControl("lblEstado");
+                lblEstado.Text = nuevoEstado ? "Confirmada" : "Anulada";
+            }
+            catch (Exception ex)
+            {
+                LblError.Text = "Error al actualizar el estado de la Venta: " + ex.Message;
+                LblError.Visible = true;
+            }
         }
 
     }
