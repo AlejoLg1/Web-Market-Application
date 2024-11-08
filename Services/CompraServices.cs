@@ -33,15 +33,14 @@ namespace Services
                 DB.CloseConnection();
             }
         }
-        public int add(int IdProveedor, DateTime FechaCompra, bool Estado)
+        public int add(int IdProveedor, DateTime FechaCompra)
         {
             try
             {
                 DB.clearParameters();
-                DB.setQuery("EXEC sp_InsertarCompra @IdProveedor, @FechaCompra, @Estado");
+                DB.setQuery("EXEC sp_InsertarCompra @IdProveedor, @FechaCompra");
                 DB.setParameter("@IdProveedor", IdProveedor);
                 DB.setParameter("@FechaCompra", FechaCompra);
-                DB.setParameter("@Estado", Estado);
 
                 DataTable table = new DataTable();
                 table.Load(DB.excecuteQueryWithResult());

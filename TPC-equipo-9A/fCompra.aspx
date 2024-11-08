@@ -28,19 +28,17 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <div style="width: 100%; display: flex; justify-content: center;">
-        <asp:GridView ID="gvCompras" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview" DataKeyNames="IdCompra">
+        <asp:GridView ID="gvCompras" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview">
             <Columns>
                 <asp:BoundField DataField="IdCompra" HeaderText="ID Compra" />
                 <asp:BoundField DataField="NombreProveedor" HeaderText="Proveedor" />
                 <asp:BoundField DataField="FechaCompra" HeaderText="Fecha de Compra" DataFormatString="{0:dd/MM/yyyy}" />
-                <asp:TemplateField HeaderText="Verificación">
+                <asp:TemplateField HeaderText="Verificacion" ItemStyle-HorizontalAlign="Right">
                     <ItemTemplate>
-                        <asp:CheckBox ID="chkVerificacion" runat="server"
-                            AutoPostBack="true"
-                            Checked='<%# Convert.ToInt32(Eval("Estado")) == 1 %>'
-                            OnCheckedChanged="chkVerificacion_CheckedChanged" />
-                        <asp:Label ID="lblEstado" runat="server"
-                            Text='<%# Convert.ToInt32(Eval("Estado")) == 1 ? "Confirmada" : "Anulada" %>' />
+                        <div Cssclass="form-check form-switch">
+                            <input Cssclass="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onclick="toggleSwitchLabel(this)">
+                            <label Cssclass="form-check-input" for="flexSwitchCheckDefault">Anulada</label>
+                        </div>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Ver Detalle" ItemStyle-HorizontalAlign="Right">
