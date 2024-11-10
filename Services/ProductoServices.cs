@@ -18,10 +18,13 @@ namespace Services
             List<Producto> list = new List<Producto>();
             try
             {
-                DB.setQuery("SELECT * FROM VW_productosGrid");
                 if (id != "")
                 {
                     DB.setQuery("SELECT * FROM VW_productosGrid WHERE IdProducto =" + id);
+                }
+                else
+                {
+                    DB.setQuery("SELECT * FROM VW_productosGrid");
                 }
                 DB.excecuteQuery();
 
@@ -133,7 +136,7 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("SP_ModifyProducto @IdProducto, @Nombre, @IdMarca, @IdCategoria, @StockActual, @StockMinimo, @PorcentajeGanancia, @FechaVencimiento");
+                DB.setQuery("UPDATE Producto set Nombre = @Nombre, IdMarca = @IdMarca, IdTipoProducto = @IdCategoria, StockActual = @StockActual, StockMinimo = @StockMinimo, PorcentajeGanancia = @PorcentajeGanancia, FechaVencimiento = @FechaVencimiento where IdProducto = @IdProducto\r\n");
 
                 DB.setParameter("@IdProducto", producto.IdProducto);
                 DB.setParameter("@Nombre", producto.Nombre);

@@ -13,15 +13,20 @@ namespace TPC_equipo_9A
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ProductoServices services = new ProductoServices();
-            Session.Add("listaProductos", services.listar());
-            dgvProductos.DataSource = Session["listaProductos"];
-            dgvProductos.DataBind();
+            if (!IsPostBack)
+            {
+                ProductoServices services = new ProductoServices();
+                List<Producto> listaProductos = services.listar();
+                Session["listaProductos"] = listaProductos;
+                dgvProductos.DataSource = listaProductos;
+                dgvProductos.DataBind();
+            }
         }
+
 
         protected void dgvProductos_SelectedIndexChanged(object sender, EventArgs e)
         {
-           var id = dgvProductos.SelectedDataKey.Value.ToString();
+            var id = dgvProductos.SelectedDataKey.Value.ToString();
             Response.Redirect("FormProducto.aspx?id=" + id);
         }
 
@@ -33,8 +38,9 @@ namespace TPC_equipo_9A
         protected void dgvProductos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             dgvProductos.PageIndex = e.NewPageIndex;
-            ProductoServices services = new ProductoServices();
-            dgvProductos.DataSource = services.listar();
+
+            List<Producto> listaProductos = (List<Producto>)Session["listaProductos"];
+            dgvProductos.DataSource = listaProductos;
             dgvProductos.DataBind();
         }
 
@@ -42,7 +48,7 @@ namespace TPC_equipo_9A
         {
             List<Producto> lista = (List<Producto>)Session["listaProductos"];
             List<Producto> listaFiltrada = lista.FindAll(x => RemoveAccents(x.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()) || x.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()) || RemoveAccents(x.Categoria.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()) || x.Categoria.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()) || RemoveAccents(x.Marca.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()) || x.Marca.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()));
-            dgvProductos.DataSource= listaFiltrada;
+            dgvProductos.DataSource = listaFiltrada;
             dgvProductos.DataBind();
         }
 
