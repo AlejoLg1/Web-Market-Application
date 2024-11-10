@@ -8,9 +8,9 @@
             padding: 20px;
         }
 
-        .table {
-            width: 100%;
-            margin-top: 20px;
+        .table-custom {
+            width: 80%; /* Ajusta el ancho según tus necesidades */
+            margin: 20px auto; /* Centra la tabla horizontalmente */
             border-collapse: collapse;
             font-size: 18px;
             background-color: #f9f9f9;
@@ -19,30 +19,31 @@
             overflow: hidden;
         }
 
-        .table th, .table td {
+        .table-custom th, .table-custom td {
             padding: 12px 15px;
             border: 1px solid #dddddd;
             text-align: center;
         }
 
-        .table th {
+        .table-custom th {
             background-color: #4CAF50;
             color: white;
             font-weight: bold;
         }
 
-        .table tr:nth-child(even) {
+        .table-custom tr:nth-child(even) {
             background-color: #f2f2f2;
         }
 
-        .table tr:hover {
-            background-color: #f1f1f1;
+        .table-custom tr:hover {
+            background-color: #e0e0e0; /* Color de resaltado al pasar el mouse */
+            cursor: pointer;
         }
 
         h1 {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Times New Roman', sans-serif;
             text-align: center;
-            font-size: 2em;
+            font-size: 3em;
             color: #333;
         }
 
@@ -73,6 +74,7 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <div class="container">
         <h1>Listado de productos</h1>
+        <br />
         <div class="search-bar row mb-3 justify-content-center">
             <div class="col-md-6">
                 <div class="input-group">
@@ -83,7 +85,7 @@
         </div>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
-                <asp:GridView ID="dgvProductos" runat="server" OnSelectedIndexChanged="dgvProductos_SelectedIndexChanged" DataKeyNames="IdProducto" CssClass="table" AutoGenerateColumns="False" AllowPaging="True" PageSize="6" OnPageIndexChanging="dgvProductos_PageIndexChanging">
+                <asp:GridView ID="dgvProductos" runat="server" OnSelectedIndexChanged="dgvProductos_SelectedIndexChanged" DataKeyNames="IdProducto" CssClass="table-custom table-hover" AutoGenerateColumns="False" AllowPaging="True" PageSize="6" OnPageIndexChanging="dgvProductos_PageIndexChanging">
                     <Columns>
                         <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                         <asp:BoundField DataField="StockMinimo" HeaderText="Stock Mínimo" />
