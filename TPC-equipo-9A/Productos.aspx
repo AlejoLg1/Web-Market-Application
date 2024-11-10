@@ -41,10 +41,11 @@
         }
 
         h1 {
-            font-family: 'Times New Roman', sans-serif;
+            font-family: Rockwell, sans-serif;
             text-align: center;
             font-size: 3em;
             color: #333;
+            font-weight:bold;
         }
 
         .btn-success {
