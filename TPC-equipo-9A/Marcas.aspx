@@ -75,7 +75,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <div class="container">
-        <h1>Listado de Marcas</h1>
+        <h1>Listado de marcas</h1>
         <div class="search-bar row mb-3 justify-content-center">
             <div class="col-md-6">
                 <div class="input-group">
