@@ -68,6 +68,8 @@ namespace TPC_equipo_9A
                 {
                     lblTitulo.Text = "Registrando Producto";
 
+                    btnGuardar.Text = "Crear producto";
+
                     btnEliminar.Visible = false;
                     btnModificar.Visible = false;
                     btnGuardar.Visible = true;

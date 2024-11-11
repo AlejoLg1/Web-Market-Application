@@ -43,6 +43,7 @@ namespace TPC_equipo_9A
                     btnModificar.Visible = false;
                     btnGuardar.Visible = true;
 
+                    lblIdCategoria.Visible = false;
                     txtIdCategoria.Visible = false;
 
                     txtNombreCategoria.ReadOnly = false;
@@ -69,6 +70,7 @@ namespace TPC_equipo_9A
                 btnModificar.Visible = false;
                 btnGuardar.Visible = true;
 
+                lblIdCategoria.Visible = false;
                 txtIdCategoria.Visible = false;
 
                 txtNombreCategoria.ReadOnly = false;

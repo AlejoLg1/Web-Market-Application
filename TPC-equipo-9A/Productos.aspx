@@ -75,7 +75,6 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <div class="container">
         <h1>Listado de productos</h1>
-        <br />
         <div class="search-bar row mb-3 justify-content-center">
             <div class="col-md-6">
                 <div class="input-group">
