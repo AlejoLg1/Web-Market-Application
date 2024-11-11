@@ -2,10 +2,15 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        /* Forzar tamaño y centrado de la tabla */
-        .table {
-            width: 50% !important; /* Forzar ancho a 50% del contenedor */
-            max-width: 600px; /* Limitar el tamaño máximo a 600px */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .table-custom {
+            width: 80% !important; /* Ajusta el ancho */
+            max-width: 600px; 
             margin: 20px auto !important; /* Centrando la tabla horizontalmente */
             border-collapse: collapse;
             font-size: 18px;
@@ -15,77 +20,94 @@
             overflow: hidden; /* Para asegurar que los bordes redondeados se vean correctamente */
         }
 
-            /* Bordes de las celdas */
-            .table th, .table td {
-                padding: 12px 15px;
-                border: 1px solid #dddddd;
-                text-align: left;
-            }
+        .table-custom th, .table-custom td {
+            padding: 12px 15px;
+            border: 1px solid #dddddd;
+            text-align: center;
+        }
 
-            /* Encabezado de la tabla */
-            .table th {
-                background-color: #4CAF50;
-                color: white;
-                text-align: center;
-            }
+        .table-custom th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
 
-            /* Alternar color de las filas */
-            .table tr:nth-child(even) {
-                background-color: #f2f2f2;
-            }
+        .table-custom tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
 
-            /* Efecto hover */
-            .table tr:hover {
-                background-color: #e0e0e0;
-            }
+        .table-custom tr:hover {
+            background-color: #e0e0e0; /* Color de resaltado al pasar el mouse */
+            cursor: pointer;
+        }
 
-            /* Centrar el texto en las celdas */
-            .table th, .table td {
-                text-align: center;
-            }
-
-        /* Estilo para el título */
         h1 {
-            font-family: 'Arial', sans-serif;
+            font-family: Rockwell, sans-serif;
             text-align: center;
             font-size: 2em;
             color: #333;
         }
 
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
         .btn:hover {
-            transform: translateY(-2px); /* Efecto de elevar el botón */
+            transform: translateY(-2px);
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .search-bar {
+            margin-top: 20px;
+            width:80%;
+            margin: 20px auto !important;
         }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <br />
-    <br />
-    <h1>Listado de categorías</h1>
-    <!-- Caja de búsqueda -->
-    <div class="row mb-3 justify-content-center">
-        <div class="col-md-6">
-            <div class="input-group">
-                <asp:TextBox ID="txtBuscar" CssClass="form-control" runat="server" Placeholder="Buscar categoría..."></asp:TextBox>
-                <asp:Button ID="btnBuscar" CssClass="btn btn-primary" Text="Buscar" OnClick="btnBuscar_Click" runat="server" />
+    <asp:ScriptManager ID="ScriptManager1" runat="server" />
+    <div class="container">
+        <h1>Listado de categorías</h1>
+        <br />
+        <div class="search-bar row mb-3 justify-content-center">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <asp:TextBox ID="txtBuscar" CssClass="form-control" runat="server" Placeholder="Buscar categoría..."></asp:TextBox>
+                    <asp:Button ID="btnBuscar" CssClass="btn btn-primary" Text="Buscar" OnClick="btnBuscar_Click" runat="server" />
+                </div>
             </div>
         </div>
-    </div>
-
-    <asp:GridView ID="dgvCategoria" runat="server" OnSelectedIndexChanged="dgvCategoria_SelectedIndexChanged" DataKeyNames="IdCategoria" CssClass="table" AutoGenerateColumns="false" AllowPaging="True" PageSize="5" OnPageIndexChanging="dgvCategoria_PageIndexChanging">
-        <Columns>
-            <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-            <asp:TemplateField HeaderText="Ver detalle" ItemStyle-HorizontalAlign="Center">
-                <ItemTemplate>
-                    <asp:LinkButton ID="btnVerDetalle" runat="server" CommandName="Select" CommandArgument='<%# Eval("IdCategoria") %>'>
-                        <i class="fa fa-eye"></i> <!-- Ícono de ojo -->
-                    </asp:LinkButton>
-                </ItemTemplate>
-            </asp:TemplateField>
-        </Columns>
-    </asp:GridView>
-
-    <div style="text-align: center; margin-top: 20px;">
-        <asp:Button ID="btnAgregarCategoria" runat="server" CssClass="btn btn-success mt-3" Text="Agregar" OnClick="btnAgregarCategoria_Click" />
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <asp:GridView ID="dgvCategoria" runat="server" OnSelectedIndexChanged="dgvCategoria_SelectedIndexChanged" DataKeyNames="IdCategoria" CssClass="table-custom" AutoGenerateColumns="false" AllowPaging="True" PageSize="5" OnPageIndexChanging="dgvCategoria_PageIndexChanging">
+                    <Columns>
+                        <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                        <asp:TemplateField HeaderText="Ver detalle" ItemStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="btnVerDetalle" runat="server" CommandName="Select" CommandArgument='<%# Eval("IdCategoria") %>'>
+                                    <i class="fa fa-eye"></i> <!-- Ícono de ojo -->
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+            </ContentTemplate>
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
+                <asp:AsyncPostBackTrigger ControlID="dgvCategoria" EventName="PageIndexChanging" />
+            </Triggers>
+        </asp:UpdatePanel>
+        <div style="text-align: center; margin-top: 20px;">
+            <asp:Button ID="btnAgregarCategoria" runat="server" CssClass="btn btn-success mt-3" Text="Agregar" OnClick="btnAgregarCategoria_Click" />
+        </div>
     </div>
 </asp:Content>

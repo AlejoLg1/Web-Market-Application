@@ -9,7 +9,7 @@
         }
 
         .table-custom {
-            width: 80%; /* Ajusta el ancho según tus necesidades */
+            width: 80%; /* Ajusta el ancho */
             margin: 20px auto; /* Centra la tabla horizontalmente */
             border-collapse: collapse;
             font-size: 18px;
