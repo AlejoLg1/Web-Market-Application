@@ -38,6 +38,7 @@ namespace TPC_equipo_9A
                 }
                 else
                 {
+                    btnGuardar.Text = "Crear marca";
                     btnVolver.Text = "Cancelar";
 
                     btnEliminar.Visible = false;
