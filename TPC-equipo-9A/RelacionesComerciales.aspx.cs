@@ -117,6 +117,7 @@ namespace TPC_equipo_9A
                     filters += $"(DNI LIKE '%{dni_cuit}%' OR CUIT LIKE '%{dni_cuit}%')";
                 }
 
+                ViewState["filters"] = filters;
                 BindGrid(filters);
             }
             catch (Exception ex)
@@ -131,101 +132,132 @@ namespace TPC_equipo_9A
             Response.Redirect("AgregarRelacion.aspx", false);
         }
 
+        protected void gvRelaciones_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvRelaciones.PageIndex = e.NewPageIndex;
+
+            string filters = ViewState["filters"] as string;
+
+            BindGrid(filters);
+        }
 
         protected void gvRelaciones_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int index = Convert.ToInt32(e.CommandArgument);
+            int IdRelacion = Convert.ToInt32(e.CommandArgument);
 
-            int IdRelacion = Convert.ToInt32(gvRelaciones.DataKeys[index].Value);
-
-            GridViewRow row = gvRelaciones.Rows[index];
-            Label lblRelacion = (Label)row.FindControl("lblRelacion");
-            string relacionTipo = lblRelacion.Text;
-
-            string page;
-            object service;
-            if (lblRelacion.Text == "Proveedor")
+            GridViewRow row = null;
+            foreach (GridViewRow r in gvRelaciones.Rows)
             {
-                service = new ProveedorServices();
+                if (Convert.ToInt32(gvRelaciones.DataKeys[r.RowIndex].Value) == IdRelacion)
+                {
+                    row = r;
+                    break;
+                }
+            }
 
-                page = "ProveedorPage";
+            if (row != null)
+            {
+                Label lblRelacion = row.FindControl("lblRelacion") as Label;
+
+                if (lblRelacion != null)
+                {
+                    string relacionTipo = lblRelacion.Text;
+
+                    string page;
+                    object service;
+                    if (relacionTipo == "Proveedor")
+                    {
+                        service = new ProveedorServices();
+                        page = "ProveedorPage";
+                    }
+                    else
+                    {
+                        service = new ClienteServices();
+                        page = "ClientePage";
+                    }
+
+                    switch (e.CommandName)
+                    {
+                        case "Editar":
+                            Response.Redirect($"{page}.aspx?id={IdRelacion}", false);
+                            break;
+
+                        case "Eliminar":
+                            if (service is ProveedorServices proveedorService)
+                            {
+                                bool withoutProducts = proveedorService.verifyProducts(IdRelacion);
+                                bool withoutBuys = proveedorService.verifyBuys(IdRelacion);
+
+                                if (withoutProducts && withoutBuys)
+                                {
+                                    proveedorService.delete(IdRelacion);
+                                }
+                                else
+                                {
+                                    string script = "alert('El Proveedor tiene Productos u Operaciones asociadas. De ser necesario, desactívelo.');";
+                                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
+                                    return;
+                                }
+                            }
+                            else if (service is ClienteServices clienteService)
+                            {
+                                bool withoutSells = clienteService.verifySells(IdRelacion);
+
+                                if (withoutSells)
+                                {
+                                    clienteService.delete(IdRelacion);
+                                }
+                                else
+                                {
+                                    string script = "alert('El Cliente tiene Ventas asociadas. De ser necesario, desactívelo.');";
+                                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
+                                    return;
+                                }
+                            }
+                            Response.Redirect("RelacionesComerciales.aspx", false);
+                            break;
+
+                        case "Estado":
+                            Button btnEstado = (Button)e.CommandSource;
+
+                            if (btnEstado.Text == "Activar")
+                            {
+                                if (service is ProveedorServices proveedorServiceEstado)
+                                {
+                                    proveedorServiceEstado.setEstado(true, IdRelacion);
+                                }
+                                else if (service is ClienteServices clienteServiceEstado)
+                                {
+                                    clienteServiceEstado.setEstado(true, IdRelacion);
+                                }
+                            }
+                            else if (btnEstado.Text == "Desactivar")
+                            {
+                                if (service is ProveedorServices proveedorServiceEstado)
+                                {
+                                    proveedorServiceEstado.setEstado(false, IdRelacion);
+                                }
+                                else if (service is ClienteServices clienteServiceEstado)
+                                {
+                                    clienteServiceEstado.setEstado(false, IdRelacion);
+                                }
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+                else
+                {
+                    string script = "alert('El control lblRelacion no pudo ser encontrado.');";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
+                }
             }
             else
             {
-                service = new ClienteServices();
-                page = "ClientePage";
-            }
-
-            switch (e.CommandName)
-            {
-                case "Editar":
-                    Response.Redirect($"{page}.aspx?id={IdRelacion}", false);
-                    break;
-
-                case "Eliminar":
-
-                    if (service is ProveedorServices proveedorService)
-                    {
-                        bool withoutProducts = proveedorService.verifyProducts(IdRelacion);
-                        bool withoutBuys = proveedorService.verifyBuys(IdRelacion);
-
-                        if (withoutProducts && withoutBuys)
-                        {
-                            proveedorService.delete(IdRelacion);
-                        }
-                        else
-                        {
-                            string script = "alert('El Proveedor tiene Productos u Operaciones asociadas. De ser necesario, desactívelo.');";
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
-                            return;
-                        }
-                    }
-                    else if (service is ClienteServices clienteService)
-                    {
-                        bool withoutSells = clienteService.verifySells(IdRelacion);
-
-                        if (withoutSells)
-                        {
-                            clienteService.delete(IdRelacion);
-                        }
-                        else
-                        {
-                            string script = "alert('El Cliente tiene Ventas asociadas. De ser necesario, desactívelo.');";
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
-                            return;
-                        }
-                    }
-                    Response.Redirect("RelacionesComerciales.aspx", false);
-                    break;
-                case "Estado":
-                    Button btnEstado = (Button)e.CommandSource;
-
-                    if (btnEstado.Text == "Activar")
-                    {
-                        if (service is ProveedorServices proveedorServiceEstado)
-                        {
-                            proveedorServiceEstado.setEstado(true, IdRelacion);
-                        }
-                        else if (service is ClienteServices clienteServiceEstado)
-                        {
-                            clienteServiceEstado.setEstado(true, IdRelacion);
-                        }
-                    }
-                    else if (btnEstado.Text == "Desactivar")
-                    {
-                        if (service is ProveedorServices proveedorServiceEstado)
-                        {
-                            proveedorServiceEstado.setEstado(false, IdRelacion);
-                        }
-                        else if (service is ClienteServices clienteServiceEstado)
-                        {
-                            clienteServiceEstado.setEstado(false, IdRelacion);
-                        }
-                    }
-                    break;
-
-                default:
-                    break;
+                string script = "alert('La fila no pudo ser encontrada.');";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
             }
             BindGrid();
         }

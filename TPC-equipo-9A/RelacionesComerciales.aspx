@@ -8,10 +8,10 @@
             border-color: #198754;
         }
 
-        table .custom-active:hover, .btn-secondary:hover {
-            background-color: #198754;
-            border-color: #198754;
-        }
+            table .custom-active:hover, .btn-secondary:hover {
+                background-color: #198754;
+                border-color: #198754;
+            }
     </style>
 </asp:Content>
 
@@ -60,7 +60,10 @@
                 Lista de Relaciones
             </div>
             <div class="card-body">
-                <asp:GridView ID="gvRelaciones" runat="server" CssClass="table table-hover table-bordered" DataKeyNames="IdRelacion" AutoGenerateColumns="False" OnRowCommand="gvRelaciones_RowCommand">
+                <asp:GridView ID="gvRelaciones" runat="server" CssClass="table table-hover table-bordered"
+                    DataKeyNames="IdRelacion" AutoGenerateColumns="False"
+                    OnRowCommand="gvRelaciones_RowCommand"
+                    AllowPaging="True" PageSize="6" OnPageIndexChanging="gvRelaciones_PageIndexChanging">
                     <Columns>
                         <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
 
@@ -106,11 +109,11 @@
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <div class="d-flex align-items-center">
-                                    <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning btn-sm" />
+                                    <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Eval("IdRelacion") %>' CssClass="btn btn-warning btn-sm" />
 
                                     <span class="btn-separator mx-2"></span>
 
-                                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-danger btn-sm" />
+                                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdRelacion") %>' CssClass="btn btn-danger btn-sm" />
 
                                     <span class="btn-separator mx-2"></span>
 
@@ -119,7 +122,7 @@
                                         runat="server"
                                         Text='<%# Convert.ToBoolean(Eval("Estado")) ? "Desactivar" : "Activar" %>'
                                         CommandName="Estado"
-                                        CommandArgument='<%# Container.DataItemIndex %>'
+                                        CommandArgument='<%# Eval("IdRelacion") %>'
                                         CssClass='<%# Convert.ToBoolean(Eval("Estado")) ? "btn btn-secondary" : "btn btn-secondary custom-active" %>' />
                                 </div>
                             </ItemTemplate>
