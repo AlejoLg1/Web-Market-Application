@@ -2,11 +2,16 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        /* Estilo para la tabla */
-        .table {
-            width: 50%;
-            max-width: 600px;
-            margin: 20px auto !important;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .table-custom {
+            width: 80% !important; /* Ajusta el ancho según tus necesidades */
+            max-width: 600px; /* Limitar el tamaño máximo a 600px */
+            margin: 20px auto !important; /* Centrando la tabla horizontalmente */
             border-collapse: collapse;
             font-size: 18px;
             background-color: #f9f9f9;
@@ -15,49 +20,34 @@
             overflow: hidden; /* Para asegurar que los bordes redondeados se vean correctamente */
         }
 
-            /* Bordes de las celdas */
-            .table th, .table td {
-                padding: 12px 15px;
-                border: 1px solid #dddddd;
-                text-align: center; /* Centrado de texto */
-            }
-
-            /* Estilo para el encabezado */
-            .table th {
-                background-color: #4CAF50;
-                color: white;
-                font-weight: bold;
-                width: 50%;
-            }
-
-            /* Estilo para el cuerpo de la tabla */
-            .table td {
-                width: 50%;
-            }
-
-            /* Cambiar color de las filas alternas */
-            .table tr:nth-child(even) {
-                background-color: #f2f2f2;
-            }
-
-            /* Efecto hover */
-            .table tr:hover {
-                background-color: #f1f1f1;
-            }
-
-        /* Estilo para el título */
-        h1 {
-            font-family: 'Arial', sans-serif;
+        .table-custom th, .table-custom td {
+            padding: 12px 15px;
+            border: 1px solid #dddddd;
             text-align: center;
-            font-size: 2em;
+        }
+
+        .table-custom th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+
+        .table-custom tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .table-custom tr:hover {
+            background-color: #e0e0e0; /* Color de resaltado al pasar el mouse */
+            cursor: pointer;
+        }
+
+        h1 {
+            font-family: Rockwell, sans-serif;
+            text-align: center;
+            font-size: 3em;
             color: #333;
         }
 
-        .btn:hover {
-            transform: translateY(-2px); /* Efecto de elevar el botón */
-        }
-
-        /* Estilo para el botón Agregar */
         .btn-success {
             background-color: #28a745;
             color: white;
@@ -67,38 +57,55 @@
             transition: background-color 0.3s ease;
         }
 
-            .btn-success:hover {
-                background-color: #218838;
-            }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .search-bar {
+            width:80%;
+            margin: 20px auto !important;
+        }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <br />
-    <br />
-    <h1>Listado de Marcas</h1>
-    <!-- Caja de búsqueda -->
-    <div class="row mb-3 justify-content-center">
-        <div class="col-md-6">
-            <div class="input-group">
-                <asp:TextBox ID="txtBuscar" CssClass="form-control" runat="server" Placeholder="Buscar marca..."></asp:TextBox>
-                <asp:Button ID="btnBuscar" CssClass="btn btn-primary" Text="Buscar" OnClick="btnBuscar_Click" runat="server" />
+    <asp:ScriptManager ID="ScriptManager1" runat="server" />
+    <div class="container">
+        <h1>Listado de Marcas</h1>
+        <div class="search-bar row mb-3 justify-content-center">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <asp:TextBox ID="txtBuscar" CssClass="form-control" runat="server" Placeholder="Buscar marca..."></asp:TextBox>
+                    <asp:Button ID="btnBuscar" CssClass="btn btn-primary" Text="Buscar" OnClick="btnBuscar_Click" runat="server" />
+                </div>
             </div>
         </div>
-    </div>
-    <asp:GridView ID="dgvMarca" runat="server" OnSelectedIndexChanged="dgvMarca_SelectedIndexChanged" DataKeyNames="IdMarca" CssClass="table" AutoGenerateColumns="false" AllowPaging="True" PageSize="5" OnPageIndexChanging="dgvMarca_PageIndexChanging">
-        <Columns>
-            <asp:BoundField DataField="Nombre" HeaderText="Nombre" ItemStyle-Width="50%" />
-            <asp:TemplateField HeaderText="Ver detalle" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50%">
-                <ItemTemplate>
-                    <asp:LinkButton ID="btnVerDetalle" runat="server" CommandName="Select" CommandArgument='<%# Eval("IdMarca") %>'>
-                        <i class="fa fa-eye"></i> <!-- Ícono de ojo -->
-                    </asp:LinkButton>
-                </ItemTemplate>
-            </asp:TemplateField>
-        </Columns>
-    </asp:GridView>
-    <div style="text-align: center; margin-top: 20px;">
-        <asp:Button ID="btnAgregarMarca" runat="server" CssClass="btn btn-success mt-3" Text="Agregar" OnClick="btnAgregarMarca_Click" />
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <asp:GridView ID="dgvMarca" runat="server" OnSelectedIndexChanged="dgvMarca_SelectedIndexChanged" DataKeyNames="IdMarca" CssClass="table-custom" AutoGenerateColumns="false" AllowPaging="True" PageSize="5" OnPageIndexChanging="dgvMarca_PageIndexChanging">
+                    <Columns>
+                        <asp:BoundField DataField="Nombre" HeaderText="Nombre" ItemStyle-Width="50%" />
+                        <asp:TemplateField HeaderText="Ver detalle" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50%">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="btnVerDetalle" runat="server" CommandName="Select" CommandArgument='<%# Eval("IdMarca") %>'>
+                                    <i class="fa fa-eye"></i> <!-- Ícono de ojo -->
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+            </ContentTemplate>
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="btnBuscar" EventName="Click" />
+                <asp:AsyncPostBackTrigger ControlID="dgvMarca" EventName="PageIndexChanging" />
+            </Triggers>
+        </asp:UpdatePanel>
+        <div style="text-align: center; margin-top: 20px;">
+            <asp:Button ID="btnAgregarMarca" runat="server" CssClass="btn btn-success mt-3" Text="Agregar" OnClick="btnAgregarMarca_Click" />
+        </div>
     </div>
 </asp:Content>
