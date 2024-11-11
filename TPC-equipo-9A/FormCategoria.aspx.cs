@@ -43,6 +43,8 @@ namespace TPC_equipo_9A
                     btnModificar.Visible = false;
                     btnGuardar.Visible = true;
 
+                    txtIdCategoria.Visible = false;
+
                     txtNombreCategoria.ReadOnly = false;
                     lblTitulo.Text = "Registrando categoría";
                 }
@@ -66,6 +68,8 @@ namespace TPC_equipo_9A
                 btnEliminar.Visible = false;
                 btnModificar.Visible = false;
                 btnGuardar.Visible = true;
+
+                txtIdCategoria.Visible = false;
 
                 txtNombreCategoria.ReadOnly = false;
 

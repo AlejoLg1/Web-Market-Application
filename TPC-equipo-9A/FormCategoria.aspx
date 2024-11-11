@@ -40,7 +40,7 @@
 
             <!-- Fila para ID Categoria -->
             <div class="mb-3">
-                <label for="txtIdCategoria" class="form-label">ID Categoria</label>
+                <asp:label ID="lblIdCategoria" for="txtIdCategoria" runat="server" class="form-label">ID Categoria</asp:label>
                 <asp:TextBox ID="txtIdCategoria" CssClass="form-control" ReadOnly="true" runat="server"></asp:TextBox>
             </div>
 
