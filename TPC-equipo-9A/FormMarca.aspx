@@ -40,7 +40,7 @@
 
             <!-- Fila para ID Marca -->
             <div class="mb-3">
-                <label for="txtIdMarca" class="form-label">ID Marca</label>
+                <asp:label ID="lblIdMarca" runat="server" for="txtIdMarca" class="form-label">ID Marca</asp:label>
                 <asp:TextBox ID="txtIdMarca" CssClass="form-control" ReadOnly="true" runat="server"></asp:TextBox>
             </div>
 

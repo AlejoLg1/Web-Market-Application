@@ -44,6 +44,9 @@ namespace TPC_equipo_9A
                     btnModificar.Visible = false;
                     btnGuardar.Visible = true;
 
+                    lblIdMarca.Visible = false;
+                    txtIdMarca.Visible = false;
+
                     txtNombreMarca.ReadOnly = false;
                     lblTitulo.Text = "Registrando marca";
                 }
@@ -66,6 +69,9 @@ namespace TPC_equipo_9A
                 btnEliminar.Visible = false;
                 btnModificar.Visible = false;
                 btnGuardar.Visible = true;
+
+                lblIdMarca.Visible = false;
+                txtIdMarca.Visible = false;
 
                 txtNombreMarca.ReadOnly = false;
 
