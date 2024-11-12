@@ -109,11 +109,11 @@
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <div class="d-flex align-items-center">
-                                    <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Eval("IdRelacion") %>' CssClass="btn btn-warning btn-sm" />
+                                    <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Eval("IdRelacion") + "," + Eval("Relacion") %>' CssClass="btn btn-warning btn-sm" />
 
                                     <span class="btn-separator mx-2"></span>
 
-                                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdRelacion") %>' CssClass="btn btn-danger btn-sm" />
+                                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdRelacion") + "," + Eval("Relacion")%>' CssClass="btn btn-danger btn-sm" />
 
                                     <span class="btn-separator mx-2"></span>
 
@@ -122,7 +122,7 @@
                                         runat="server"
                                         Text='<%# Convert.ToBoolean(Eval("Estado")) ? "Desactivar" : "Activar" %>'
                                         CommandName="Estado"
-                                        CommandArgument='<%# Eval("IdRelacion") %>'
+                                        CommandArgument='<%# Eval("IdRelacion") + "," + Eval("Relacion")%>'
                                         CssClass='<%# Convert.ToBoolean(Eval("Estado")) ? "btn btn-secondary" : "btn btn-secondary custom-active" %>' />
                                 </div>
                             </ItemTemplate>
