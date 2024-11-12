@@ -50,15 +50,19 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("EXEC sp_InsertarCompra @IdProveedor, @FechaCompra, @Estado");
+                DB.setQuery("EXEC sp_InsertarCompra @IdProveedor, @FechaCompra, @Estado; SELECT SCOPE_IDENTITY() AS IdCompra;");
                 DB.setParameter("@IdProveedor", IdProveedor);
                 DB.setParameter("@FechaCompra", FechaCompra);
                 DB.setParameter("@Estado", Estado);
-                
-                DB.excecuteAction();
 
+                DB.excecuteQuery();
 
-                return;
+                int IdCompra = 0;
+                if (DB.Reader.Read())
+                {
+                    IdCompra = Convert.ToInt32(DB.Reader["IdCompra"]);
+                }
+                return IdCompra;
             }
             catch (Exception ex)
             {
