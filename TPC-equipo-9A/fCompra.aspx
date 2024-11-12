@@ -27,6 +27,15 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
+
+    <div style="width: 100%; display: flex; justify-content: center;">
+        <div class="col-md-6">
+            <div class="input-group">
+                <asp:TextBox ID="txtBuscar" CssClass="form-control" runat="server" Placeholder="Buscar..."></asp:TextBox>
+                <asp:Button ID="btnBuscar" CssClass="btn btn-primary" Text="Buscar" OnClick="btnBuscar_Click" runat="server" />
+            </div>
+        </div>
+    </div>
     <div style="width: 100%; display: flex; justify-content: center;">
         <asp:GridView ID="gvCompras" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview" DataKeyNames="IdCompra">
             <Columns>
