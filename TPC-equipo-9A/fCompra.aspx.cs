@@ -25,8 +25,8 @@ namespace TPC_equipo_9A
             {
                 if (!IsPostBack)
                 {
-                    CompraServices compraService = new CompraServices();
-                    gvCompras.DataSource = compraService.list();
+                    Session.Add("listaCompra", compraServices.listar());
+                    gvCompras.DataSource = Session["listaCompra"];
                     gvCompras.DataBind();
                 }
             }
@@ -98,7 +98,7 @@ namespace TPC_equipo_9A
 
                 detalleCompraService.add(IdCompra, IdProducto, Cantidad, PrecioUnitario);
 
-                gvCompras.DataSource = compraServices.list();
+                gvCompras.DataSource = compraServices.listar();
                 gvCompras.DataBind();
 
                 ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
@@ -143,6 +143,32 @@ namespace TPC_equipo_9A
                 LblError.Text = "Error al actualizar el estado de la compra: " + ex.Message;
                 LblError.Visible = true;
             }
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            List<Compra> lista = (List<Compra>)Session["listaCompra"];
+            List<Compra> listaFiltrada = lista.FindAll(x => RemoveAccents(x.IdCompra.ToString().ToLower()).Contains(txtBuscar.Text.ToLower())); 
+            //|| x.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()) 
+            //|| RemoveAccents(x.Categoria.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()) 
+            //|| x.Categoria.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()) 
+            //|| RemoveAccents(x.Marca.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()) 
+            //|| x.Marca.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()));
+            gvCompras.DataSource = listaFiltrada;
+            gvCompras.DataBind();
+        }
+
+        public static string RemoveAccents(string text)
+        {
+            var withAccents = "áéíóúüñ";
+            var withoutAccents = "aeiouun"; // Debe incluir 'u' para la ü.
+
+            for (int i = 0; i < withAccents.Length; i++)
+            {
+                text = text.Replace(withAccents[i], withoutAccents[i]);
+            }
+
+            return text;
         }
 
     }

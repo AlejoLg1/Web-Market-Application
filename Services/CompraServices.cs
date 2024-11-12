@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Utils;
 using Models;
 using System.Data;
+using System.Xml.Linq;
 
 namespace Services
 {
@@ -13,16 +14,27 @@ namespace Services
     {
         private DataBaseAccess DB = new DataBaseAccess();
 
-        public DataTable list()
+        public List<dynamic> listar()
         {
-            DataTable table = new DataTable();
+            var lista = new List<dynamic>();
+
             try
             {
-                DB.setQuery("SELECT Compra.IdCompra, Compra.IdProveedor, Proveedor.Nombre AS NombreProveedor, Compra.FechaCompra, Compra.Estado FROM Compra JOIN Proveedor ON Compra.IdProveedor = Proveedor.IdProveedor");
+                DB.setQuery("SELECT Compra.IdCompra, Proveedor.Nombre AS NombreProveedor, Compra.FechaCompra, Compra.Estado FROM Compra INNER JOIN Proveedor ON Compra.IdProveedor = Proveedor.IdProveedor;");
                 DB.excecuteQuery();
 
-                table.Load(DB.Reader);
-                return table;
+                while (DB.Reader.Read())
+                {
+                    lista.Add(new
+                    {
+                        IdCompra = (int)DB.Reader["IdCompra"],
+                        NombreProveedor = (string)DB.Reader["NombreProveedor"],
+                        FechaCompra = (DateTime)DB.Reader["FechaCompra"],
+                        Estado = (bool)DB.Reader["Estado"]
+                    });
+                }
+
+                return lista;
             }
             catch (Exception ex)
             {
@@ -42,13 +54,11 @@ namespace Services
                 DB.setParameter("@IdProveedor", IdProveedor);
                 DB.setParameter("@FechaCompra", FechaCompra);
                 DB.setParameter("@Estado", Estado);
+                
+                DB.excecuteAction();
 
-                DataTable table = new DataTable();
-                table.Load(DB.excecuteQueryWithResult());
 
-                int NewID = Convert.ToInt32(table.Rows[0]["IdCompra"]);
-
-                return NewID;
+                return;
             }
             catch (Exception ex)
             {
