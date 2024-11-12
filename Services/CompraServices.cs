@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Utils;
 using Models;
 using System.Data;
-using System.Xml.Linq;
 
 namespace Services
 {
@@ -14,27 +13,16 @@ namespace Services
     {
         private DataBaseAccess DB = new DataBaseAccess();
 
-        public List<dynamic> listar()
+        public DataTable list()
         {
-            var lista = new List<dynamic>();
-
+            DataTable table = new DataTable();
             try
             {
-                DB.setQuery("SELECT Compra.IdCompra, Proveedor.Nombre AS NombreProveedor, Compra.FechaCompra, Compra.Estado FROM Compra INNER JOIN Proveedor ON Compra.IdProveedor = Proveedor.IdProveedor;");
+                DB.setQuery("SELECT Compra.IdCompra, Compra.IdProveedor, Proveedor.Nombre AS NombreProveedor, Compra.FechaCompra, Compra.Estado FROM Compra JOIN Proveedor ON Compra.IdProveedor = Proveedor.IdProveedor");
                 DB.excecuteQuery();
 
-                while (DB.Reader.Read())
-                {
-                    lista.Add(new
-                    {
-                        IdCompra = (int)DB.Reader["IdCompra"],
-                        NombreProveedor = (string)DB.Reader["NombreProveedor"],
-                        FechaCompra = (DateTime)DB.Reader["FechaCompra"],
-                        Estado = (bool)DB.Reader["Estado"]
-                    });
-                }
-
-                return lista;
+                table.Load(DB.Reader);
+                return table;
             }
             catch (Exception ex)
             {
@@ -54,11 +42,13 @@ namespace Services
                 DB.setParameter("@IdProveedor", IdProveedor);
                 DB.setParameter("@FechaCompra", FechaCompra);
                 DB.setParameter("@Estado", Estado);
-                
-                DB.excecuteAction();
 
+                DataTable table = new DataTable();
+                table.Load(DB.excecuteQueryWithResult());
 
-                return;
+                int NewID = Convert.ToInt32(table.Rows[0]["IdCompra"]);
+
+                return NewID;
             }
             catch (Exception ex)
             {
