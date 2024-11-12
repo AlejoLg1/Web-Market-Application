@@ -12,11 +12,19 @@
                 background-color: #198754;
                 border-color: #198754;
             }
+
+        .table td {
+            max-width: 500px; 
+            word-break: break-word; 
+            white-space: normal;
+        }
+
+
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container mt-5">
+    <div class="container mt-8">
         <h2>Relaciones Comerciales</h2>
 
         <div class="card">
