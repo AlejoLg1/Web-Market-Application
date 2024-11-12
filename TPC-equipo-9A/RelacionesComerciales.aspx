@@ -3,21 +3,23 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         table .custom-active {
-            width: 115px;
-            background-color: #198754;
-            border-color: #198754;
-        }
+    width: 115px;
+    background-color: #198754;
+    border-color: #198754;
+}
 
-            table .custom-active:hover, .btn-secondary:hover {
-                background-color: #198754;
-                border-color: #198754;
-            }
+table .custom-active:hover, .btn-secondary:hover {
+    background-color: #198754;
+    border-color: #198754;
+}
 
-        .table td {
-            max-width: 500px; 
-            word-break: break-word; 
-            white-space: normal;
-        }
+.table td {
+    max-width: auto;
+    min-width: 100px;
+    word-break: break-word; 
+    padding: 8px;
+    border: 1px solid #dee2e6;
+}
 
 
     </style>
