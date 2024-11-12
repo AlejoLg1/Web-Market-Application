@@ -145,8 +145,13 @@ namespace TPC_equipo_9A
         {
             string[] argumentos = e.CommandArgument.ToString().Split(',');
 
+
             int IdRelacion = int.Parse(argumentos[0]);
-            string relacionTipo = argumentos[1];
+            string relacionTipo = "";
+            if (argumentos.Length >= 2)
+            {
+                relacionTipo = argumentos[1];
+            }
 
 
             string page;
