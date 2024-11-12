@@ -3,31 +3,36 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         table .custom-active {
-    width: 115px;
-    background-color: #198754;
-    border-color: #198754;
-}
+            width: 115px;
+            background-color: #198754;
+            border-color: #198754;
+        }
 
-table .custom-active:hover, .btn-secondary:hover {
-    background-color: #198754;
-    border-color: #198754;
-}
+            table .custom-active:hover, .btn-secondary:hover {
+                background-color: #198754;
+                border-color: #198754;
+            }
 
-.table td {
-    max-width: auto;
-    min-width: 100px;
-    word-break: break-word; 
-    padding: 8px;
-    border: 1px solid #dee2e6;
-}
+        .table td {
+            max-width: auto;
+            min-width: 100px;
+            word-break: break-word;
+            padding: 8px;
+            border: 1px solid #dee2e6;
+        }
 
-
+        h1 {
+            font-family: Rockwell, sans-serif;
+            text-align: center;
+            font-size: 3em;
+            color: #333;
+        }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container mt-8">
-        <h2>Relaciones Comerciales</h2>
+    <div class="container mt-5">
+        <h1>Relaciones Comerciales</h1>
 
         <div class="card">
             <div class="card-header">

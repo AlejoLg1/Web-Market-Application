@@ -131,6 +131,7 @@
             bottom: 0;
             width: 100%;
             color: #ffffff;
+            margin-top: 50px;
         }
     </style>
 </head>
