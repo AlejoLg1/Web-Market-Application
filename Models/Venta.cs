@@ -10,12 +10,11 @@ namespace Models
     public class Venta
     {
         public int Id { get; set; }
-
         public int IdCliente { get; set; }
-
         public DateTime FechaVenta { get; set; }
-
         public string NumeroFactura { get; set; }
         public bool Estado { get; set; }
+        public Cliente Cliente { get; set; }
+        public DetalleVenta DetalleVenta { get; set; }
     }
 }
