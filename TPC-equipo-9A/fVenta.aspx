@@ -10,6 +10,54 @@
         .centered-gridview {
             text-align: center; /* Centra el contenido de cada celda */
         }
+
+        h1 {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+        }
+
+        .table {
+            width: 50%;
+            max-width: 900px;
+            margin: 20px auto !important;
+            border-collapse: collapse;
+            font-size: 18px;
+            background-color: #f9f9f9;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+
+            .table th, .table td {
+                padding: 12px 15px;
+                border: 1px solid #dddddd;
+            }
+
+
+            .table th {
+                background-color: #4CAF50;
+                color: white;
+                font-weight: bold;
+                text-align: center;
+            }
+
+
+            .table tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+
+            .table tr:hover {
+                background-color: #f1f1f1;
+            }
+
+
+            .table td {
+                text-align: center;
+            }
     </style>
 
     <script type="text/javascript">
@@ -27,7 +75,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-
+    <br />
+    <h1>Ventas</h1>
     <div style="width: 100%; display: flex; justify-content: center;">
         <div class="col-md-6">
             <div class="input-group">
@@ -37,7 +86,7 @@
         </div>
     </div>
     <div style="width: 100%; display: flex; justify-content: center;">
-        <asp:GridView ID="gvVentas" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview" DataKeyNames="IdVenta">
+        <asp:GridView ID="gvVentas" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview table" DataKeyNames="IdVenta" AllowPaging="True" PageSize="6">
             <Columns>
                 <asp:BoundField DataField="IdVenta" HeaderText="ID Venta" />
                 <asp:BoundField DataField="Nombre" HeaderText="Nombre Cliente" />
@@ -95,8 +144,9 @@
         </div>
     </div>
 
-    <asp:Button ID="btnGenerarVenta" runat="server" Text="Generar Venta" CssClass="btn btn-success" OnClick="btnGenerarVenta_Click" />
-
+    <div style="width: 100%; display: flex; justify-content: center; margin-top: 20px;">
+        <asp:Button ID="btnGenerarVenta" runat="server" Text="Generar Venta" CssClass="btn btn-success" OnClick="btnGenerarVenta_Click" />
+    </div>
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
