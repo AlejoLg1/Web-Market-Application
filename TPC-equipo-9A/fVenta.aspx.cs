@@ -23,8 +23,8 @@ namespace TPC_equipo_9A
             {
                 if (!IsPostBack)
                 {
-                    VentaServices ventaServices = new VentaServices();
-                    gvVentas.DataSource = ventaServices.list();
+                    Session.Add("listaVenta", ventaServices.listar());
+                    gvVentas.DataSource = Session["listaVenta"];
                     gvVentas.DataBind();
                 }
             }
@@ -97,7 +97,7 @@ namespace TPC_equipo_9A
 
                 detalleVentaServices.add(IdVenta, IdProducto, Cantidad, PrecioUnitario);
 
-                gvVentas.DataSource = ventaServices.list();
+                gvVentas.DataSource = ventaServices.listar();
                 gvVentas.DataBind();
 
                 ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
@@ -144,5 +144,38 @@ namespace TPC_equipo_9A
             }
         }
 
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                // Actualizar gvCompras con la lista filtrada
+                gvVentas.DataBind();
+            }
+            catch (Exception ex)
+            {
+                LblError.Text = "Error al realizar la búsqueda: " + ex.Message;
+                LblError.Visible = true;
+            }
+        }
+
+        public static string RemoveAccents(string text)
+        {
+            var withAccents = "áéíóúÁÉÍÓÚüÜñÑ";
+            var withoutAccents = "aeiouAEIOUuUnN";
+
+            for (int i = 0; i < withAccents.Length; i++)
+            {
+                text = text.Replace(withAccents[i], withoutAccents[i]);
+            }
+
+            return text;
+        }
+        protected void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            btnBuscar_Click(sender, e); // Llama al método de búsqueda
+        }
+
     }
+
 }
