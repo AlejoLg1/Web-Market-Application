@@ -10,7 +10,56 @@
         .centered-gridview {
             text-align: center; /* Centra el contenido de cada celda */
         }
+
+        h1 {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+        }
+
+        .table {
+            width: 50%;
+            max-width: 900px;
+            margin: 20px auto !important;
+            border-collapse: collapse;
+            font-size: 18px;
+            background-color: #f9f9f9;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px; /* Bordes redondeados */
+            overflow: hidden; /* Para asegurar que los bordes redondeados se vean correctamente */
+        }
+
+            /* Bordes de las celdas */
+            .table th, .table td {
+                padding: 12px 15px;
+                border: 1px solid #dddddd;
+            }
+
+            /* Estilo para el encabezado */
+            .table th {
+                background-color: #4CAF50;
+                color: white;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            /* Cambiar color de las filas alternas */
+            .table tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            /* Efecto hover */
+            .table tr:hover {
+                background-color: #f1f1f1;
+            }
+
+            /* Estilo para alinear los números en el centro */
+            .table td {
+                text-align: center;
+            }
     </style>
+
 
     <script type="text/javascript">
         function toggleSwitchLabel(checkbox) {
@@ -23,21 +72,23 @@
         }
     </script>
 
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
-
+    <br />
+    <h1>COMPRAS</h1>
     <div style="width: 100%; display: flex; justify-content: center;">
         <div class="col-md-6">
             <div class="input-group">
-                <asp:TextBox ID="txtBuscar" CssClass="form-control" runat="server" Placeholder="Buscar..."></asp:TextBox>
+                <asp:TextBox ID="txtBuscar" CssClass="form-control" runat="server" Placeholder="Buscar..." OnTextChanged="txtBuscar_TextChanged" AutoPostBack="true"></asp:TextBox>
                 <asp:Button ID="btnBuscar" CssClass="btn btn-primary" Text="Buscar" OnClick="btnBuscar_Click" runat="server" />
             </div>
         </div>
     </div>
     <div style="width: 100%; display: flex; justify-content: center;">
-        <asp:GridView ID="gvCompras" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview" DataKeyNames="IdCompra">
+        <asp:GridView ID="gvCompras" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview table" DataKeyNames="IdCompra" AllowPaging="True" PageSize="6">
             <Columns>
                 <asp:BoundField DataField="IdCompra" HeaderText="ID Compra" />
                 <asp:BoundField DataField="NombreProveedor" HeaderText="Proveedor" />
@@ -91,7 +142,9 @@
         </div>
     </div>
 
-    <asp:Button ID="btnGenerarCompra" runat="server" Text="Generar Compra" CssClass="btn btn-success" OnClick="btnGenerarCompra_Click" />
+    <div style="width: 100%; display: flex; justify-content: center; margin-top: 20px;">
+        <asp:Button ID="btnGenerarCompra" runat="server" Text="Generar Compra" CssClass="btn btn-success" OnClick="btnGenerarCompra_Click" />
+    </div>
 
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
