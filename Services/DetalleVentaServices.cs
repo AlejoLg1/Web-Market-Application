@@ -40,7 +40,7 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("EXEC sp_GenerarDetalleVenta @IdCompra, @IdProducto, @Cantidad, @PrecioUnitario");
+                DB.setQuery("EXEC sp_GenerarDetalleVenta @IdCompra, @IdProducto, @Cantidad, @PrecioUnitario SELECT SCOPE_IDENTITY() AS IdVenta;");
 
                 DB.setParameter("@IdCompra", IdVenta);
                 DB.setParameter("@IdProducto", IdProducto);
