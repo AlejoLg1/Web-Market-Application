@@ -13,16 +13,30 @@ namespace Services
     {
         private DataBaseAccess DB = new DataBaseAccess();
 
-        public DataTable list()
+        public List<dynamic> listar()
         {
-            DataTable table = new DataTable();
+            var lista = new List<dynamic>();
+
             try
             {
-                DB.setQuery("SELECT V.IdVenta, C.Nombre, C.Apellido, C.Correo, V.FechaVenta, V.NumeroFactura, V.Estado FROM Venta V JOIN Cliente C ON V.IdCliente = C.IdCliente");
+                DB.setQuery("SELECT V.IdVenta, C.Nombre, C.Apellido, C.Correo, V.FechaVenta, V.NumeroFactura, V.Estado FROM Venta V JOIN Cliente C ON V.IdCliente = C.IdCliente;");
                 DB.excecuteQuery();
 
-                table.Load(DB.Reader);
-                return table;
+                while (DB.Reader.Read())
+                {
+                    lista.Add(new
+                    {
+                        IdVenta = (int)DB.Reader["IdVenta"],
+                        Nombre = (string)DB.Reader["Nombre"],
+                        Apellido = (string)DB.Reader["Apellido"],
+                        Correo = (string)DB.Reader["Correo"],
+                        FechaVenta = (DateTime)DB.Reader["FechaVenta"],
+                        NumeroFactura = (string)DB.Reader["NumeroFactura"],
+                        Estado = (bool)DB.Reader["Estado"]
+                    });
+                }
+
+                return lista;
             }
             catch (Exception ex)
             {
@@ -45,12 +59,14 @@ namespace Services
                 DB.setParameter("@NumeroFactura", NumeroFactura);
                 DB.setParameter("Estado", Estado);
 
-                DataTable table = new DataTable();
-                table.Load(DB.excecuteQueryWithResult());
+                DB.excecuteQuery();
 
-                int NewID = Convert.ToInt32(table.Rows[0]["IdVenta"]);
-
-                return NewID;
+                int IdVenta = 0;
+                if (DB.Reader.Read())
+                {
+                    IdVenta = Convert.ToInt32(DB.Reader["IdVenta"]);
+                }
+                return IdVenta;
             }
             catch (Exception ex)
             {
