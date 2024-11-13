@@ -1,11 +1,19 @@
 ﻿<%@ Page Title="Control de Acceso" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ControlAcceso.aspx.cs" Inherits="TPC_equipo_9A.ControlAcceso" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        h1 {
+            font-family: Rockwell, sans-serif;
+            text-align: center;
+            font-size: 3em;
+            color: #333;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-5">
-        <h2>Control de Acceso</h2>
+        <h1>Control de Acceso</h1>
 
         <div class="card">
             <div class="card-header">
@@ -36,11 +44,11 @@
                     </div>
 
                     <div class="col-md-2 d-flex align-items-end">
-                        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-secondary" OnClick="btnBuscar_Click"/>
+                        <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-secondary" OnClick="btnBuscar_Click" />
                     </div>
 
                     <div class="col-md-4 d-flex justify-content-end align-items-end">
-                        <asp:Button ID="btnAgregarUsuario" runat="server" Text="Agregar Usuario" CssClass="btn btn-primary" OnClick="btnAgregarUsuario_Click"/>
+                        <asp:Button ID="btnAgregarUsuario" runat="server" Text="Agregar Usuario" CssClass="btn btn-primary" OnClick="btnAgregarUsuario_Click" />
                     </div>
                 </div>
             </div>
@@ -51,7 +59,7 @@
                 Lista de Usuarios
             </div>
             <div class="card-body">
-                <asp:GridView ID="gvUsuarios" runat="server" CssClass="table table-striped" DataKeyNames="IdUsuario" AutoGenerateColumns="False" OnRowCommand="gvUsuarios_RowCommand">
+                <asp:GridView ID="gvUsuarios" runat="server" CssClass="table table-striped" DataKeyNames="IdUsuario" AutoGenerateColumns="False" OnRowCommand="gvUsuarios_RowCommand" AllowPaging="True" PageSize="6" OnPageIndexChanging="gvUsuarios_PageIndexChanging">
                     <Columns>
                         <asp:BoundField DataField="UsuarioID" HeaderText="ID" Visible="False" />
                         <asp:ImageField DataImageUrlField="FotoPerfil" HeaderText="" ControlStyle-CssClass="image-thumbnail" NullDisplayText="/images/user.png" />
@@ -66,17 +74,14 @@
                         </asp:TemplateField>
                         <asp:TemplateField>
                             <ItemTemplate>
-                                <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-warning btn-sm" />
-                                <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-danger btn-sm" />
-                                <asp:Button ID="btnVerPerfil" runat="server" Text="Ver Perfil" CommandName="VerPerfil" CommandArgument='<%# Container.DataItemIndex %>' CssClass="btn btn-info btn-sm" />
+                                <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Eval("IdUsuario ") %>' CssClass="btn btn-warning btn-sm" />
+                                <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdUsuario ") %>' CssClass="btn btn-danger btn-sm" />
+                                <asp:Button ID="btnVerPerfil" runat="server" Text="Ver Perfil" CommandName="VerPerfil" CommandArgument='<%# Eval("IdUsuario ") %>' CssClass="btn btn-info btn-sm" />
 
                                 <span class="btn-separator"></span>
 
-                                <asp:Button ID="btnActivar" runat="server" Text="Activar" CommandName="Activar" CommandArgument='<%# Container.DataItemIndex %>'
-                                    CssClass="btn btn-secondary btn-sm" Style="background-color: #198754; border-color: #198754; width: 105px;" Visible='<%# !Convert.ToBoolean(Eval("Estado")) %>' />
-
-                                <asp:Button ID="btnDesactivar" runat="server" Text="Desactivar" CommandName="Desactivar" CommandArgument='<%# Container.DataItemIndex %>'
-                                    CssClass="btn btn-secondary btn-sm" Style="width: 105px;" Visible='<%# Convert.ToBoolean(Eval("Estado")) %>' />
+                                <asp:Button ID="btnActivar" runat="server" Text="Activar" CommandName="Activar" CommandArgument='<%# Eval("IdUsuario ") %>' CssClass="btn btn-secondary btn-sm" Style="background-color: #198754; border-color: #198754; width: 105px;" Visible='<%# !Convert.ToBoolean(Eval("Estado")) %>' />
+                                <asp:Button ID="btnDesactivar" runat="server" Text="Desactivar" CommandName="Desactivar" CommandArgument='<%# Eval("IdUsuario ") %>' CssClass="btn btn-secondary btn-sm" Style="width: 105px;" Visible='<%# Convert.ToBoolean(Eval("Estado")) %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

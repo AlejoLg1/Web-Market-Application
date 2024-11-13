@@ -32,6 +32,7 @@ namespace Services
                     Proveedor proveedor = new Proveedor();
                     proveedor.IdProveedor = (int)DB.Reader["IdProveedor"];
                     proveedor.Nombre = (string)DB.Reader["Nombre"];
+                    proveedor.Apellido = (string)DB.Reader["Apellido"];
                     proveedor.Telefono = (string)DB.Reader["Telefono"];
                     proveedor.Correo = (string)DB.Reader["Correo"];
                     proveedor.Direccion = (string)DB.Reader["Direccion"];
@@ -135,7 +136,7 @@ namespace Services
             {
                 Proveedor proveedor = new Proveedor();
                 DB.clearParameters();
-                DB.setQuery("SELECT IdProveedor, Nombre, Correo, Telefono, Direccion, DNI, CUIT, TipoPersona FROM Proveedor WHERE IdProveedor = @id");
+                DB.setQuery("SELECT IdProveedor, Nombre, Apellido, Correo, Telefono, Direccion, DNI, CUIT, TipoPersona FROM Proveedor WHERE IdProveedor = @id");
                 DB.setParameter("@id", Id);
                 DB.excecuteQuery();
 
@@ -143,6 +144,7 @@ namespace Services
                 {
                     proveedor.IdProveedor = DB.Reader["IdProveedor"] != DBNull.Value ? Convert.ToInt32(DB.Reader["IdProveedor"]) : 0;
                     proveedor.Nombre = DB.Reader["Nombre"] != DBNull.Value ? DB.Reader["Nombre"].ToString() : null;
+                    proveedor.Apellido = DB.Reader["Apellido"] != DBNull.Value ? DB.Reader["Apellido"].ToString() : null;
                     proveedor.Correo = DB.Reader["Correo"] != DBNull.Value ? DB.Reader["Correo"].ToString() : null;
                     proveedor.Telefono = DB.Reader["Telefono"] != DBNull.Value ? DB.Reader["Telefono"].ToString() : null;
                     proveedor.Direccion = DB.Reader["Direccion"] != DBNull.Value ? DB.Reader["Direccion"].ToString() : null;

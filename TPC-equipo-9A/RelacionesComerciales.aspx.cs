@@ -117,6 +117,7 @@ namespace TPC_equipo_9A
                     filters += $"(DNI LIKE '%{dni_cuit}%' OR CUIT LIKE '%{dni_cuit}%')";
                 }
 
+                ViewState["filters"] = filters;
                 BindGrid(filters);
             }
             catch (Exception ex)
@@ -131,23 +132,33 @@ namespace TPC_equipo_9A
             Response.Redirect("AgregarRelacion.aspx", false);
         }
 
+        protected void gvRelaciones_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvRelaciones.PageIndex = e.NewPageIndex;
+
+            string filters = ViewState["filters"] as string;
+
+            BindGrid(filters);
+        }
 
         protected void gvRelaciones_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int index = Convert.ToInt32(e.CommandArgument);
+            string[] argumentos = e.CommandArgument.ToString().Split(',');
 
-            int IdRelacion = Convert.ToInt32(gvRelaciones.DataKeys[index].Value);
 
-            GridViewRow row = gvRelaciones.Rows[index];
-            Label lblRelacion = (Label)row.FindControl("lblRelacion");
-            string relacionTipo = lblRelacion.Text;
+            int IdRelacion = int.Parse(argumentos[0]);
+            string relacionTipo = "";
+            if (argumentos.Length >= 2)
+            {
+                relacionTipo = argumentos[1];
+            }
+
 
             string page;
             object service;
-            if (lblRelacion.Text == "Proveedor")
+            if (relacionTipo == "Proveedor")
             {
                 service = new ProveedorServices();
-
                 page = "ProveedorPage";
             }
             else
@@ -163,7 +174,6 @@ namespace TPC_equipo_9A
                     break;
 
                 case "Eliminar":
-
                     if (service is ProveedorServices proveedorService)
                     {
                         bool withoutProducts = proveedorService.verifyProducts(IdRelacion);
@@ -197,6 +207,7 @@ namespace TPC_equipo_9A
                     }
                     Response.Redirect("RelacionesComerciales.aspx", false);
                     break;
+
                 case "Estado":
                     Button btnEstado = (Button)e.CommandSource;
 

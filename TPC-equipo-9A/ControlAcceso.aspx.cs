@@ -2,10 +2,6 @@
 using Services;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Reflection;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -14,6 +10,7 @@ namespace TPC_equipo_9A
     public partial class ControlAcceso : System.Web.UI.Page
     {
         UsuarioServices service = new UsuarioServices();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -40,13 +37,21 @@ namespace TPC_equipo_9A
             }
         }
 
+        protected void gvUsuarios_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvUsuarios.PageIndex = e.NewPageIndex;
+
+            string filters = ViewState["filters"] as string;
+
+            BindGrid(filters);
+        }
+
+
         protected void gvUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
             {
-                int rowIndex = Convert.ToInt32(e.CommandArgument);
-                GridViewRow row = gvUsuarios.Rows[rowIndex];
-                int IdUsuario = Convert.ToInt32(gvUsuarios.DataKeys[rowIndex].Value.ToString());
+                int IdUsuario = Convert.ToInt32(e.CommandArgument);
 
                 switch (e.CommandName)
                 {
@@ -58,7 +63,7 @@ namespace TPC_equipo_9A
                         if (service.getUser(IdUsuario).Rol == "Administrador")
                         {
                             int admins = service.countActiveAdmins();
-                            if (Convert.ToInt32(admins) == 1)
+                            if (admins == 1)
                             {
                                 string script = "alert('No es posible Eliminar al único administrador de la plataforma.');";
                                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
@@ -79,11 +84,10 @@ namespace TPC_equipo_9A
                         break;
 
                     case "Desactivar":
-
                         if (service.getUser(IdUsuario).Rol == "Administrador")
                         {
                             int admins = service.countActiveAdmins();
-                            if (Convert.ToInt32(admins) == 1)
+                            if (admins == 1)
                             {
                                 string script = "alert('No es posible Desactivar al único administrador de la plataforma.');";
                                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
@@ -113,6 +117,8 @@ namespace TPC_equipo_9A
             }
         }
 
+
+
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             try
@@ -123,28 +129,30 @@ namespace TPC_equipo_9A
 
                 string filters = "";
 
-                if (nombreUsuario != "")
+                if (!string.IsNullOrEmpty(nombreUsuario))
                 {
                     filters += $"NombreUsuario LIKE '%{nombreUsuario}%'";
                 }
 
-                if (rolSeleccionado != "")
+                if (!string.IsNullOrEmpty(rolSeleccionado))
                 {
-                    if (filters != "")
+                    if (!string.IsNullOrEmpty(filters))
                     {
                         filters += " and ";
                     }
                     filters += $"Rol = '{rolSeleccionado}'";
                 }
 
-                if (estadoSeleccionado != "")
+                if (!string.IsNullOrEmpty(estadoSeleccionado))
                 {
-                    if (filters != "")
+                    if (!string.IsNullOrEmpty(filters))
                     {
                         filters += " and ";
                     }
                     filters += $"Estado = '{estadoSeleccionado}'";
                 }
+
+                ViewState["filters"] = filters;
 
                 BindGrid(filters);
             }

@@ -68,6 +68,8 @@ namespace TPC_equipo_9A
                 {
                     lblTitulo.Text = "Registrando Producto";
 
+                    btnGuardar.Text = "Crear producto";
+
                     btnEliminar.Visible = false;
                     btnModificar.Visible = false;
                     btnGuardar.Visible = true;
@@ -168,7 +170,7 @@ namespace TPC_equipo_9A
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
                 if (id != "" && Page.IsValid)
                 {
-                    nuevo.IdProducto = int.Parse(txtIdProducto.Text);
+                    nuevo.IdProducto = int.Parse(id);
 
                     string script = $"if(confirm('¿Estás seguro que deseas modificar el producto con ID: {txtIdProducto.Text} y Nombre: {txtNombre.Text}?')) {{ {ClientScript.GetPostBackEventReference(btnGuardar, null)}; }}";
                     ClientScript.RegisterStartupScript(this.GetType(), "ConfirmacionGuardar", script, true);

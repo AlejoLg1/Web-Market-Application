@@ -24,6 +24,15 @@ namespace TPC_equipo_9A
         protected global::System.Web.UI.WebControls.Label lblTitulo;
 
         /// <summary>
+        /// Control lblIdMarca.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIdMarca;
+
+        /// <summary>
         /// Control txtIdMarca.
         /// </summary>
         /// <remarks>

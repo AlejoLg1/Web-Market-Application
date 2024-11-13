@@ -52,10 +52,11 @@
                                 ID="revApellido"
                                 runat="server"
                                 ControlToValidate="txtApellido"
-                                ErrorMessage="El apellido solo puede contener letras y espacios."
+                                ErrorMessage="El apellido solo puede contener letras, espacios y caracteres especiales como tildes."
                                 CssClass="text-danger"
                                 Display="Dynamic"
-                                ValidationExpression="^[a-zA-Z\s]*$" />
+                                ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$" />
+
                         </div>
 
                         <br />
@@ -124,9 +125,9 @@
                             <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-secondary" Text="Cancelar" OnClick="btnCancelar_Click" CausesValidation="false" />
                         </div>
                     </div>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </asp:Content>
 

@@ -8,19 +8,23 @@
             text-decoration: underline;
             margin-bottom: 20px;
         }
+
         .section-title {
             font-size: 18px;
             margin-top: 20px;
             font-weight: bold;
         }
+
         .form-container {
             max-width: 800px;
             margin: auto;
         }
+
         .btn-container {
             text-align: center;
             margin-top: 20px;
         }
+
         .hidden {
             display: none;
         }
@@ -89,10 +93,11 @@
                         ID="revApellido"
                         runat="server"
                         ControlToValidate="txtApellido"
-                        ErrorMessage="El apellido solo puede contener letras y espacios."
+                        ErrorMessage="El apellido solo puede contener letras, espacios y caracteres especiales como tildes."
                         CssClass="text-danger"
                         Display="Dynamic"
-                        ValidationExpression="^[a-zA-Z\s]*$" />
+                        ValidationExpression="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$" />
+
                 </div>
             </div>
 
@@ -209,8 +214,8 @@
                         Display="Dynamic" />
                 </div>
 
-                </div>
             </div>
+        </div>
 
         <div class="btn-container">
             <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-secondary" OnClick="btnVolver_Click" CausesValidation="false" />

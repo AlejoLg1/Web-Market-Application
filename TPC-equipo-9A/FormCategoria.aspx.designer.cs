@@ -24,6 +24,15 @@ namespace TPC_equipo_9A
         protected global::System.Web.UI.WebControls.Label lblTitulo;
 
         /// <summary>
+        /// lblIdCategoria control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIdCategoria;
+
+        /// <summary>
         /// txtIdCategoria control.
         /// </summary>
         /// <remarks>

@@ -38,10 +38,14 @@ namespace TPC_equipo_9A
                 }
                 else
                 {
+                    btnGuardar.Text = "Crear categoría";
                     btnVolver.Text = "Cancelar";
                     btnEliminar.Visible = false;
                     btnModificar.Visible = false;
                     btnGuardar.Visible = true;
+
+                    lblIdCategoria.Visible = false;
+                    txtIdCategoria.Visible = false;
 
                     txtNombreCategoria.ReadOnly = false;
                     lblTitulo.Text = "Registrando categoría";
@@ -60,12 +64,15 @@ namespace TPC_equipo_9A
         {
             try
             {
-
+       
                 btnVolver.Text = "Cancelar";
 
                 btnEliminar.Visible = false;
                 btnModificar.Visible = false;
                 btnGuardar.Visible = true;
+
+                lblIdCategoria.Visible = false;
+                txtIdCategoria.Visible = false;
 
                 txtNombreCategoria.ReadOnly = false;
 
