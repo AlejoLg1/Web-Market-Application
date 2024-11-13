@@ -25,7 +25,7 @@ namespace TPC_equipo_9A
             {
                 if (!IsPostBack)
                 {
-                    Session.Add("listaCompra", compraServices.listar());
+                    Session["listaCompra"] = compraServices.listar(); // Inicializar la lista de compras
                     gvCompras.DataSource = Session["listaCompra"];
                     gvCompras.DataBind();
                 }
@@ -147,28 +147,52 @@ namespace TPC_equipo_9A
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            List<Compra> lista = (List<Compra>)Session["listaCompra"];
-            List<Compra> listaFiltrada = lista.FindAll(x => RemoveAccents(x.IdCompra.ToString().ToLower()).Contains(txtBuscar.Text.ToLower())); 
-            //|| x.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()) 
-            //|| RemoveAccents(x.Categoria.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()) 
-            //|| x.Categoria.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()) 
-            //|| RemoveAccents(x.Marca.Nombre.ToLower()).Contains(txtBuscar.Text.ToLower()) 
-            //|| x.Marca.Nombre.ToLower().Contains(txtBuscar.Text.ToLower()));
-            gvCompras.DataSource = listaFiltrada;
-            gvCompras.DataBind();
+            try
+            {
+                // Obtener el texto de búsqueda y eliminar acentos
+                string searchText = RemoveAccents(txtBuscar.Text.ToLower());
+                var listaCompras = Session["listaCompra"] as List<Compra>;
+
+                if (listaCompras == null || listaCompras.Count == 0)
+                {
+                    LblError.Text = "No se encontraron datos en la lista de compras.";
+                    LblError.Visible = true;
+                    return;
+                }
+
+                // Filtrar por nombre de proveedor, ID de compra o fecha de compra
+                var filteredList = listaCompras.Where(c =>
+                   // RemoveAccents(c.NombreProveedor.ToLower()).Contains(searchText) || // Filtra por nombre de proveedor
+                    c.IdCompra.ToString().Contains(searchText) || // Filtra por ID de compra
+                    c.FechaCompra.ToString("dd/MM/yyyy").Contains(searchText) // Filtra por fecha de compra en formato dd/MM/yyyy
+                ).ToList();
+
+                // Actualizar gvCompras con la lista filtrada
+                gvCompras.DataSource = filteredList;
+                gvCompras.DataBind();
+            }
+            catch (Exception ex)
+            {
+                LblError.Text = "Error al realizar la búsqueda: " + ex.Message;
+                LblError.Visible = true;
+            }
         }
 
-        public static string RemoveAccents(string text)
+public static string RemoveAccents(string text)
+{
+    var withAccents = "áéíóúÁÉÍÓÚüÜñÑ";
+    var withoutAccents = "aeiouAEIOUuUnN";
+
+    for (int i = 0; i < withAccents.Length; i++)
+    {
+        text = text.Replace(withAccents[i], withoutAccents[i]);
+    }
+
+    return text;
+}
+        protected void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-            var withAccents = "áéíóúüñ";
-            var withoutAccents = "aeiouun"; // Debe incluir 'u' para la ü.
-
-            for (int i = 0; i < withAccents.Length; i++)
-            {
-                text = text.Replace(withAccents[i], withoutAccents[i]);
-            }
-
-            return text;
+            btnBuscar_Click(sender, e); // Llama al método de búsqueda
         }
 
     }
