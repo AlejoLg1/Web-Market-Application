@@ -12,7 +12,7 @@
         }
     </style>
 
-        <script type="text/javascript">
+    <script type="text/javascript">
         function toggleSwitchLabel(checkbox) {
             var label = checkbox.nextElementSibling;
             if (checkbox.checked) {
@@ -21,14 +21,23 @@
                 label.textContent = "Anulada";
             }
         }
-        </script>
+    </script>
 
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
     <div style="width: 100%; display: flex; justify-content: center;">
-        <asp:GridView ID="gvVentas" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview"  DataKeyNames="IdVenta">
+        <div class="col-md-6">
+            <div class="input-group">
+                <asp:TextBox ID="txtBuscar" CssClass="form-control" runat="server" Placeholder="Buscar..."></asp:TextBox>
+                <asp:Button ID="btnBuscar" CssClass="btn btn-primary" Text="Buscar" OnClick="btnBuscar_Click" runat="server" />
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%; display: flex; justify-content: center;">
+        <asp:GridView ID="gvVentas" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview" DataKeyNames="IdVenta">
             <Columns>
                 <asp:BoundField DataField="IdVenta" HeaderText="ID Venta" />
                 <asp:BoundField DataField="Nombre" HeaderText="Nombre Cliente" />
