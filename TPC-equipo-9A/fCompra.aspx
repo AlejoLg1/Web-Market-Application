@@ -8,7 +8,7 @@
 
     <style>
         .centered-gridview {
-            text-align: center; /* Centra el contenido de cada celda */
+            text-align: center; 
         }
 
         h1 {
@@ -26,17 +26,15 @@
             font-size: 18px;
             background-color: #f9f9f9;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px; /* Bordes redondeados */
-            overflow: hidden; /* Para asegurar que los bordes redondeados se vean correctamente */
+            border-radius: 8px; 
+            overflow: hidden; 
         }
 
-            /* Bordes de las celdas */
             .table th, .table td {
                 padding: 12px 15px;
                 border: 1px solid #dddddd;
             }
 
-            /* Estilo para el encabezado */
             .table th {
                 background-color: #4CAF50;
                 color: white;
@@ -44,17 +42,14 @@
                 text-align: center;
             }
 
-            /* Cambiar color de las filas alternas */
             .table tr:nth-child(even) {
                 background-color: #f2f2f2;
             }
 
-            /* Efecto hover */
             .table tr:hover {
                 background-color: #f1f1f1;
             }
 
-            /* Estilo para alinear los números en el centro */
             .table td {
                 text-align: center;
             }

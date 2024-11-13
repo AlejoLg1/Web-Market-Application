@@ -25,7 +25,7 @@ namespace TPC_equipo_9A
             {
                 if (!IsPostBack)
                 {
-                    Session["listaCompra"] = compraServices.listar(); // Inicializar la lista de compras
+                    Session["listaCompra"] = compraServices.listar();
                     gvCompras.DataSource = Session["listaCompra"];
                     gvCompras.DataBind();
                 }
