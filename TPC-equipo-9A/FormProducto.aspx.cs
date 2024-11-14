@@ -21,7 +21,7 @@ namespace TPC_equipo_9A
                 if (!IsPostBack)
                 {
                     CategoriaServices categoriaServices = new CategoriaServices();
-                    List<Categoria> categorias = categoriaServices.listar();
+                    List<Categoria> categorias = categoriaServices.listar().OrderBy(c => c.Nombre).ToList();
 
                     ddlCategoria.DataSource = categorias;
                     ddlCategoria.DataTextField = "Nombre"; // El nombre de la columna que quieres mostrar
@@ -31,7 +31,7 @@ namespace TPC_equipo_9A
                     ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", ""));
 
                     MarcaServices marcaServices = new MarcaServices();
-                    List<Marca> marcas = marcaServices.listar();
+                    List<Marca> marcas = marcaServices.listar().OrderBy(m => m.Nombre).ToList();
 
                     ddlMarca.DataSource = marcas;
                     ddlMarca.DataTextField = "Nombre"; // El nombre de la columna que quieres mostrar
@@ -115,7 +115,7 @@ namespace TPC_equipo_9A
             try
             {
                 btnVolver.Text = "Cancelar";
-
+                btnGuardar.Text = "Guarda cambios";
                 txtNombre.ReadOnly = false;
                 txtPorcentajeGanancia.ReadOnly = false;
                 txtStockActual.ReadOnly = false;

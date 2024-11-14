@@ -79,7 +79,7 @@
                         <!-- Fila para Marca -->
                         <div class="mb-3">
                             <label for="ddlMarca" class="form-label">Marca</label>
-                            <asp:DropDownList ID="ddlMarca" CssClass="form-control" runat="server" Enabled="false"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlMarca" CssClass="form-control form-select" runat="server" Enabled="false"></asp:DropDownList>
                             <asp:ListItem Text="Elija una marca" Value="" Selected="True" />
                             <asp:RequiredFieldValidator ID="rfvMarca" runat="server" ControlToValidate="ddlMarca" ErrorMessage="La marca es obligatoria." CssClass="text-danger" Display="Dynamic" InitialValue="" />
                         </div>
@@ -87,7 +87,7 @@
                         <!-- Fila para Categoría -->
                         <div class="mb-3">
                             <label for="ddlCategoria" class="form-label">Categoría</label>
-                            <asp:DropDownList ID="ddlCategoria" CssClass="form-control" runat="server" Enabled="false"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlCategoria" CssClass="form-control form-select" runat="server" Enabled="false"></asp:DropDownList>
                             <asp:ListItem Text="Elija una Categoría" Value="" Selected="True" />
                             <asp:RequiredFieldValidator ID="rfvCategoria" runat="server" ControlToValidate="ddlCategoria" ErrorMessage="La categoría es obligatoria." CssClass="text-danger" Display="Dynamic" InitialValue="" />
                         </div>
