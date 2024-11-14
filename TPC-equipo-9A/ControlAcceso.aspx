@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         function confirmarEliminacion(NombreUsuario, Rol) {
-            var mensaje = "¿Estás seguro que deseas eliminar al " + Rol + ": " + NombreUsuario + "?";
+            var mensaje = "¿Estás seguro que deseas eliminar al " + Rol + " '" + NombreUsuario + "'?";
             return confirm(mensaje);
         }
     </script>
