@@ -1,6 +1,12 @@
 ﻿<%@ Page Title="Relaciones Comerciales" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="RelacionesComerciales.aspx.cs" Inherits="TPC_equipo_9A.RelacionesComerciales" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script type="text/javascript">
+        function confirmarEliminacion(Relacion, Nombre, Correo) {
+            var mensaje = "¿Estás seguro que deseas eliminar al siguiente " + Relacion + "? \n - Nombre: " + Nombre + "\n - Correo: " + Correo;
+        return confirm(mensaje);
+    }
+    </script>
     <style>
         table .custom-active {
             width: 115px;
@@ -128,7 +134,13 @@
 
                                     <span class="btn-separator mx-2"></span>
 
-                                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdRelacion") + "," + Eval("Relacion")%>' CssClass="btn btn-danger btn-sm" />
+                                    <asp:Button ID="btnEliminar" 
+                                        runat="server" 
+                                        Text="Eliminar" 
+                                        CommandName="Eliminar" 
+                                        CommandArgument='<%# Eval("IdRelacion") + "," + Eval("Relacion")%>'
+                                        CssClass="btn btn-danger btn-sm"
+                                        OnClientClick='<%# "return confirmarEliminacion(\"" + Eval("Relacion") + "\", \"" + Eval("Nombre") + "\", \"" + Eval("Correo") + "\");" %>' />
 
                                     <span class="btn-separator mx-2"></span>
 
