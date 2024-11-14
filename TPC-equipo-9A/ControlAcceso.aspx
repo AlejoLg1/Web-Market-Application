@@ -1,6 +1,12 @@
 ﻿<%@ Page Title="Control de Acceso" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="ControlAcceso.aspx.cs" Inherits="TPC_equipo_9A.ControlAcceso" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script type="text/javascript">
+        function confirmarEliminacion(NombreUsuario, Rol) {
+            var mensaje = "¿Estás seguro que deseas eliminar al " + Rol + ": " + NombreUsuario + "?";
+            return confirm(mensaje);
+        }
+    </script>
     <style>
         h1 {
             font-family: Rockwell, sans-serif;
@@ -75,7 +81,15 @@
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:Button ID="btnEditar" runat="server" Text="Editar" CommandName="Editar" CommandArgument='<%# Eval("IdUsuario ") %>' CssClass="btn btn-warning btn-sm" />
-                                <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdUsuario ") %>' CssClass="btn btn-danger btn-sm" />
+                                <asp:Button 
+                                    ID="btnEliminar" 
+                                    runat="server" 
+                                    Text="Eliminar" 
+                                    OnClientClick='<%# "return confirmarEliminacion(\"" + Eval("NombreUsuario") + "\", \"" + Eval("Rol") + "\");" %>'
+                                    CommandName="Eliminar" 
+                                    CommandArgument='<%# Eval("IdUsuario ") %>' 
+                                    CssClass="btn btn-danger btn-sm" 
+                                    />
                                 <asp:Button ID="btnVerPerfil" runat="server" Text="Ver Perfil" CommandName="VerPerfil" CommandArgument='<%# Eval("IdUsuario ") %>' CssClass="btn btn-info btn-sm" />
 
                                 <span class="btn-separator"></span>
