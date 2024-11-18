@@ -8,9 +8,14 @@
         }
     </script>
     <style>
-         @font-face {
+        .no-encontrado {
+            color: red;
+            font-weight: bold;
+        }
+
+        @font-face {
             font-family: 'Rockwell';
-            src: url('/path/to/rockwell.ttf'); 
+            src: url('/path/to/rockwell.ttf');
         }
 
         h1 {
@@ -26,10 +31,10 @@
         }
 
         .container {
-            max-width: 700px !important; 
+            max-width: 700px !important;
             margin-left: auto;
             margin-right: auto;
-            width:70% !important;
+            width: 70% !important;
             padding: 15px;
         }
 
@@ -78,7 +83,10 @@
 
                         <!-- Fila para Marca -->
                         <div class="mb-3">
-                            <label for="ddlMarca" class="form-label">Marca</label>
+                            <label for="txtBuscarMar" class="form-label">Marca</label>
+                            <asp:TextBox ID="txtBuscarMar" Enabled="false" placeholder="Busque la marca" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBuscarMar_TextChanged" runat="server" Visible="false"></asp:TextBox>
+                            <asp:Label ID="lblNoEncontradoMar" runat="server" Text="No se encontró" CssClass="text-danger" Visible="false"></asp:Label>
+                            <%--<label for="ddlMarca" class="form-label">Marca</label>--%>
                             <asp:DropDownList ID="ddlMarca" CssClass="form-control form-select" runat="server" Enabled="false"></asp:DropDownList>
                             <asp:ListItem Text="Elija una marca" Value="" Selected="True" />
                             <asp:RequiredFieldValidator ID="rfvMarca" runat="server" ControlToValidate="ddlMarca" ErrorMessage="La marca es obligatoria." CssClass="text-danger" Display="Dynamic" InitialValue="" />
@@ -86,7 +94,11 @@
 
                         <!-- Fila para Categoría -->
                         <div class="mb-3">
-                            <label for="ddlCategoria" class="form-label">Categoría</label>
+                            <label for="txtBuscarCat" class="form-label">Categoría</label>
+                            <asp:TextBox ID="txtBuscarCat" Enabled="false" placeholder="Busque la categoría" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBuscarCat_TextChanged" runat="server" Visible="false"></asp:TextBox>
+                            <asp:Label ID="lblNoEncontradoCat" runat="server" Text="No se encontró" CssClass="text-danger" Visible="false"></asp:Label>
+
+                            <%--                            <label for="ddlCategoria" class="form-label">Categoría</label>--%>
                             <asp:DropDownList ID="ddlCategoria" CssClass="form-control form-select" runat="server" Enabled="false"></asp:DropDownList>
                             <asp:ListItem Text="Elija una Categoría" Value="" Selected="True" />
                             <asp:RequiredFieldValidator ID="rfvCategoria" runat="server" ControlToValidate="ddlCategoria" ErrorMessage="La categoría es obligatoria." CssClass="text-danger" Display="Dynamic" InitialValue="" />
