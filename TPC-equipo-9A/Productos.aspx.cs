@@ -47,7 +47,12 @@ namespace TPC_equipo_9A
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
             List<Producto> lista = (List<Producto>)Session["listaProductos"];
-            List<Producto> listaFiltrada = lista.FindAll(x => RemoveAccents(x.Nombre.ToLower().Replace(" ", "")).Contains(txtBuscar.Text.ToLower().Replace(" ","")) || x.Nombre.ToLower().Replace(" ", "").Contains(txtBuscar.Text.ToLower().Replace(" ","")) || RemoveAccents(x.Categoria.Nombre.ToLower().Replace(" ","")).Contains(txtBuscar.Text.ToLower().Replace(" ", "")) || x.Categoria.Nombre.ToLower().Replace(" ","").Contains(txtBuscar.Text.ToLower().Replace(" ", "")) || RemoveAccents(x.Marca.Nombre.ToLower().Replace(" ","")).Contains(txtBuscar.Text.ToLower().Replace(" ", "")) || x.Marca.Nombre.ToLower().Replace(" ","").Contains(txtBuscar.Text.ToLower().Replace(" ", "")));
+            List<Producto> listaFiltrada = lista.FindAll(x => RemoveAccents(x.Nombre.ToLower().Replace(" ", "")).Contains(txtBuscar.Text.ToLower().Replace(" ","")) 
+            || x.Nombre.ToLower().Replace(" ", "").Contains(txtBuscar.Text.ToLower().Replace(" ","")) 
+            || RemoveAccents(x.Categoria.Nombre.ToLower().Replace(" ","")).Contains(txtBuscar.Text.ToLower().Replace(" ", "")) 
+            || x.Categoria.Nombre.ToLower().Replace(" ","").Contains(txtBuscar.Text.ToLower().Replace(" ", "")) 
+            || RemoveAccents(x.Marca.Nombre.ToLower().Replace(" ","")).Contains(txtBuscar.Text.ToLower().Replace(" ", "")) 
+            || x.Marca.Nombre.ToLower().Replace(" ","").Contains(txtBuscar.Text.ToLower().Replace(" ", "")));
             dgvProductos.DataSource = listaFiltrada;
             dgvProductos.DataBind();
         }
