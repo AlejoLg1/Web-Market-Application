@@ -14,24 +14,39 @@ namespace Services
     {
         private DataBaseAccess DB = new DataBaseAccess();
 
-        public List<dynamic> listar()
+        public List<Compra> listar(string filtro = "")
         {
-            var lista = new List<dynamic>();
+            List<Compra> lista = new List<Compra>();
 
             try
             {
-                DB.setQuery("SELECT Compra.IdCompra, Proveedor.Nombre AS NombreProveedor, Compra.FechaCompra, Compra.Estado FROM Compra INNER JOIN Proveedor ON Compra.IdProveedor = Proveedor.IdProveedor;");
+                string query = "SELECT C.IdCompra, P.Nombre AS Nombre, C.FechaCompra, C.Estado " +
+                               "FROM Compra C " +
+                               "INNER JOIN Proveedor P ON C.IdProveedor = P.IdProveedor";
+
+                if (!string.IsNullOrEmpty(filtro))
+                {
+                    query += " WHERE P.Nombre LIKE @Filtro " +
+                             "OR C.IdCompra LIKE @Filtro " +
+                             "OR CONVERT(VARCHAR, C.FechaCompra, 103) LIKE @Filtro";
+                }
+
+                DB.setQuery(query);
+                if (!string.IsNullOrEmpty(filtro))
+                    DB.setParameter("@Filtro", $"%{filtro}%");
+
                 DB.excecuteQuery();
 
                 while (DB.Reader.Read())
                 {
-                    lista.Add(new
-                    {
-                        IdCompra = (int)DB.Reader["IdCompra"],
-                        NombreProveedor = (string)DB.Reader["NombreProveedor"],
-                        FechaCompra = (DateTime)DB.Reader["FechaCompra"],
-                        Estado = (bool)DB.Reader["Estado"]
-                    });
+                    Compra aux = new Compra();
+                    aux.IdCompra = (int)DB.Reader["IdCompra"];
+                    aux.Proveedor = new Proveedor();
+                    aux.Proveedor.Nombre = (string)DB.Reader["Nombre"];
+                    aux.FechaCompra = (DateTime)DB.Reader["FechaCompra"];
+                    aux.Estado = (bool)DB.Reader["Estado"];
+
+                    lista.Add(aux);
                 }
 
                 return lista;
@@ -45,6 +60,53 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+       /* public List<Compra> ListarPrueba(string filtro = "")
+        {
+            List<Compra> lista = new List<Compra>();
+
+            try
+            {
+                string query = "SELECT C.IdCompra, P.Nombre AS Nombre, C.FechaCompra, C.Estado " +
+                               "FROM Compra C " +
+                               "INNER JOIN Proveedor P ON C.IdProveedor = P.IdProveedor";
+
+                if (!string.IsNullOrEmpty(filtro))
+                {
+                    query += " WHERE P.Nombre LIKE @Filtro " +
+                             "OR C.IdCompra LIKE @Filtro " +
+                             "OR CONVERT(VARCHAR, C.FechaCompra, 103) LIKE @Filtro";
+                }
+
+                DB.setQuery(query);
+                if (!string.IsNullOrEmpty(filtro))
+                    DB.setParameter("@Filtro", $"%{filtro}%");
+
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    Compra aux = new Compra();
+                    aux.IdCompra = (int)DB.Reader["IdCompra"];
+                    aux.Proveedor = new Proveedor();
+                    aux.Proveedor.Nombre = (string)DB.Reader["Nombre"];
+                    aux.FechaCompra = (DateTime)DB.Reader["FechaCompra"];
+                    aux.Estado = (bool)DB.Reader["Estado"];
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }*/
         public int add(int IdProveedor, DateTime FechaCompra, bool Estado)
         {
             try
