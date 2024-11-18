@@ -83,11 +83,11 @@
         </div>
     </div>
     <div style="width: 100%; display: flex; justify-content: center;">
-        <asp:GridView ID="gvCompras" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview table" DataKeyNames="IdCompra" AllowPaging="True" PageSize="6">
+        <asp:GridView ID="gvCompras" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview table" OnPageIndexChanging="gvCompras_PageIndexChanging" DataKeyNames="IdCompra" AllowPaging="True" PageSize="6">
             <Columns>
-                <asp:BoundField DataField="IdCompra" HeaderText="ID Compra" />
-                <asp:BoundField DataField="NombreProveedor" HeaderText="Proveedor" />
-                <asp:BoundField DataField="FechaCompra" HeaderText="Fecha de Compra" DataFormatString="{0:dd/MM/yyyy}" />
+            <asp:BoundField DataField="IdCompra" HeaderText="ID Compra" />
+            <asp:BoundField DataField="Proveedor.Nombre" HeaderText="Proveedor" />
+            <asp:BoundField DataField="FechaCompra" HeaderText="Fecha de Compra" DataFormatString="{0:dd/MM/yyyy}" />
                 <asp:TemplateField HeaderText="Verificación">
                     <ItemTemplate>
                         <asp:CheckBox ID="chkVerificacion" runat="server"
@@ -191,6 +191,18 @@
             </div>
         </div>
     </div>
+
+   <!-- <asp:GridView ID="gvPrueba" runat="server" DataKeyNames="IdCompra"
+        CssClass="table" AutoGenerateColumns="false"
+        AllowPaging="True" PageSize="5">
+        <Columns>
+            <asp:BoundField DataField="IdCompra" HeaderText="ID Compra" />
+            <asp:BoundField DataField="Proveedor.Nombre" HeaderText="Proveedor" />
+            <asp:BoundField DataField="FechaCompra" HeaderText="Fecha de Compra" DataFormatString="{0:dd/MM/yyyy}" />
+            <asp:BoundField DataField="Estado" HeaderText="Estado" />
+        </Columns>
+    </asp:GridView>-->
+
 
 
 </asp:Content>
