@@ -59,10 +59,10 @@ namespace TPC_equipo_9A
                     txtFechaVencimiento.Text = seleccionado.FechaVencimiento?.ToString("yyyy-MM-dd") ?? "";
 
                     lblOpcional.Visible = false;
-                    
+
                     //btnGuardar.OnClientClick = "return confirmarModificacion('" + id + "', '" + seleccionado.Nombre + "');";
                     btnEliminar.OnClientClick = "return confirmarEliminacion('" + id + "', '" + seleccionado.Nombre + "');";
-                    
+
                 }
                 else
                 {
@@ -91,7 +91,7 @@ namespace TPC_equipo_9A
                     txtStockActual.Visible = false;
                     lblStockActual.Visible = false;
 
-                    
+
 
                     txtStockMinimo.ReadOnly = false;
                     ddlCategoria.Enabled = true;
@@ -203,6 +203,40 @@ namespace TPC_equipo_9A
         protected void btnVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("Productos.aspx", false);
+        }
+
+        protected void txtBuscarMar_TextChanged(object sender, EventArgs e)
+        {
+            FiltroDropDownList(ddlMarca, txtBuscarMar.Text);
+        }
+
+        protected void txtBuscarCat_TextChanged(object sender, EventArgs e)
+        {
+            FiltroDropDownList(ddlCategoria, txtBuscarCat.Text);
+        }
+
+        private void FiltroDropDownList(DropDownList ddl, string filterText)
+        {
+            var textoBuscadoNormalizado = RemoveAccents(filterText.ToLower().Replace(" ", ""));
+            foreach (ListItem item in ddl.Items)
+            {
+                var textoItemNormalizado = RemoveAccents(item.Text.ToLower().Replace(" ", ""));
+                item.Enabled = textoItemNormalizado.Contains(textoBuscadoNormalizado);
+                item.Attributes.CssStyle["display"] = item.Enabled ? "" : "none";
+            }
+        }
+
+        public static string RemoveAccents(string text)
+        {
+            var withAccents = "áéíóúüñ";
+            var withoutAccents = "aeiounn";
+
+            for (int i = 0; i < withAccents.Length; i++)
+            {
+                text = text.Replace(withAccents[i], withoutAccents[i]);
+            }
+
+            return text;
         }
     }
 }
