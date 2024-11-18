@@ -26,6 +26,7 @@ namespace TPC_equipo_9A
                     Session.Add("listaVenta", ventaServices.listar());
                     gvVentas.DataSource = Session["listaVenta"];
                     gvVentas.DataBind();
+
                 }
             }
             catch (Exception ex)
@@ -148,8 +149,9 @@ namespace TPC_equipo_9A
         {
             try
             {
-
-                // Actualizar gvCompras con la lista filtrada
+                string filtro = txtBuscar.Text.Trim();
+                List<Venta> listaFiltrada = ventaServices.listar(filtro);
+                gvVentas.DataSource = listaFiltrada;
                 gvVentas.DataBind();
             }
             catch (Exception ex)
@@ -176,6 +178,23 @@ namespace TPC_equipo_9A
             btnBuscar_Click(sender, e); // Llama al método de búsqueda
         }
 
+        protected void gvVentas_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                gvVentas.PageIndex = e.NewPageIndex;
+                if (Session["listaVenta"] != null)
+                {
+                    gvVentas.DataSource = Session["listaVenta"];
+                    gvVentas.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+                LblError.Text = "Error al cambiar de página: " + ex.Message;
+                LblError.Visible = true;
+            }
+        }
     }
 
 }
