@@ -25,8 +25,8 @@ namespace TPC_equipo_9A
             {
                 if (!IsPostBack)
                 {
-                    Session["listaCompra"] = compraServices.listar();
-                    gvCompras.DataSource = Session["listaCompra"];
+                    Session.Add("ListaCompra", compraServices.listar());
+                    gvCompras.DataSource = Session["ListaCompra"];
                     gvCompras.DataBind();
                 }
             }
@@ -55,7 +55,7 @@ namespace TPC_equipo_9A
                 {
                     gvDetalleCompra.DataSource = detalles;
                     gvDetalleCompra.DataBind();
-                    gvDetalleCompra.Visible = true; 
+                    gvDetalleCompra.Visible = true;
                     LblError.Visible = false;
                 }
 
@@ -149,26 +149,9 @@ namespace TPC_equipo_9A
         {
             try
             {
-                // Obtener el texto de búsqueda y eliminar acentos
-                string searchText = RemoveAccents(txtBuscar.Text.ToLower());
-                var listaCompras = Session["listaCompra"] as List<Compra>;
-
-                if (listaCompras == null || listaCompras.Count == 0)
-                {
-                    LblError.Text = "No se encontraron datos en la lista de compras.";
-                    LblError.Visible = true;
-                    return;
-                }
-
-                // Filtrar por nombre de proveedor, ID de compra o fecha de compra
-                var filteredList = listaCompras.Where(c =>
-                   // RemoveAccents(c.NombreProveedor.ToLower()).Contains(searchText) || // Filtra por nombre de proveedor
-                    c.IdCompra.ToString().Contains(searchText) || // Filtra por ID de compra
-                    c.FechaCompra.ToString("dd/MM/yyyy").Contains(searchText) // Filtra por fecha de compra en formato dd/MM/yyyy
-                ).ToList();
-
-                // Actualizar gvCompras con la lista filtrada
-                gvCompras.DataSource = filteredList;
+                string filtro = txtBuscar.Text.Trim();
+                List<Compra> listaFiltrada = compraServices.listar(filtro);
+                gvCompras.DataSource = listaFiltrada;
                 gvCompras.DataBind();
             }
             catch (Exception ex)
@@ -178,23 +161,40 @@ namespace TPC_equipo_9A
             }
         }
 
-public static string RemoveAccents(string text)
-{
-    var withAccents = "áéíóúÁÉÍÓÚüÜñÑ";
-    var withoutAccents = "aeiouAEIOUuUnN";
+        public static string RemoveAccents(string text)
+        {
+            var withAccents = "áéíóúÁÉÍÓÚüÜñÑ";
+            var withoutAccents = "aeiouAEIOUuUnN";
 
-    for (int i = 0; i < withAccents.Length; i++)
-    {
-        text = text.Replace(withAccents[i], withoutAccents[i]);
-    }
+            for (int i = 0; i < withAccents.Length; i++)
+            {
+                text = text.Replace(withAccents[i], withoutAccents[i]);
+            }
 
-    return text;
-}
+            return text;
+        }
         protected void txtBuscar_TextChanged(object sender, EventArgs e)
         {
             btnBuscar_Click(sender, e); // Llama al método de búsqueda
         }
 
+        protected void gvCompras_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                gvCompras.PageIndex = e.NewPageIndex;
+                if (Session["ListaCompra"] != null)
+                {
+                    gvCompras.DataSource = Session["ListaCompra"];
+                    gvCompras.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+                LblError.Text = "Error al cambiar de página: " + ex.Message;
+                LblError.Visible = true;
+            }
+        }
     }
 }
 
