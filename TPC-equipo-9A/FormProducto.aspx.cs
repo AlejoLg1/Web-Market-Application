@@ -207,23 +207,46 @@ namespace TPC_equipo_9A
 
         protected void txtBuscarMar_TextChanged(object sender, EventArgs e)
         {
-            FiltroDropDownList(ddlMarca, txtBuscarMar.Text);
+            FiltroDropDownList(ddlMarca, txtBuscarMar.Text, "Marca");
         }
 
         protected void txtBuscarCat_TextChanged(object sender, EventArgs e)
         {
-            FiltroDropDownList(ddlCategoria, txtBuscarCat.Text);
+            FiltroDropDownList(ddlCategoria, txtBuscarCat.Text, "Categoria");
         }
 
-        private void FiltroDropDownList(DropDownList ddl, string filterText)
+        private void FiltroDropDownList(DropDownList ddl, string filterText, string filtro)
         {
+            lblNoEncontradoCat.Visible = false;
+            lblNoEncontradoMar.Visible = false;
+            bool encontrado = false;
             var textoBuscadoNormalizado = RemoveAccents(filterText.ToLower().Replace(" ", ""));
             foreach (ListItem item in ddl.Items)
             {
                 var textoItemNormalizado = RemoveAccents(item.Text.ToLower().Replace(" ", ""));
                 item.Enabled = textoItemNormalizado.Contains(textoBuscadoNormalizado);
-                item.Attributes.CssStyle["display"] = item.Enabled ? "" : "none";
+                if (item.Enabled)
+                {
+                    encontrado = true;
+                }
             }
+
+
+            if (!encontrado)
+            {
+                if (filtro == "Marca")
+                {
+
+                    lblNoEncontradoMar.Visible = true;
+                }
+                else
+                {
+
+                    lblNoEncontradoCat.Visible = true;
+                }
+            }
+
+
         }
 
         public static string RemoveAccents(string text)

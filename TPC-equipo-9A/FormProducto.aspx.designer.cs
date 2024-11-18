@@ -69,6 +69,15 @@ namespace TPC_equipo_9A
         protected global::System.Web.UI.WebControls.TextBox txtBuscarMar;
 
         /// <summary>
+        /// Control lblNoEncontradoMar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoEncontradoMar;
+
+        /// <summary>
         /// Control ddlMarca.
         /// </summary>
         /// <remarks>
@@ -94,6 +103,15 @@ namespace TPC_equipo_9A
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBuscarCat;
+
+        /// <summary>
+        /// Control lblNoEncontradoCat.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoEncontradoCat;
 
         /// <summary>
         /// Control ddlCategoria.
