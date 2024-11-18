@@ -86,12 +86,12 @@
         </div>
     </div>
     <div style="width: 100%; display: flex; justify-content: center;">
-        <asp:GridView ID="gvVentas" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview table" DataKeyNames="IdVenta" AllowPaging="True" PageSize="6">
+        <asp:GridView ID="gvVentas" runat="server" AutoGenerateColumns="false" CssClass="centered-gridview table" OnPageIndexChanging="gvVentas_PageIndexChanging" DataKeyNames="IdVenta" AllowPaging="True" PageSize="6">
             <Columns>
                 <asp:BoundField DataField="IdVenta" HeaderText="ID Venta" />
-                <asp:BoundField DataField="Nombre" HeaderText="Nombre Cliente" />
-                <asp:BoundField DataField="Apellido" HeaderText="Apellido Cliente" />
-                <asp:BoundField DataField="Correo" HeaderText="Correo" />
+                <asp:BoundField DataField="Cliente.Nombre" HeaderText="Nombre Cliente" />
+                <asp:BoundField DataField="Cliente.Apellido" HeaderText="Apellido Cliente" />
+                <asp:BoundField DataField="Cliente.Correo" HeaderText="Correo" />
                 <asp:BoundField DataField="FechaVenta" HeaderText="Fecha de Venta" DataFormatString="{0:dd/MM/yyyy}" />
                 <asp:BoundField DataField="NumeroFactura" HeaderText="Número de Factura" />
                 <asp:TemplateField HeaderText="Verificación">
