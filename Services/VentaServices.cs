@@ -13,27 +13,46 @@ namespace Services
     {
         private DataBaseAccess DB = new DataBaseAccess();
 
-        public List<dynamic> listar()
+        public List<Venta> listar(string filtro = "")
         {
-            var lista = new List<dynamic>();
+            List<Venta> lista = new List<Venta>();
 
             try
             {
-                DB.setQuery("SELECT V.IdVenta, C.Nombre, C.Apellido, C.Correo, V.FechaVenta, V.NumeroFactura, V.Estado FROM Venta V JOIN Cliente C ON V.IdCliente = C.IdCliente;");
+                string query = "SELECT V.IdVenta, C.Nombre AS NombreCliente, C.Apellido AS ApellidoCliente, " +
+                               "C.Correo, V.FechaVenta, V.NumeroFactura, V.Estado " +
+                               "FROM Venta V " +
+                               "INNER JOIN Cliente C ON V.IdCliente = C.IdCliente";
+
+                if (!string.IsNullOrEmpty(filtro))
+                {
+                    query += " WHERE C.Nombre LIKE @Filtro " +
+                             "OR C.Apellido LIKE @Filtro " +
+                             "OR C.Correo LIKE @Filtro " +
+                             "OR CAST(V.IdVenta AS NVARCHAR) LIKE @Filtro " +
+                             "OR CONVERT(VARCHAR, V.FechaVenta, 103) LIKE @Filtro " +
+                             "OR V.NumeroFactura LIKE @Filtro";
+                }
+
+                DB.setQuery(query);
+                if (!string.IsNullOrEmpty(filtro))
+                    DB.setParameter("@Filtro", $"%{filtro}%");
+
                 DB.excecuteQuery();
 
                 while (DB.Reader.Read())
                 {
-                    lista.Add(new
-                    {
-                        IdVenta = (int)DB.Reader["IdVenta"],
-                        Nombre = (string)DB.Reader["Nombre"],
-                        Apellido = (string)DB.Reader["Apellido"],
-                        Correo = (string)DB.Reader["Correo"],
-                        FechaVenta = (DateTime)DB.Reader["FechaVenta"],
-                        NumeroFactura = (string)DB.Reader["NumeroFactura"],
-                        Estado = (bool)DB.Reader["Estado"]
-                    });
+                    Venta aux = new Venta();
+                    aux.IdVenta = (int)DB.Reader["IdVenta"];
+                    aux.Cliente = new Cliente();
+                    aux.Cliente.Nombre = (string)DB.Reader["NombreCliente"];
+                    aux.Cliente.Apellido = (string)DB.Reader["ApellidoCliente"];
+                    aux.Cliente.Correo = (string)DB.Reader["Correo"];
+                    aux.FechaVenta = (DateTime)DB.Reader["FechaVenta"];
+                    aux.NumeroFactura = (string)DB.Reader["NumeroFactura"];
+                    aux.Estado = (bool)DB.Reader["Estado"];
+
+                    lista.Add(aux);
                 }
 
                 return lista;
@@ -47,7 +66,6 @@ namespace Services
                 DB.CloseConnection();
             }
         }
-
         public int add(int IdCliente, DateTime FechaVenta, string NumeroFactura, bool Estado)
         {
             try
