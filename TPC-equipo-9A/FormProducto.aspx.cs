@@ -90,6 +90,8 @@ namespace TPC_equipo_9A
                     lblIdProducto.Visible = false;
                     txtStockActual.Visible = false;
                     lblStockActual.Visible = false;
+                    txtBuscarCat.Enabled = true;
+                    txtBuscarMar.Enabled = true;
 
 
 
@@ -123,6 +125,8 @@ namespace TPC_equipo_9A
                 ddlCategoria.Enabled = true;
                 ddlMarca.Enabled = true;
                 txtFechaVencimiento.ReadOnly = false;
+                txtBuscarCat.Enabled = true;
+                txtBuscarMar.Enabled = true;
 
                 btnEliminar.Visible = false;
                 btnModificar.Visible = false;
