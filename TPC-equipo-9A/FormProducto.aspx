@@ -84,7 +84,7 @@
                         <!-- Fila para Marca -->
                         <div class="mb-3">
                             <label for="txtBuscarMar" class="form-label">Marca</label>
-                            <asp:TextBox ID="txtBuscarMar" Enabled="false" placeholder="Busque la marca" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBuscarMar_TextChanged" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtBuscarMar" Enabled="false" placeholder="Busque la marca" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBuscarMar_TextChanged" runat="server" Visible="false"></asp:TextBox>
                             <asp:Label ID="lblNoEncontradoMar" runat="server" Text="No se encontró" CssClass="text-danger" Visible="false"></asp:Label>
                             <%--<label for="ddlMarca" class="form-label">Marca</label>--%>
                             <asp:DropDownList ID="ddlMarca" CssClass="form-control form-select" runat="server" Enabled="false"></asp:DropDownList>
@@ -95,7 +95,7 @@
                         <!-- Fila para Categoría -->
                         <div class="mb-3">
                             <label for="txtBuscarCat" class="form-label">Categoría</label>
-                            <asp:TextBox ID="txtBuscarCat" Enabled="false" placeholder="Busque la categoría" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBuscarCat_TextChanged" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtBuscarCat" Enabled="false" placeholder="Busque la categoría" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBuscarCat_TextChanged" runat="server" Visible="false"></asp:TextBox>
                             <asp:Label ID="lblNoEncontradoCat" runat="server" Text="No se encontró" CssClass="text-danger" Visible="false"></asp:Label>
 
                             <%--                            <label for="ddlCategoria" class="form-label">Categoría</label>--%>
