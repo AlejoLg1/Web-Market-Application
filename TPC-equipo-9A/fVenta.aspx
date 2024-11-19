@@ -139,6 +139,7 @@
                 <!--<asp:Label ID="LblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>-->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <asp:Button ID="btnDescargarPDF" runat="server" CssClass="btn btn-primary" Text="Descargar" OnClick="btnDescargarPDF_Click" />
                 </div>
             </div>
         </div>

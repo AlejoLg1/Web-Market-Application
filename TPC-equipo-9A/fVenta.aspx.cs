@@ -6,6 +6,9 @@ using System.Data;
 using System.EnterpriseServices;
 using System.Linq;
 using System.Web;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -35,12 +38,88 @@ namespace TPC_equipo_9A
             }
         }
 
+        protected void btnDescargarPDF_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idVenta = (Session["IdVentaSeleccionada"] != null) ? (int)Session["IdVentaSeleccionada"] : 0;
+
+            int clientId = (idVenta == 0) ? 0 : ventaServices.getClienteIdVenta(idVenta);
+            string numFac = (idVenta == 0) ? "Fac-000" : ventaServices.getNroFacturaVenta(idVenta);
+            string fechaVenta = (idVenta == 0) ? DateTime.Now.ToString("dd/MM/yyyy") : ventaServices.getFechaVenta(idVenta);
+
+            Cliente client = (idVenta == 0) ? null : clienteServices.getClient(clientId);
+            string clientName = (client == null) ? "No reconocido" : $"{client.Nombre} {(string.IsNullOrEmpty(client.Apellido) ? "" : client.Apellido)}";
+
+
+            Document pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
+
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "attachment;filename=FacturaVenta.pdf");
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+            try
+            {
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+                pdfDoc.Open();
+
+                Font titleFont = FontFactory.GetFont("Arial", 16, Font.BOLD);
+                Paragraph title = new Paragraph("Factura de Venta", titleFont);
+                title.Alignment = Element.ALIGN_CENTER;
+                pdfDoc.Add(title);
+                pdfDoc.Add(new Paragraph(" "));
+
+                Font headerFont = FontFactory.GetFont("Arial", 12, Font.NORMAL);
+                pdfDoc.Add(new Paragraph($"Fecha: {fechaVenta}", headerFont));
+                pdfDoc.Add(new Paragraph($"Cliente: {clientName}", headerFont));
+                pdfDoc.Add(new Paragraph($"Número de Factura: {numFac}", headerFont));
+                pdfDoc.Add(new Paragraph(" "));
+
+                PdfPTable table = new PdfPTable(6);
+                table.WidthPercentage = 100;
+                table.SetWidths(new float[] { 20, 15, 15, 10, 15, 15 });
+
+                Font headerCellFont = FontFactory.GetFont("Arial", 12, Font.BOLD);
+                table.AddCell(new PdfPCell(new Phrase("Producto", headerCellFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new Phrase("Marca", headerCellFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new Phrase("Categoría", headerCellFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new Phrase("Cantidad", headerCellFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new Phrase("Precio Unitario", headerCellFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new Phrase("Total", headerCellFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+
+                Font rowFont = FontFactory.GetFont("Arial", 11, Font.NORMAL);
+                foreach (GridViewRow row in gvDetalleVenta.Rows)
+                {
+                    table.AddCell(new PdfPCell(new Phrase(row.Cells[0].Text, rowFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new Phrase(row.Cells[1].Text, rowFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new Phrase(row.Cells[2].Text, rowFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new Phrase(row.Cells[3].Text, rowFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new Phrase(row.Cells[4].Text, rowFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new Phrase(row.Cells[5].Text, rowFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                }
+
+                pdfDoc.Add(table);
+
+                pdfDoc.Close();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
+            finally
+            {
+                Response.End();
+            }
+        }
+
+
         protected void btnVerDetalle_Click(object sender, EventArgs e)
         {
             try
             {
                 Button btn = (Button)sender;
                 int idVenta = int.Parse(btn.CommandArgument);
+                Session["IdVentaSeleccionada"] = idVenta;
 
                 DataTable detalles = detalleVentaServices.list(idVenta);
 
@@ -90,7 +169,7 @@ namespace TPC_equipo_9A
                     return;
                 }
 
-                int IdVenta = ventaServices.add(IdProveedor, fechaVenta, NumeroFactura,Estado);
+                int IdVenta = ventaServices.add(IdProveedor, fechaVenta, NumeroFactura, Estado);
 
                 int IdProducto = int.Parse(ddlProducto.SelectedValue);
                 int Cantidad = int.Parse(txtCantidad.Text);
