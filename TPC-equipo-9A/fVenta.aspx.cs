@@ -54,7 +54,7 @@ namespace TPC_equipo_9A
             Document pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
 
             Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition", "attachment;filename=FacturaVenta.pdf");
+            Response.AddHeader("content-disposition", $"attachment;filename={numFac}.pdf");
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
 
             try
