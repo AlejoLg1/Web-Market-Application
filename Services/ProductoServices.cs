@@ -159,5 +159,93 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public int getStock(int IdProduct)
+        {
+            try
+            {
+                int stock = 0;
+                DB.clearParameters();
+                DB.setQuery("SELECT StockActual FROM Producto WHERE IdProducto = @IdProduct");
+
+                DB.setParameter("@IdProduct", IdProduct);
+
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    if (DB.Reader["StockActual"] != DBNull.Value)
+                    {
+                        stock = Convert.ToInt32(DB.Reader["StockActual"]);
+                    }
+                }
+
+                return stock;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al obtener Stock. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return 0;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public int getMinStock(int IdProduct)
+        {
+            try
+            {
+                int stock = 0;
+                DB.clearParameters();
+                DB.setQuery("SELECT StockMinimo FROM Producto WHERE IdProducto = @IdProduct");
+
+                DB.setParameter("@IdProduct", IdProduct);
+
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    if (DB.Reader["StockMinimo"] != DBNull.Value)
+                    {
+                        stock = Convert.ToInt32(DB.Reader["StockMinimo"]);
+                    }
+                }
+
+                return stock;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al obtener StockMin. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return 0;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public void updateStock(int idProduct, int StockAct)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("UPDATE Producto set StockActual = @StockActual where IdProducto = @IdProducto\r\n");
+
+                DB.setParameter("@IdProducto", idProduct);
+                DB.setParameter("@StockActual", StockAct);
+
+                DB.excecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
     }
 }
