@@ -2,7 +2,9 @@
 using Services;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.EnterpriseServices;
 using System.Linq;
 using System.Web;
@@ -78,34 +80,57 @@ namespace TPC_equipo_9A
         {
             try
             {
-                int IdProveedor = int.Parse(ddlCliente.SelectedValue);
-                string fechaInput = txtFechaVenta.Value;
-                string NumeroFactura = txtNumeroFactura.Text;
-                bool Estado = true;
+                string connectionString = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
+                int idCliente = int.Parse(ddlCliente.SelectedValue);
+                DateTime fechaVenta = DateTime.Parse(txtFechaVenta.Value);
+                bool estado = true;
 
-                DateTime fechaVenta;
-                if (!DateTime.TryParseExact(fechaInput, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out fechaVenta))
+                int idVenta = 0;
+                string numeroFactura = string.Empty; 
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    Response.Write("El formato de la fecha es incorrecto. Por favor ingrese una fecha válida.");
-                    return;
+                    using (SqlCommand cmd = new SqlCommand("sp_GenerarVenta", conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@IdCliente", idCliente);
+                        cmd.Parameters.AddWithValue("@FechaVenta", fechaVenta);
+                        cmd.Parameters.AddWithValue("@Estado", estado);
+
+                        conn.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                idVenta = Convert.ToInt32(reader["IdVenta"]);
+                                numeroFactura = reader["NumeroFactura"].ToString();
+                            }
+                        }
+                    }
                 }
 
-                int IdVenta = ventaServices.add(IdProveedor, fechaVenta, NumeroFactura,Estado);
+                if (idVenta > 0)
+                {
+                    int idProducto = int.Parse(ddlProducto.SelectedValue);
+                    int cantidad = int.Parse(txtCantidad.Text);
+                    decimal precioUnitario = decimal.Parse(txtPrecioUnitario.Text);
 
-                int IdProducto = int.Parse(ddlProducto.SelectedValue);
-                int Cantidad = int.Parse(txtCantidad.Text);
-                decimal PrecioUnitario = decimal.Parse(txtPrecioUnitario.Text);
+                    detalleVentaServices.add(idVenta, idProducto, cantidad, precioUnitario);
 
-                detalleVentaServices.add(IdVenta, IdProducto, Cantidad, PrecioUnitario);
+                    gvVentas.DataSource = ventaServices.listar();
+                    gvVentas.DataBind();
 
-                gvVentas.DataSource = ventaServices.listar();
-                gvVentas.DataBind();
-
-                ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
+                    ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
+                }
+                else
+                {
+                    LblError.Text = "Error al generar la venta. Por favor, intente nuevamente.";
+                    LblError.Visible = true;
+                }
             }
             catch (Exception ex)
             {
-                LblError.Text = "Error al agregar la compra: " + ex.Message;
+                LblError.Text = "Ocurrió un error: " + ex.Message;
                 LblError.Visible = true;
             }
         }
