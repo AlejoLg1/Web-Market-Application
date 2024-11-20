@@ -59,5 +59,70 @@ namespace Services
             }
         }
 
+        public int getSellQuantity(int IdVent)
+        {
+            try
+            {
+                int unitsQuantity = 0;
+                DB.clearParameters();
+                DB.setQuery("SELECT Cantidad FROM DetalleVenta WHERE IdVenta = @IdVent");
+
+                DB.setParameter("@IdVent", IdVent);
+
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    if (DB.Reader["Cantidad"] != DBNull.Value)
+                    {
+                        unitsQuantity = Convert.ToInt32(DB.Reader["Cantidad"]);
+                    }
+                }
+
+                return unitsQuantity;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al obtener Cantidad. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return 0;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public int getProductId(int IdVent)
+        {
+            try
+            {
+                int idProducto = 0;
+                DB.clearParameters();
+                DB.setQuery("SELECT IdProducto FROM DetalleVenta WHERE IdVenta = @IdVent");
+
+                DB.setParameter("@IdVent", IdVent);
+
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    if (DB.Reader["IdProducto"] != DBNull.Value)
+                    {
+                        idProducto = Convert.ToInt32(DB.Reader["IdProducto"]);
+                    }
+                }
+
+                return idProducto;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al obtener ProductId. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return 0;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
     }
 }
