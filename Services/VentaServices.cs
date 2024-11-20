@@ -116,5 +116,93 @@ namespace Services
             }
         }
 
+        public int getClienteIdVenta(int IdVent)
+        {
+            try
+            {
+                int idClient= 0;
+
+                DB.clearParameters();
+                DB.setQuery("SELECT IdCliente FROM Venta WHERE IdVenta = @IdVent");
+                DB.setParameter("@IdVent", IdVent);
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    idClient = int.Parse(DB.Reader["IdCliente"].ToString());
+                }
+                return idClient;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al obtener IdCliente. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return 0;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public string getNroFacturaVenta(int IdVent)
+        {
+            try
+            {
+                string numFactura = "FAC-000";
+
+                DB.clearParameters();
+                DB.setQuery("SELECT NumeroFactura FROM Venta WHERE IdVenta = @IdVent");
+                DB.setParameter("@IdVent", IdVent);
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    numFactura = DB.Reader["NumeroFactura"].ToString();
+                }
+                return numFactura;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al obtener IdCliente. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return "FAC-000";
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public string getFechaVenta(int IdVent)
+        {
+            try
+            {
+                string fechaVenta = string.Empty;
+
+                DB.clearParameters();
+                DB.setQuery("SELECT FechaVenta FROM Venta WHERE IdVenta = @IdVent");
+                DB.setParameter("@IdVent", IdVent);
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    if (DB.Reader["FechaVenta"] != DBNull.Value)
+                    {
+                        DateTime date = Convert.ToDateTime(DB.Reader["FechaVenta"]);
+                        fechaVenta = date.ToString("dd/MM/yyyy");
+                    }
+                }
+
+                return fechaVenta;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al obtener FechaVenta. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return string.Empty;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
     }
 }

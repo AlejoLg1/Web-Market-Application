@@ -2,12 +2,13 @@
 using Services;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.EnterpriseServices;
 using System.Linq;
 using System.Web;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -37,12 +38,88 @@ namespace TPC_equipo_9A
             }
         }
 
+        protected void btnDescargarPDF_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idVenta = (Session["IdVentaSeleccionada"] != null) ? (int)Session["IdVentaSeleccionada"] : 0;
+
+            int clientId = (idVenta == 0) ? 0 : ventaServices.getClienteIdVenta(idVenta);
+            string numFac = (idVenta == 0) ? "Fac-000" : ventaServices.getNroFacturaVenta(idVenta);
+            string fechaVenta = (idVenta == 0) ? DateTime.Now.ToString("dd/MM/yyyy") : ventaServices.getFechaVenta(idVenta);
+
+            Cliente client = (idVenta == 0) ? null : clienteServices.getClient(clientId);
+            string clientName = (client == null) ? "No reconocido" : $"{client.Nombre} {(string.IsNullOrEmpty(client.Apellido) ? "" : client.Apellido)}";
+
+
+            Document pdfDoc = new Document(PageSize.A4, 25, 25, 30, 30);
+
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", $"attachment;filename={numFac}.pdf");
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+            try
+            {
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+                pdfDoc.Open();
+
+                Font titleFont = FontFactory.GetFont("Arial", 16, Font.BOLD);
+                Paragraph title = new Paragraph("Factura de Venta", titleFont);
+                title.Alignment = Element.ALIGN_CENTER;
+                pdfDoc.Add(title);
+                pdfDoc.Add(new Paragraph(" "));
+
+                Font headerFont = FontFactory.GetFont("Arial", 12, Font.NORMAL);
+                pdfDoc.Add(new Paragraph($"Fecha: {fechaVenta}", headerFont));
+                pdfDoc.Add(new Paragraph($"Cliente: {clientName}", headerFont));
+                pdfDoc.Add(new Paragraph($"Número de Factura: {numFac}", headerFont));
+                pdfDoc.Add(new Paragraph(" "));
+
+                PdfPTable table = new PdfPTable(6);
+                table.WidthPercentage = 100;
+                table.SetWidths(new float[] { 20, 15, 15, 10, 15, 15 });
+
+                Font headerCellFont = FontFactory.GetFont("Arial", 12, Font.BOLD);
+                table.AddCell(new PdfPCell(new Phrase("Producto", headerCellFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new Phrase("Marca", headerCellFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new Phrase("Categoría", headerCellFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new Phrase("Cantidad", headerCellFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new Phrase("Precio Unitario", headerCellFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                table.AddCell(new PdfPCell(new Phrase("Total", headerCellFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+
+                Font rowFont = FontFactory.GetFont("Arial", 11, Font.NORMAL);
+                foreach (GridViewRow row in gvDetalleVenta.Rows)
+                {
+                    table.AddCell(new PdfPCell(new Phrase(row.Cells[0].Text, rowFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new Phrase(row.Cells[1].Text, rowFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new Phrase(row.Cells[2].Text, rowFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new Phrase(row.Cells[3].Text, rowFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new Phrase(row.Cells[4].Text, rowFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                    table.AddCell(new PdfPCell(new Phrase(row.Cells[5].Text, rowFont)) { HorizontalAlignment = Element.ALIGN_CENTER });
+                }
+
+                pdfDoc.Add(table);
+
+                pdfDoc.Close();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
+            finally
+            {
+                Response.End();
+            }
+        }
+
+
         protected void btnVerDetalle_Click(object sender, EventArgs e)
         {
             try
             {
                 Button btn = (Button)sender;
                 int idVenta = int.Parse(btn.CommandArgument);
+                Session["IdVentaSeleccionada"] = idVenta;
 
                 DataTable detalles = detalleVentaServices.list(idVenta);
 
@@ -80,57 +157,34 @@ namespace TPC_equipo_9A
         {
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString;
-                int idCliente = int.Parse(ddlCliente.SelectedValue);
-                DateTime fechaVenta = DateTime.Parse(txtFechaVenta.Value);
-                bool estado = true;
+                int IdProveedor = int.Parse(ddlCliente.SelectedValue);
+                string fechaInput = txtFechaVenta.Value;
+                string NumeroFactura = txtNumeroFactura.Text;
+                bool Estado = true;
 
-                int idVenta = 0;
-                string numeroFactura = string.Empty; 
-
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                DateTime fechaVenta;
+                if (!DateTime.TryParseExact(fechaInput, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out fechaVenta))
                 {
-                    using (SqlCommand cmd = new SqlCommand("sp_GenerarVenta", conn))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@IdCliente", idCliente);
-                        cmd.Parameters.AddWithValue("@FechaVenta", fechaVenta);
-                        cmd.Parameters.AddWithValue("@Estado", estado);
-
-                        conn.Open();
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                idVenta = Convert.ToInt32(reader["IdVenta"]);
-                                numeroFactura = reader["NumeroFactura"].ToString();
-                            }
-                        }
-                    }
+                    Response.Write("El formato de la fecha es incorrecto. Por favor ingrese una fecha válida.");
+                    return;
                 }
 
-                if (idVenta > 0)
-                {
-                    int idProducto = int.Parse(ddlProducto.SelectedValue);
-                    int cantidad = int.Parse(txtCantidad.Text);
-                    decimal precioUnitario = decimal.Parse(txtPrecioUnitario.Text);
+                int IdVenta = ventaServices.add(IdProveedor, fechaVenta, NumeroFactura, Estado);
 
-                    detalleVentaServices.add(idVenta, idProducto, cantidad, precioUnitario);
+                int IdProducto = int.Parse(ddlProducto.SelectedValue);
+                int Cantidad = int.Parse(txtCantidad.Text);
+                decimal PrecioUnitario = decimal.Parse(txtPrecioUnitario.Text);
 
-                    gvVentas.DataSource = ventaServices.listar();
-                    gvVentas.DataBind();
+                detalleVentaServices.add(IdVenta, IdProducto, Cantidad, PrecioUnitario);
 
-                    ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
-                }
-                else
-                {
-                    LblError.Text = "Error al generar la venta. Por favor, intente nuevamente.";
-                    LblError.Visible = true;
-                }
+                gvVentas.DataSource = ventaServices.listar();
+                gvVentas.DataBind();
+
+                ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
             }
             catch (Exception ex)
             {
-                LblError.Text = "Ocurrió un error: " + ex.Message;
+                LblError.Text = "Error al agregar la compra: " + ex.Message;
                 LblError.Visible = true;
             }
         }
