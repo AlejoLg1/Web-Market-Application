@@ -169,8 +169,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="txtNumeroFactura" class="form-label">Numero de Factura: </label>
-                                <asp:TextBox runat="server" ID="txtNumeroFactura" CssClass="form-control" />
+                                <label for="lblNumeroFactura" class="form-label">Número de Factura: </label>
+                                <asp:Label runat="server" ID="lblNumeroFactura" CssClass="form-control" />
                             </div>
 
                         </div>
