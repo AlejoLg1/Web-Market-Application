@@ -212,10 +212,28 @@ namespace TPC_equipo_9A
                 int idVenta = Convert.ToInt32(gvVentas.DataKeys[row.RowIndex].Value);
 
                 bool nuevoEstado = chk.Checked;
-                ventaServices.ActualizarEstadoVenta(idVenta, nuevoEstado ? 1 : 0);
+                
 
-                Label lblEstado = (Label)row.FindControl("lblEstado");
-                lblEstado.Text = nuevoEstado ? "Confirmada" : "Anulada";
+                int quantity = detalleVentaServices.getSellQuantity(idVenta);
+                int idProducto = detalleVentaServices.getProductId(idVenta);
+                int stockProducto = productoServices.getStock(idProducto);
+                int stockMinimo = productoServices.getMinStock(idProducto);
+                int stockActual = nuevoEstado ? (stockProducto - quantity) : (stockProducto + quantity);
+                
+                if (stockActual < stockMinimo)
+                {
+                    string script = "alert('No es posible confirmar la venta. El Stock resultante sería menor al stock mínimo.');";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
+                    chk.Checked = false;
+                    return;
+                }
+                else{
+                    ventaServices.ActualizarEstadoVenta(idVenta, nuevoEstado ? 1 : 0);
+
+                    Label lblEstado = (Label)row.FindControl("lblEstado");
+                    lblEstado.Text = nuevoEstado ? "Confirmada" : "Anulada";
+                    productoServices.updateStock(idProducto, stockActual);
+                }
             }
             catch (Exception ex)
             {
