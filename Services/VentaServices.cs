@@ -71,10 +71,9 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("EXEC sp_GenerarVenta @IdCliente, @FechaVenta, @NumeroFactura, @Estado");
+                DB.setQuery("EXEC sp_GenerarVenta @IdCliente, @FechaVenta, @Estado");
                 DB.setParameter("@IdCliente", IdCliente);
                 DB.setParameter("@FechaVenta", FechaVenta);
-                DB.setParameter("@NumeroFactura", NumeroFactura);
                 DB.setParameter("Estado", Estado);
 
                 DB.excecuteQuery();

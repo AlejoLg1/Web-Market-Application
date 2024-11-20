@@ -159,7 +159,7 @@ namespace TPC_equipo_9A
             {
                 int IdProveedor = int.Parse(ddlCliente.SelectedValue);
                 string fechaInput = txtFechaVenta.Value;
-                string NumeroFactura = txtNumeroFactura.Text;
+                string NumeroFactura = lblNumeroFactura.Text;
                 bool Estado = true;
 
                 DateTime fechaVenta;
