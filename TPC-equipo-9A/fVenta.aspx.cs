@@ -173,9 +173,9 @@ namespace TPC_equipo_9A
 
                 int IdProducto = int.Parse(ddlProducto.SelectedValue);
                 int Cantidad = int.Parse(txtCantidad.Text);
-                decimal PrecioUnitario = decimal.Parse(txtPrecioUnitario.Text);
+                //decimal PrecioUnitario = decimal.Parse(txtPrecioUnitario.Text);
 
-                detalleVentaServices.add(IdVenta, IdProducto, Cantidad, PrecioUnitario);
+                detalleVentaServices.add(IdVenta, IdProducto, Cantidad);
 
                 gvVentas.DataSource = ventaServices.listar();
                 gvVentas.DataBind();
