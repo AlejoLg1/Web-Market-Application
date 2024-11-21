@@ -72,12 +72,12 @@
 
         document.addEventListener("DOMContentLoaded", function () {
             const errorMessageLabel = document.getElementById("<%= lblErrorMessage.ClientID %>");
-                const modal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+            const modal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
 
-                if (errorMessageLabel && errorMessageLabel.innerHTML.trim() !== "") {
-                    modal.show();
-                }
-            });
+            if (errorMessageLabel && errorMessageLabel.innerHTML.trim() !== "") {
+                modal.show();
+            }
+        });
     </script>
 
 </asp:Content>
@@ -171,7 +171,9 @@
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="ddlCliente" class="form-label">Cliente: </label>
-                                <asp:DropDownList ID="ddlCliente" CssClass="form-select" runat="server"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlCliente" CssClass="form-select" runat="server" AppendDataBoundItems="true">
+                                    <asp:ListItem Text="Seleccionar..." Value="" />
+                                </asp:DropDownList>
                             </div>
 
                             <div class="mb-3">
@@ -184,7 +186,9 @@
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="ddlProducto" class="form-label">Producto: </label>
-                                <asp:DropDownList ID="ddlProducto" CssClass="form-select" runat="server"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlProducto" CssClass="form-select" runat="server" AppendDataBoundItems="true">
+                                    <asp:ListItem Text="Seleccionar..." Value="" />
+                                </asp:DropDownList>
                             </div>
 
                             <div class="mb-3">
