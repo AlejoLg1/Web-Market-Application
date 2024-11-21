@@ -209,10 +209,7 @@ namespace TPC_equipo_9A
                 gvVentas.DataSource = ventaServices.listar();
                 gvVentas.DataBind();
 
-                ddlCliente.SelectedIndex = 0;
-                txtFechaVenta.Value = string.Empty;
-                ddlProducto.SelectedIndex = 0;
-                txtCantidad.Text = string.Empty;
+                clearFields();
 
                 ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
             }
@@ -225,18 +222,12 @@ namespace TPC_equipo_9A
 
         protected void btnCerrar_ServerClick(object sender, EventArgs e)
         {
-            ddlCliente.SelectedIndex = 0;
-            txtFechaVenta.Value = string.Empty;
-            ddlProducto.SelectedIndex = 0;
-            txtCantidad.Text = string.Empty;
+            clearFields();
         }
 
         protected void btnX_ServerClick(object sender, EventArgs e)
         {
-            ddlCliente.SelectedIndex = 0;
-            txtFechaVenta.Value = string.Empty;
-            ddlProducto.SelectedIndex = 0;
-            txtCantidad.Text = string.Empty;
+            clearFields();
         }
 
         private void cargarDropDownLists()
@@ -256,6 +247,14 @@ namespace TPC_equipo_9A
             ddlProducto.DataBind();
             ddlProducto.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Seleccionar...", ""));
 
+        }
+
+        private void clearFields()
+        {
+            ddlCliente.SelectedIndex = 0;
+            txtFechaVenta.Value = string.Empty;
+            ddlProducto.SelectedIndex = 0;
+            txtCantidad.Text = string.Empty;
         }
 
         protected void chkVerificacion_CheckedChanged(object sender, EventArgs e)
@@ -327,7 +326,7 @@ namespace TPC_equipo_9A
         }
         protected void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-            btnBuscar_Click(sender, e); // Llama al método de búsqueda
+            btnBuscar_Click(sender, e);
         }
 
         protected void gvVentas_PageIndexChanging(object sender, GridViewPageEventArgs e)
