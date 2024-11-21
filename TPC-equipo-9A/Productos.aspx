@@ -36,7 +36,7 @@
         }
 
         .table-custom tr:hover {
-            background-color: #e0e0e0; /* Color de resaltado al pasar el mouse */
+            background-color: #e0e0e0;
             cursor: pointer;
         }
 

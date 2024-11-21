@@ -73,11 +73,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" />
     <br />
-    <h1>COMPRAS</h1>
+    <h1 style="font-family: Rockwell, sans-serif; text-align: center; font-size: 3em; color: #333;">Compras</h1>
     <div style="width: 100%; display: flex; justify-content: center;">
         <div class="col-md-6">
             <div class="input-group">
-                <asp:TextBox ID="txtBuscar" CssClass="form-control" runat="server" Placeholder="Buscar..." OnTextChanged="txtBuscar_TextChanged" AutoPostBack="true"></asp:TextBox>
+                <asp:TextBox ID="txtBuscar" CssClass="form-control form-control-lg" runat="server" Placeholder="Buscar..." OnTextChanged="txtBuscar_TextChanged" AutoPostBack="true"></asp:TextBox>
                 <asp:Button ID="btnBuscar" CssClass="btn btn-primary" Text="Buscar" OnClick="btnBuscar_Click" runat="server" />
             </div>
         </div>
