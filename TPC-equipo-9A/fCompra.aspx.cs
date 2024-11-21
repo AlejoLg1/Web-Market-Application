@@ -131,12 +131,30 @@ namespace TPC_equipo_9A
                 GridViewRow row = (GridViewRow)chk.NamingContainer;
                 int idCompra = Convert.ToInt32(gvCompras.DataKeys[row.RowIndex].Value);
 
-                // Cambia el estado en la base de datos  (Pruebaaaa)
                 bool nuevoEstado = chk.Checked;
-                compraServices.ActualizarEstadoCompra(idCompra, nuevoEstado ? 1 : 0);
 
-                Label lblEstado = (Label)row.FindControl("lblEstado");
-                lblEstado.Text = nuevoEstado ? "Confirmada" : "Anulada";
+
+                int quantity = detalleCompraService.getBuyQuantity(idCompra);
+                int idProducto = detalleCompraService.getProductId(idCompra);
+                int stockProducto = productoServices.getStock(idProducto);
+                int stockMinimo = productoServices.getMinStock(idProducto);
+                int stockActual = nuevoEstado ? (stockProducto + quantity) : (stockProducto - quantity);
+
+                
+                if (stockActual < stockMinimo)
+                {
+                    string script = "alert('No es posible anular la compra. El Stock resultante sería menor al stock mínimo permitido.');";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
+                    chk.Checked = true;
+                    return;
+                }
+                else {
+                    compraServices.ActualizarEstadoCompra(idCompra, nuevoEstado ? 1 : 0);
+
+                    Label lblEstado = (Label)row.FindControl("lblEstado");
+                    lblEstado.Text = nuevoEstado ? "Confirmada" : "Anulada";
+                    productoServices.updateStock(idProducto, stockActual);
+                }
             }
             catch (Exception ex)
             {
