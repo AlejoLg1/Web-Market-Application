@@ -196,7 +196,7 @@ namespace TPC_equipo_9A
             ddlCliente.DataValueField = "IdCliente";
             ddlCliente.DataBind();
 
-            ddlProducto.DataSource = productoServices.listar();
+            ddlProducto.DataSource = productoServices.listarProductoVenta();
             ddlProducto.DataTextField = "Nombre";
             ddlProducto.DataValueField = "IdProducto";
             ddlProducto.DataBind();
