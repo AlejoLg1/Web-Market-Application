@@ -157,6 +157,37 @@ namespace TPC_equipo_9A
         {
             try
             {
+                if (string.IsNullOrEmpty(ddlCliente.SelectedValue))
+                {
+                    lblErrorMessage.Text = "Por favor seleccione un cliente.";
+                    lblErrorMessage.Visible = true;
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(txtFechaVenta.Value))
+                {
+                    lblErrorMessage.Text = "Por favor seleccione una fecha de venta.";
+                    lblErrorMessage.Visible = true;
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(ddlProducto.SelectedValue))
+                {
+                    lblErrorMessage.Text = "Por favor seleccione un producto.";
+                    lblErrorMessage.Visible = true;
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(txtCantidad.Text))
+                {
+                    lblErrorMessage.Text = "Por favor ingrese una cantidad.";
+                    lblErrorMessage.Visible = true;
+                    return;
+                }
+
+                lblErrorMessage.Text = "";
+                lblErrorMessage.Visible = false;
+
                 int IdProveedor = int.Parse(ddlCliente.SelectedValue);
                 string fechaInput = txtFechaVenta.Value;
                 bool Estado = true;
@@ -168,7 +199,7 @@ namespace TPC_equipo_9A
                     return;
                 }
 
-                int IdVenta = ventaServices.add(IdProveedor, fechaVenta, NumeroFactura, Estado);
+                int IdVenta = ventaServices.add(IdProveedor, fechaVenta, Estado);
 
                 int IdProducto = int.Parse(ddlProducto.SelectedValue);
                 int Cantidad = int.Parse(txtCantidad.Text);

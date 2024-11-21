@@ -69,6 +69,15 @@
                 label.textContent = "Anulada";
             }
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const errorMessageLabel = document.getElementById("<%= lblErrorMessage.ClientID %>");
+                const modal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+
+                if (errorMessageLabel && errorMessageLabel.innerHTML.trim() !== "") {
+                    modal.show();
+                }
+            });
     </script>
 
 </asp:Content>
@@ -169,12 +178,6 @@
                                 <label for="txtFechaVenta">Fecha de Venta: </label>
                                 <input type="date" id="txtFechaVenta" runat="server" class="form-control" />
                             </div>
-
-                            <div class="mb-3">
-                                <label for="lblNumeroFactura" class="form-label">Número de Factura: </label>
-                                <asp:Label runat="server" ID="lblNumeroFactura" CssClass="form-control" />
-                            </div>
-
                         </div>
 
                         <!-- Columna 2 -->
@@ -190,6 +193,7 @@
                             </div>
                         </div>
                     </div>
+                    <asp:Label runat="server" ID="lblErrorMessage" CssClass="text-danger" Visible="False"></asp:Label>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

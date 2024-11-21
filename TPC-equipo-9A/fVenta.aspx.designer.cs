@@ -105,15 +105,6 @@ namespace TPC_equipo_9A
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtFechaVenta;
 
         /// <summary>
-        /// lblNumeroFactura control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNumeroFactura;
-
-        /// <summary>
         /// ddlProducto control.
         /// </summary>
         /// <remarks>
@@ -130,6 +121,15 @@ namespace TPC_equipo_9A
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCantidad;
+
+        /// <summary>
+        /// lblErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
 
         /// <summary>
         /// btnAceptarGenerarVenta control.
