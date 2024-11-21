@@ -261,7 +261,7 @@ namespace TPC_equipo_9A
         }
         protected void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-            btnBuscar_Click(sender, e); // Llama al método de búsqueda
+            btnBuscar_Click(sender, e);
         }
 
         protected void gvCompras_PageIndexChanging(object sender, GridViewPageEventArgs e)
