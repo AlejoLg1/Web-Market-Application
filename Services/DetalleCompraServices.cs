@@ -58,6 +58,72 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public int getBuyQuantity(int IdComp)
+        {
+            try
+            {
+                int unitsQuantity = 0;
+                DB.clearParameters();
+                DB.setQuery("SELECT Cantidad FROM DetalleCompra WHERE IdCompra = @IdComp");
+
+                DB.setParameter("@IdComp", IdComp);
+
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    if (DB.Reader["Cantidad"] != DBNull.Value)
+                    {
+                        unitsQuantity = Convert.ToInt32(DB.Reader["Cantidad"]);
+                    }
+                }
+
+                return unitsQuantity;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al obtener Cantidad. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return 0;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public int getProductId(int IdComp)
+        {
+            try
+            {
+                int idProducto = 0;
+                DB.clearParameters();
+                DB.setQuery("SELECT IdProducto FROM DetalleCompra WHERE IdCompra = @IdComp");
+
+                DB.setParameter("@IdComp", IdComp);
+
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    if (DB.Reader["IdProducto"] != DBNull.Value)
+                    {
+                        idProducto = Convert.ToInt32(DB.Reader["IdProducto"]);
+                    }
+                }
+
+                return idProducto;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al obtener ProductId. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return 0;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
     }
 }
 
