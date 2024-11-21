@@ -55,6 +55,42 @@ namespace Services
             }
         }
 
+        public List<Producto> listarProductoVenta(string id = "")
+        {
+            List<Producto> list = new List<Producto>();
+            try
+            {
+
+                DB.setQuery("SELECT * FROM VW_productosGridDDL");
+                DB.excecuteQuery();
+
+                while (DB.Reader.Read())
+                {
+                    Producto producto = new Producto();
+
+                    producto.IdProducto = (int)DB.Reader["IdProducto"];
+                    producto.Nombre = (string)DB.Reader["Nombre"];
+                    AsignarMarcaYCategoria(producto, DB.Reader);
+                    producto.StockActual = (int)DB.Reader["StockActual"];
+                    producto.StockMinimo = (int)DB.Reader["StockMinimo"];
+                    producto.PorcentajeGanancia = (decimal)DB.Reader["PorcentajeGanancia"];
+                    producto.FechaVencimiento = DB.Reader["FechaVencimiento"] != DBNull.Value ? (DateTime)DB.Reader["FechaVencimiento"] : (DateTime?)null;
+
+                    list.Add(producto);
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
         private void AsignarMarcaYCategoria(Producto producto, SqlDataReader reader)
         {
             producto.Categoria = new Categoria();
