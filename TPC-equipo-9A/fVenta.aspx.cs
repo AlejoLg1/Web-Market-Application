@@ -223,6 +223,22 @@ namespace TPC_equipo_9A
             }
         }
 
+        protected void btnCerrar_ServerClick(object sender, EventArgs e)
+        {
+            ddlCliente.SelectedIndex = 0;
+            txtFechaVenta.Value = string.Empty;
+            ddlProducto.SelectedIndex = 0;
+            txtCantidad.Text = string.Empty;
+        }
+
+        protected void btnX_ServerClick(object sender, EventArgs e)
+        {
+            ddlCliente.SelectedIndex = 0;
+            txtFechaVenta.Value = string.Empty;
+            ddlProducto.SelectedIndex = 0;
+            txtCantidad.Text = string.Empty;
+        }
+
         private void cargarDropDownLists()
         {
             ddlCliente.Items.Clear();
@@ -230,12 +246,15 @@ namespace TPC_equipo_9A
             ddlCliente.DataTextField = "Nombre";
             ddlCliente.DataValueField = "IdCliente";
             ddlCliente.DataBind();
+            ddlCliente.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Seleccionar...", ""));
+
 
             ddlProducto.Items.Clear();
             ddlProducto.DataSource = productoServices.listarProductoVenta();
             ddlProducto.DataTextField = "Nombre";
             ddlProducto.DataValueField = "IdProducto";
             ddlProducto.DataBind();
+            ddlProducto.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Seleccionar...", ""));
 
         }
 

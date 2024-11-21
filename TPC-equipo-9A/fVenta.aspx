@@ -163,7 +163,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Generar Venta</h1>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" runat="server" onserverclick="btnX_ServerClick"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -200,7 +200,7 @@
                     <asp:Label runat="server" ID="lblErrorMessage" CssClass="text-danger" Visible="False"></asp:Label>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" runat="server" onserverclick="btnCerrar_ServerClick">Cerrar</button>
                     <button type="button" class="btn btn-primary" id="btnAceptarGenerarVenta" runat="server" onserverclick="btnAceptarGenerarVenta_ServerClick">
                         Generar Venta
                     </button>
