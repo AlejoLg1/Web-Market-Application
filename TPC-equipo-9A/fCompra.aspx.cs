@@ -79,10 +79,6 @@ namespace TPC_equipo_9A
         {
             try
             {
-                bool Estado = true;
-                int IdProveedor = int.Parse(ddlProveedor.SelectedValue);
-                string fechaInput = txtFechaCompra.Value;
-
                 if (string.IsNullOrEmpty(ddlProveedor.SelectedValue))
                 {
                     lblErrorMessage.Text = "Por favor seleccione un proveedor.";
@@ -121,6 +117,10 @@ namespace TPC_equipo_9A
                 lblErrorMessage.Text = "";
                 lblErrorMessage.Visible = false;
 
+                bool Estado = true;
+                int IdProveedor = int.Parse(ddlProveedor.SelectedValue);
+                string fechaInput = txtFechaCompra.Value;
+
                 DateTime fechaCompra;
                 if (!DateTime.TryParseExact(fechaInput, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out fechaCompra))
                 {
@@ -154,17 +154,19 @@ namespace TPC_equipo_9A
         protected void btnCerrar_ServerClick(object sender, EventArgs e)
         {
             clearFields();
+            ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
         }
 
         protected void btnX_ServerClick(object sender, EventArgs e)
         {
             clearFields();
+            ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
         }
 
         private void cargarDropDownLists()
         {
             ddlProveedor.Items.Clear();
-            ddlProveedor.DataSource = proveedorServices.listar();
+            ddlProveedor.DataSource = proveedorServices.listar("Estado=1");
             ddlProveedor.DataTextField = "Nombre";
             ddlProveedor.DataValueField = "IdProveedor";
             ddlProveedor.DataBind();
@@ -185,6 +187,8 @@ namespace TPC_equipo_9A
             ddlProducto.SelectedIndex = 0;
             txtCantidad.Text = string.Empty;
             txtPrecioUnitario.Text = string.Empty;
+            lblErrorMessage.Text = "";
+            lblErrorMessage.Visible = false;
         }
 
         protected void chkVerificacion_CheckedChanged(object sender, EventArgs e)

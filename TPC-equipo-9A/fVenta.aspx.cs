@@ -185,9 +185,6 @@ namespace TPC_equipo_9A
                     return;
                 }
 
-                lblErrorMessage.Text = "";
-                lblErrorMessage.Visible = false;
-
                 int IdProveedor = int.Parse(ddlCliente.SelectedValue);
                 string fechaInput = txtFechaVenta.Value;
                 bool Estado = true;
@@ -233,7 +230,7 @@ namespace TPC_equipo_9A
         private void cargarDropDownLists()
         {
             ddlCliente.Items.Clear();
-            ddlCliente.DataSource = clienteServices.listar();
+            ddlCliente.DataSource = clienteServices.listar("Estado=1");
             ddlCliente.DataTextField = "Nombre";
             ddlCliente.DataValueField = "IdCliente";
             ddlCliente.DataBind();
@@ -255,6 +252,8 @@ namespace TPC_equipo_9A
             txtFechaVenta.Value = string.Empty;
             ddlProducto.SelectedIndex = 0;
             txtCantidad.Text = string.Empty;
+            lblErrorMessage.Text = "";
+            lblErrorMessage.Visible = false;
         }
 
         protected void chkVerificacion_CheckedChanged(object sender, EventArgs e)
