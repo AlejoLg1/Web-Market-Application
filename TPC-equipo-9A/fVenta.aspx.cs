@@ -196,7 +196,22 @@ namespace TPC_equipo_9A
                     return;
                 }
 
+                int quantity = int.Parse(txtCantidad.Text);
+                int idProducto = int.Parse(ddlProducto.SelectedValue);
+                int stockProducto = productoServices.getStock(idProducto);
+                int stockMinimo = productoServices.getMinStock(idProducto);
+                int stockActual = stockProducto - quantity;
+
+                if (stockActual < stockMinimo)
+                {
+                    string script = "alert('No es posible generar la venta. El Stock resultante sería menor al stock mínimo permitido.');";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
+                    clearFields();
+                    return;
+                }
+
                 int IdVenta = ventaServices.add(IdProveedor, fechaVenta, Estado);
+
 
                 int IdProducto = int.Parse(ddlProducto.SelectedValue);
                 int Cantidad = int.Parse(txtCantidad.Text);
