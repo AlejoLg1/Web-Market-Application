@@ -203,12 +203,16 @@ namespace TPC_equipo_9A
 
                 int IdProducto = int.Parse(ddlProducto.SelectedValue);
                 int Cantidad = int.Parse(txtCantidad.Text);
-                //decimal PrecioUnitario = decimal.Parse(txtPrecioUnitario.Text);
 
                 detalleVentaServices.add(IdVenta, IdProducto, Cantidad);
 
                 gvVentas.DataSource = ventaServices.listar();
                 gvVentas.DataBind();
+
+                ddlCliente.SelectedIndex = 0;
+                txtFechaVenta.Value = string.Empty;
+                ddlProducto.SelectedIndex = 0;
+                txtCantidad.Text = string.Empty;
 
                 ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
             }
@@ -221,11 +225,13 @@ namespace TPC_equipo_9A
 
         private void cargarDropDownLists()
         {
+            ddlCliente.Items.Clear();
             ddlCliente.DataSource = clienteServices.listar();
             ddlCliente.DataTextField = "Nombre";
             ddlCliente.DataValueField = "IdCliente";
             ddlCliente.DataBind();
 
+            ddlProducto.Items.Clear();
             ddlProducto.DataSource = productoServices.listarProductoVenta();
             ddlProducto.DataTextField = "Nombre";
             ddlProducto.DataValueField = "IdProducto";
