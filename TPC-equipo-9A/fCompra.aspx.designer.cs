@@ -123,6 +123,15 @@ namespace TPC_equipo_9A
         protected global::System.Web.UI.WebControls.TextBox txtPrecioUnitario;
 
         /// <summary>
+        /// lblErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
+
+        /// <summary>
         /// btnAceptarGenerarCompra control.
         /// </summary>
         /// <remarks>
@@ -130,14 +139,5 @@ namespace TPC_equipo_9A
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton btnAceptarGenerarCompra;
-
-        /// <summary>
-        /// gvPrueba control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvPrueba;
     }
 }
