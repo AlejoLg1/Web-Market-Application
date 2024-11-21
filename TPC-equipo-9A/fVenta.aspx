@@ -188,11 +188,6 @@
                                 <label for="txtCantidad" class="form-label">Cantidad: </label>
                                 <asp:TextBox runat="server" ID="txtCantidad" CssClass="form-control" />
                             </div>
-
-                            <%--<div class="mb-3">
-                                <label for="txtPrecioUnitario" class="form-label">Precio Unitario: </label>
-                                <asp:TextBox runat="server" ID="txtPrecioUnitario" CssClass="form-control" />
-                            </div>--%>
                         </div>
                     </div>
                 </div>

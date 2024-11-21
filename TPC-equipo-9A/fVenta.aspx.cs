@@ -159,7 +159,6 @@ namespace TPC_equipo_9A
             {
                 int IdProveedor = int.Parse(ddlCliente.SelectedValue);
                 string fechaInput = txtFechaVenta.Value;
-                string NumeroFactura = lblNumeroFactura.Text;
                 bool Estado = true;
 
                 DateTime fechaVenta;
@@ -238,7 +237,7 @@ namespace TPC_equipo_9A
             catch (Exception ex)
             {
                 LblError.Text = "Error al actualizar el estado de la Venta: " + ex.Message;
-                LblError.Visible = true;
+                LblError.Visible = false;
             }
         }
 

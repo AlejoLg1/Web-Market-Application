@@ -66,7 +66,7 @@ namespace Services
                 DB.CloseConnection();
             }
         }
-        public int add(int IdCliente, DateTime FechaVenta, string NumeroFactura, bool Estado)
+        public int add(int IdCliente, DateTime FechaVenta, bool Estado)
         {
             try
             {
