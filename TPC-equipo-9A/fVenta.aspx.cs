@@ -222,7 +222,7 @@ namespace TPC_equipo_9A
                 
                 if (stockActual < stockMinimo)
                 {
-                    string script = "alert('No es posible confirmar la venta. El Stock resultante sería menor al stock mínimo.');";
+                    string script = "alert('No es posible confirmar la venta. El Stock resultante sería menor al stock mínimo permitido.');";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
                     chk.Checked = false;
                     return;

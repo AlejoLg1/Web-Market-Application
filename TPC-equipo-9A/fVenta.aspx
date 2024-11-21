@@ -8,7 +8,7 @@
 
     <style>
         .centered-gridview {
-            text-align: center; /* Centra el contenido de cada celda */
+            text-align: center;
         }
 
         h1 {
