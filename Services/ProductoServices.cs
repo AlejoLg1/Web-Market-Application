@@ -39,6 +39,7 @@ namespace Services
                     producto.StockMinimo = (int)DB.Reader["StockMinimo"];
                     producto.PorcentajeGanancia = (decimal)DB.Reader["PorcentajeGanancia"];
                     producto.FechaVencimiento = DB.Reader["FechaVencimiento"] != DBNull.Value ? (DateTime)DB.Reader["FechaVencimiento"] : (DateTime?)null;
+                    producto.Precio = (decimal)DB.Reader["Precio"];
 
                     list.Add(producto);
                 }
@@ -75,6 +76,7 @@ namespace Services
                     producto.StockMinimo = (int)DB.Reader["StockMinimo"];
                     producto.PorcentajeGanancia = (decimal)DB.Reader["PorcentajeGanancia"];
                     producto.FechaVencimiento = DB.Reader["FechaVencimiento"] != DBNull.Value ? (DateTime)DB.Reader["FechaVencimiento"] : (DateTime?)null;
+                  
 
                     list.Add(producto);
                 }
@@ -124,7 +126,7 @@ namespace Services
             try
             {
                 DB.clearParameters();
-                DB.setQuery("SP_insertProducto @Nombre, @IdMarca, @IdCategoria, @StockActual, @StockMinimo, @PorcentajeGanancia, @FechaVencimiento");
+                DB.setQuery("SP_insertProducto @Nombre, @IdMarca, @IdCategoria, @StockActual, @StockMinimo, @PorcentajeGanancia, @FechaVencimiento, @Precio");
 
                 DB.setParameter("@Nombre", newProducto.Nombre);
                 DB.setParameter("@IdMarca", newProducto.Marca.IdMarca);
@@ -133,6 +135,7 @@ namespace Services
                 DB.setParameter("@StockMinimo", newProducto.StockMinimo);
                 DB.setParameter("@PorcentajeGanancia", newProducto.PorcentajeGanancia);
                 DB.setParameter("@FechaVencimiento", newProducto.FechaVencimiento != null ? newProducto.FechaVencimiento : (object)DBNull.Value);
+                DB.setParameter("@Precio", newProducto.Precio);
 
 
                 DB.excecuteAction();
