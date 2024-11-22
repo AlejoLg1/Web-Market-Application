@@ -125,6 +125,7 @@
     <Content Include="Scripts\jquery-3.7.1.min.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
+    <Content Include="SQLScript.sql" />
     <Content Include="Styles\styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
