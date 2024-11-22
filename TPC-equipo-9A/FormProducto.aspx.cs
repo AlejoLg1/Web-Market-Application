@@ -58,6 +58,7 @@ namespace TPC_equipo_9A
                     ddlMarca.SelectedValue = seleccionado.Marca.IdMarca.ToString();
                     txtFechaVencimiento.Text = seleccionado.FechaVencimiento?.ToString("yyyy-MM-dd") ?? "";
 
+
                     lblOpcional.Visible = false;
 
                     //btnGuardar.OnClientClick = "return confirmarModificacion('" + id + "', '" + seleccionado.Nombre + "');";
@@ -172,6 +173,7 @@ namespace TPC_equipo_9A
                 {
                     nuevo.FechaVencimiento = null; // Asigna null si el campo está vacío
                 }
+                nuevo.Precio = 0;
 
 
                 // Si el ID del producto está presente, estamos modificando
@@ -269,5 +271,6 @@ namespace TPC_equipo_9A
 
             return text;
         }
+                
     }
 }
