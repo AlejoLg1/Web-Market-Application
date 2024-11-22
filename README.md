@@ -39,3 +39,20 @@ Esta aplicación web está diseñada para administrar las compras y ventas de un
 - .NET Framework
 - SQL Server
 - Visual Studio
+
+## Instalación
+
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/AlejoLg1/tpc-equipo-9A.git
+   
+2. **Crea la BDD**: Ubica y ejecuta el script SQL proporcionado en la carpeta *SQLScripts* para crear la base de datos y las tablas necesarias.
+
+3. Abre tu IDE de C# (por ejemplo, Visual Studio o Visual Studio Code).
+
+4. Abre la solución en el IDE.
+
+5. Inicializa tu variable **connectionString** dentro del archivo *Web.config*. Esto permitirá conectar la aplicación con tu BDD.
+
+6. **Compila la solución**: En el IDE, selecciona la opción para compilar la solución. Esto asegurará que todos los archivos se construyan correctamente.
+
