@@ -68,7 +68,8 @@ CREATE TABLE Producto (
     StockActual INT NOT NULL,
     StockMinimo INT NOT NULL,
     PorcentajeGanancia DECIMAL(5,2) NOT NULL,
-    FechaVencimiento DATE NULL 
+    FechaVencimiento DATE NULL,
+    Precio Money NULL
 );
 
 
@@ -111,7 +112,10 @@ CREATE TABLE DetalleVenta (
 GO
 
 CREATE OR ALTER VIEW VW_productosGrid as
-SELECT p.IdProducto, p.Nombre, c.IdCategoria, c.Nombre as NombreCategoria, m.IdMarca, m.Nombre as NombreMarca, p.StockActual, p.StockMinimo, p.PorcentajeGanancia, p.FechaVencimiento  FROM Producto p
+SELECT p.IdProducto, p.Nombre, c.IdCategoria, c.Nombre as NombreCategoria,
+m.IdMarca, m.Nombre as NombreMarca,
+p.StockActual, p.StockMinimo, p.PorcentajeGanancia, p.FechaVencimiento, p.Precio
+FROM Producto p
 LEFT JOIN Categoria c on c.IdCategoria = p.IdTipoProducto
 LEFT JOIN Marca m on m.IdMarca = p.IdMarca
 
@@ -119,16 +123,16 @@ GO
 
 CREATE OR ALTER VIEW VW_productosGridDDL as
 SELECT Distinct
-    p.IdProducto,
-     p.Nombre,
-      c.IdCategoria,
-       c.Nombre as NombreCategoria,
-        m.IdMarca,
-         m.Nombre as NombreMarca,
-          p.StockActual,
-           p.StockMinimo,
-            p.PorcentajeGanancia,
-             p.FechaVencimiento  
+p.IdProducto,
+p.Nombre,
+c.IdCategoria,
+c.Nombre as NombreCategoria,
+m.IdMarca,
+m.Nombre as NombreMarca,
+p.StockActual,
+p.StockMinimo,
+p.PorcentajeGanancia,
+p.FechaVencimiento  
 FROM Producto p
 LEFT JOIN Categoria c on c.IdCategoria = p.IdTipoProducto
 LEFT JOIN Marca m on m.IdMarca = p.IdMarca
@@ -147,7 +151,10 @@ SELECT IdMarca, Nombre FROM Marca
 GO
 
 CREATE OR ALTER VIEW VW_verDetalleProd AS
-SELECT p.IdProducto, p.Nombre, c.IdCategoria, c.Nombre as NombreCategoria, m.IdMarca, m.Nombre as NombreMarca, p.StockActual, p.StockMinimo, p.PorcentajeGanancia  FROM Producto p
+SELECT p.IdProducto, p.Nombre, c.IdCategoria, c.Nombre as NombreCategoria,
+m.IdMarca, m.Nombre as NombreMarca,
+p.StockActual, p.StockMinimo, p.PorcentajeGanancia  
+FROM Producto p
 LEFT JOIN Categoria c on c.IdCategoria = p.IdTipoProducto
 LEFT JOIN Marca m on m.IdMarca = p.IdMarca
 
@@ -163,13 +170,13 @@ SELECT IdProveedor, FechaCompra FROM Compra;
 
 GO
 
-CREATE OR ALTER PROCEDURE SP_insertProducto (@Nombre NVARCHAR(100), @IdMarca INT, @IdCategoria INT, @StockActual INT, @StockMinimo INT, @PorcentajeGanancia DECIMAL, @FechaVencimiento DATE)
+CREATE OR ALTER PROCEDURE SP_insertProducto (@Nombre NVARCHAR(100), @IdMarca INT, @IdCategoria INT, @StockActual INT, @StockMinimo INT, @PorcentajeGanancia DECIMAL, @FechaVencimiento DATE, @Precio money)
 AS 
 BEGIN
 BEGIN TRY
 BEGIN TRANSACTION
-INSERT INTO PRODUCTO (Nombre, IdMarca, IdTipoProducto, StockActual, StockMinimo, PorcentajeGanancia, FechaVencimiento)
-VALUES(@Nombre, @IdMarca, @IdCategoria, @StockActual, @StockMinimo, @PorcentajeGanancia, @FechaVencimiento)
+INSERT INTO PRODUCTO (Nombre, IdMarca, IdTipoProducto, StockActual, StockMinimo, PorcentajeGanancia, FechaVencimiento, Precio)
+VALUES(@Nombre, @IdMarca, @IdCategoria, @StockActual, @StockMinimo, @PorcentajeGanancia, @FechaVencimiento, @Precio)
 COMMIT TRANSACTION
 END TRY
 BEGIN CATCH
@@ -264,16 +271,24 @@ END
 
 GO
 
-Create Procedure sp_InsertarDetalleCompra(
-@IdCompra int,
-@IdProducto int,
-@Cantidad int,
-@PrecioUnitario decimal
+CREATE PROCEDURE sp_InsertarDetalleCompra
+(
+    @IdCompra INT,
+    @IdProducto INT,
+    @Cantidad INT,
+    @PrecioUnitario DECIMAL(18,2)
 )
-As 
-Begin
-Insert into DetalleCompra(IdCompra, IdProducto, Cantidad, PrecioUnitario) Values (@IdCompra, @IdProducto, @Cantidad, @PrecioUnitario)
-End
+AS
+BEGIN
+    INSERT INTO DetalleCompra (IdCompra, IdProducto, Cantidad, PrecioUnitario) 
+    VALUES (@IdCompra, @IdProducto, @Cantidad, @PrecioUnitario);
+
+    UPDATE Producto
+    SET Precio = dbo.fn_CalcularPrecioProducto(p.IdProducto)
+    FROM Producto p
+    INNER JOIN DetalleCompra dc 
+    ON p.IdProducto = dc.IdProducto;
+END;
 
 GO
 
@@ -326,7 +341,6 @@ BEGIN
     DECLARE @PrecioProductoActual MONEY;
 
     
-        -- Obtener el porcentaje de ganancia y el precio de la última compra
         SELECT TOP 1
             @PorcentajeGanancia = p.PorcentajeGanancia,
             @PrecioUltimaCompra = dc.PrecioUnitario
@@ -339,7 +353,6 @@ BEGIN
         ORDER BY
             c.FechaCompra DESC;
 
-        -- Calcular el precio actual del producto
         SET @PrecioProductoActual = @PrecioUltimaCompra * (1 + @PorcentajeGanancia / 100);
 
     RETURN @PrecioProductoActual;
