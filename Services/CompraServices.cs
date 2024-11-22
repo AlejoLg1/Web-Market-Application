@@ -26,15 +26,21 @@ namespace Services
 
                 if (!string.IsNullOrEmpty(filtro))
                 {
-                    query += " WHERE P.Nombre LIKE @Filtro " +
-                             "OR C.IdCompra LIKE @Filtro " +
-                             "OR CONVERT(VARCHAR, C.FechaCompra, 103) LIKE @Filtro";
+                    if (int.TryParse(filtro, out int idCompra))
+                    {
+                        query += " WHERE C.IdCompra = @Filtro";
+                        DB.setParameter("@Filtro", idCompra);
+                    }
+                    else
+                    {
+                        query += " WHERE P.Nombre LIKE @Filtro " +
+                                 "OR CONVERT(VARCHAR, C.FechaCompra, 103) LIKE @Filtro";
+
+                        DB.setParameter("@Filtro", $"%{filtro}%");
+                    }
                 }
 
                 DB.setQuery(query);
-                if (!string.IsNullOrEmpty(filtro))
-                    DB.setParameter("@Filtro", $"%{filtro}%");
-
                 DB.excecuteQuery();
 
                 while (DB.Reader.Read())
@@ -61,52 +67,52 @@ namespace Services
             }
         }
 
-       /* public List<Compra> ListarPrueba(string filtro = "")
-        {
-            List<Compra> lista = new List<Compra>();
+        /* public List<Compra> ListarPrueba(string filtro = "")
+         {
+             List<Compra> lista = new List<Compra>();
 
-            try
-            {
-                string query = "SELECT C.IdCompra, P.Nombre AS Nombre, C.FechaCompra, C.Estado " +
-                               "FROM Compra C " +
-                               "INNER JOIN Proveedor P ON C.IdProveedor = P.IdProveedor";
+             try
+             {
+                 string query = "SELECT C.IdCompra, P.Nombre AS Nombre, C.FechaCompra, C.Estado " +
+                                "FROM Compra C " +
+                                "INNER JOIN Proveedor P ON C.IdProveedor = P.IdProveedor";
 
-                if (!string.IsNullOrEmpty(filtro))
-                {
-                    query += " WHERE P.Nombre LIKE @Filtro " +
-                             "OR C.IdCompra LIKE @Filtro " +
-                             "OR CONVERT(VARCHAR, C.FechaCompra, 103) LIKE @Filtro";
-                }
+                 if (!string.IsNullOrEmpty(filtro))
+                 {
+                     query += " WHERE P.Nombre LIKE @Filtro " +
+                              "OR C.IdCompra LIKE @Filtro " +
+                              "OR CONVERT(VARCHAR, C.FechaCompra, 103) LIKE @Filtro";
+                 }
 
-                DB.setQuery(query);
-                if (!string.IsNullOrEmpty(filtro))
-                    DB.setParameter("@Filtro", $"%{filtro}%");
+                 DB.setQuery(query);
+                 if (!string.IsNullOrEmpty(filtro))
+                     DB.setParameter("@Filtro", $"%{filtro}%");
 
-                DB.excecuteQuery();
+                 DB.excecuteQuery();
 
-                while (DB.Reader.Read())
-                {
-                    Compra aux = new Compra();
-                    aux.IdCompra = (int)DB.Reader["IdCompra"];
-                    aux.Proveedor = new Proveedor();
-                    aux.Proveedor.Nombre = (string)DB.Reader["Nombre"];
-                    aux.FechaCompra = (DateTime)DB.Reader["FechaCompra"];
-                    aux.Estado = (bool)DB.Reader["Estado"];
+                 while (DB.Reader.Read())
+                 {
+                     Compra aux = new Compra();
+                     aux.IdCompra = (int)DB.Reader["IdCompra"];
+                     aux.Proveedor = new Proveedor();
+                     aux.Proveedor.Nombre = (string)DB.Reader["Nombre"];
+                     aux.FechaCompra = (DateTime)DB.Reader["FechaCompra"];
+                     aux.Estado = (bool)DB.Reader["Estado"];
 
-                    lista.Add(aux);
-                }
+                     lista.Add(aux);
+                 }
 
-                return lista;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                DB.CloseConnection();
-            }
-        }*/
+                 return lista;
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+             finally
+             {
+                 DB.CloseConnection();
+             }
+         }*/
         public int add(int IdProveedor, DateTime FechaCompra, bool Estado)
         {
             try
