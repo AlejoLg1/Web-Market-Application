@@ -210,9 +210,23 @@ namespace TPC_equipo_9A
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
             ProductoServices services = new ProductoServices();
+
             string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+
+            bool withoutSells = services.verifySells(int.Parse(id));
+            bool withoutBuys = services.verifyBuys(int.Parse(id));
+
+            if(withoutBuys && withoutSells)
+            {
             services.delete(id);
             Response.Redirect("Productos.aspx", false);
+            }
+            else
+            {
+                string script = "alert('No fue posible eliminar el producto. Este tiene operaciones asociadas.'); window.location.href = 'Productos.aspx';";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
+                return;
+            }
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
