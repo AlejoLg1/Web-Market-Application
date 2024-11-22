@@ -92,7 +92,7 @@
                         <asp:BoundField DataField="StockActual" HeaderText="Stock Actual" />
                         <asp:BoundField DataField="Categoria.Nombre" HeaderText="Categoría" />
                         <asp:BoundField DataField="Marca.Nombre" HeaderText="Marca" />
-                        <asp:BoundField DataField="PorcentajeGanancia" HeaderText="Porcentaje Ganancia" />
+                        <asp:BoundField DataField="PorcentajeGanancia" HeaderText="Porcentaje Ganancia" Visible="false" />
                         <asp:BoundField DataField="FechaVencimiento" HeaderText="Fecha de vencimiento" Visible="false" />
                         <asp:BoundField DataField="Precio" HeaderText="Precio" Visible="true" />
                         <asp:TemplateField HeaderText="Ver detalle">
