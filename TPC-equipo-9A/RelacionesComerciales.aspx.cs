@@ -176,10 +176,9 @@ namespace TPC_equipo_9A
                 case "Eliminar":
                     if (service is ProveedorServices proveedorService)
                     {
-                        bool withoutProducts = proveedorService.verifyProducts(IdRelacion);
                         bool withoutBuys = proveedorService.verifyBuys(IdRelacion);
 
-                        if (withoutProducts && withoutBuys)
+                        if (withoutBuys)
                         {
                             proveedorService.delete(IdRelacion);
                         }
