@@ -172,7 +172,6 @@
                             <div class="mb-3">
                                 <label for="ddlCliente" class="form-label">Cliente: </label>
                                 <asp:DropDownList ID="ddlCliente" CssClass="form-select" runat="server" AppendDataBoundItems="true">
-                                    <asp:ListItem Text="Seleccionar..." Value="" />
                                 </asp:DropDownList>
                             </div>
 
@@ -187,7 +186,6 @@
                             <div class="mb-3">
                                 <label for="ddlProducto" class="form-label">Producto: </label>
                                 <asp:DropDownList ID="ddlProducto" CssClass="form-select" runat="server" AppendDataBoundItems="true">
-                                    <asp:ListItem Text="Seleccionar..." Value="" />
                                 </asp:DropDownList>
                             </div>
 

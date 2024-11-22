@@ -185,9 +185,6 @@ namespace TPC_equipo_9A
                     return;
                 }
 
-                lblErrorMessage.Text = "";
-                lblErrorMessage.Visible = false;
-
                 int IdProveedor = int.Parse(ddlCliente.SelectedValue);
                 string fechaInput = txtFechaVenta.Value;
                 bool Estado = true;
@@ -199,7 +196,22 @@ namespace TPC_equipo_9A
                     return;
                 }
 
+                int quantity = int.Parse(txtCantidad.Text);
+                int idProducto = int.Parse(ddlProducto.SelectedValue);
+                int stockProducto = productoServices.getStock(idProducto);
+                int stockMinimo = productoServices.getMinStock(idProducto);
+                int stockActual = stockProducto - quantity;
+
+                if (stockActual < stockMinimo)
+                {
+                    string script = "alert('No es posible generar la venta. El Stock resultante sería menor al stock mínimo permitido.');";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", script, true);
+                    clearFields();
+                    return;
+                }
+
                 int IdVenta = ventaServices.add(IdProveedor, fechaVenta, Estado);
+
 
                 int IdProducto = int.Parse(ddlProducto.SelectedValue);
                 int Cantidad = int.Parse(txtCantidad.Text);
@@ -209,10 +221,7 @@ namespace TPC_equipo_9A
                 gvVentas.DataSource = ventaServices.listar();
                 gvVentas.DataBind();
 
-                ddlCliente.SelectedIndex = 0;
-                txtFechaVenta.Value = string.Empty;
-                ddlProducto.SelectedIndex = 0;
-                txtCantidad.Text = string.Empty;
+                clearFields();
 
                 ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
             }
@@ -225,24 +234,18 @@ namespace TPC_equipo_9A
 
         protected void btnCerrar_ServerClick(object sender, EventArgs e)
         {
-            ddlCliente.SelectedIndex = 0;
-            txtFechaVenta.Value = string.Empty;
-            ddlProducto.SelectedIndex = 0;
-            txtCantidad.Text = string.Empty;
+            clearFields();
         }
 
         protected void btnX_ServerClick(object sender, EventArgs e)
         {
-            ddlCliente.SelectedIndex = 0;
-            txtFechaVenta.Value = string.Empty;
-            ddlProducto.SelectedIndex = 0;
-            txtCantidad.Text = string.Empty;
+            clearFields();
         }
 
         private void cargarDropDownLists()
         {
             ddlCliente.Items.Clear();
-            ddlCliente.DataSource = clienteServices.listar();
+            ddlCliente.DataSource = clienteServices.listar("Estado=1");
             ddlCliente.DataTextField = "Nombre";
             ddlCliente.DataValueField = "IdCliente";
             ddlCliente.DataBind();
@@ -256,6 +259,16 @@ namespace TPC_equipo_9A
             ddlProducto.DataBind();
             ddlProducto.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Seleccionar...", ""));
 
+        }
+
+        private void clearFields()
+        {
+            ddlCliente.SelectedIndex = 0;
+            txtFechaVenta.Value = string.Empty;
+            ddlProducto.SelectedIndex = 0;
+            txtCantidad.Text = string.Empty;
+            lblErrorMessage.Text = "";
+            lblErrorMessage.Visible = false;
         }
 
         protected void chkVerificacion_CheckedChanged(object sender, EventArgs e)
@@ -327,7 +340,7 @@ namespace TPC_equipo_9A
         }
         protected void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-            btnBuscar_Click(sender, e); // Llama al método de búsqueda
+            btnBuscar_Click(sender, e);
         }
 
         protected void gvVentas_PageIndexChanging(object sender, GridViewPageEventArgs e)

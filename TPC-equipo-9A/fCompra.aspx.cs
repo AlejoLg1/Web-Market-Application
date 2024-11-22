@@ -79,6 +79,44 @@ namespace TPC_equipo_9A
         {
             try
             {
+                if (string.IsNullOrEmpty(ddlProveedor.SelectedValue))
+                {
+                    lblErrorMessage.Text = "Por favor seleccione un proveedor.";
+                    lblErrorMessage.Visible = true;
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(txtFechaCompra.Value))
+                {
+                    lblErrorMessage.Text = "Por favor seleccione una fecha de compra.";
+                    lblErrorMessage.Visible = true;
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(ddlProducto.SelectedValue))
+                {
+                    lblErrorMessage.Text = "Por favor seleccione un producto.";
+                    lblErrorMessage.Visible = true;
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(txtCantidad.Text))
+                {
+                    lblErrorMessage.Text = "Por favor ingrese una cantidad.";
+                    lblErrorMessage.Visible = true;
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(txtPrecioUnitario.Text))
+                {
+                    lblErrorMessage.Text = "Por favor ingrese un precio unitario.";
+                    lblErrorMessage.Visible = true;
+                    return;
+                }
+
+                lblErrorMessage.Text = "";
+                lblErrorMessage.Visible = false;
+
                 bool Estado = true;
                 int IdProveedor = int.Parse(ddlProveedor.SelectedValue);
                 string fechaInput = txtFechaCompra.Value;
@@ -86,7 +124,8 @@ namespace TPC_equipo_9A
                 DateTime fechaCompra;
                 if (!DateTime.TryParseExact(fechaInput, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out fechaCompra))
                 {
-                    Response.Write("El formato de la fecha es incorrecto. Por favor ingrese una fecha válida.");
+                    lblErrorMessage.Text = "El formato de la fecha es incorrecto. Por favor ingrese una fecha válida.";
+                    lblErrorMessage.Visible = true;
                     return;
                 }
 
@@ -101,26 +140,55 @@ namespace TPC_equipo_9A
                 gvCompras.DataSource = compraServices.listar();
                 gvCompras.DataBind();
 
+                clearFields();
+
                 ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
             }
             catch (Exception ex)
             {
-                LblError.Text = "Error al agregar la compra: " + ex.Message;
-                LblError.Visible = true;
+                lblErrorMessage.Text = "Error al agregar la compra: " + ex.Message;
+                lblErrorMessage.Visible = true;
             }
+        }
+
+        protected void btnCerrar_ServerClick(object sender, EventArgs e)
+        {
+            clearFields();
+            ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
+        }
+
+        protected void btnX_ServerClick(object sender, EventArgs e)
+        {
+            clearFields();
+            ScriptManager.RegisterStartupScript(this, GetType(), "closeModal", "$('#staticBackdrop').modal('hide');", true);
         }
 
         private void cargarDropDownLists()
         {
-            ddlProveedor.DataSource = proveedorServices.listar();
+            ddlProveedor.Items.Clear();
+            ddlProveedor.DataSource = proveedorServices.listar("Estado=1");
             ddlProveedor.DataTextField = "Nombre";
             ddlProveedor.DataValueField = "IdProveedor";
             ddlProveedor.DataBind();
+            ddlProveedor.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Seleccionar...", ""));
 
+            ddlProducto.Items.Clear();
             ddlProducto.DataSource = productoServices.listar();
             ddlProducto.DataTextField = "Nombre";
             ddlProducto.DataValueField = "IdProducto";
             ddlProducto.DataBind();
+            ddlProducto.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Seleccionar...", ""));
+        }
+
+        private void clearFields()
+        {
+            ddlProveedor.SelectedIndex = 0;
+            txtFechaCompra.Value = string.Empty;
+            ddlProducto.SelectedIndex = 0;
+            txtCantidad.Text = string.Empty;
+            txtPrecioUnitario.Text = string.Empty;
+            lblErrorMessage.Text = "";
+            lblErrorMessage.Visible = false;
         }
 
         protected void chkVerificacion_CheckedChanged(object sender, EventArgs e)
@@ -193,7 +261,7 @@ namespace TPC_equipo_9A
         }
         protected void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-            btnBuscar_Click(sender, e); // Llama al método de búsqueda
+            btnBuscar_Click(sender, e);
         }
 
         protected void gvCompras_PageIndexChanging(object sender, GridViewPageEventArgs e)

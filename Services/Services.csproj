@@ -49,7 +49,6 @@
     <Compile Include="CategoriaServices.cs" />
     <Compile Include="MarcaServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProveedorProductoServices.cs" />
     <Compile Include="ProveedorServices.cs" />
     <Compile Include="UsuarioServices.cs" />
     <Compile Include="VentaServices.cs" />

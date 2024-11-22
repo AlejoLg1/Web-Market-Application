@@ -65,6 +65,15 @@
                 label.textContent = "Anulada";
             }
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const errorMessageLabel = document.getElementById("<%= lblErrorMessage.ClientID %>");
+        const modal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+
+        if (errorMessageLabel && errorMessageLabel.innerHTML.trim() !== "") {
+            modal.show();
+        }
+    });
     </script>
 
 
@@ -146,7 +155,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Generar Compra</h1>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" runat="server" onserverclick="btnX_ServerClick"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -181,9 +190,10 @@
                             </div>
                         </div>
                     </div>
+                    <asp:Label runat="server" ID="lblErrorMessage" CssClass="text-danger" Visible="False"></asp:Label>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" runat="server" onserverclick="btnCerrar_ServerClick">Cerrar</button>
                     <button type="button" class="btn btn-primary" id="btnAceptarGenerarCompra" runat="server" onserverclick="btnAceptarGenerarCompra_ServerClick">
                         Generar Compra
                     </button>
@@ -191,18 +201,4 @@
             </div>
         </div>
     </div>
-
-   <!-- <asp:GridView ID="gvPrueba" runat="server" DataKeyNames="IdCompra"
-        CssClass="table" AutoGenerateColumns="false"
-        AllowPaging="True" PageSize="5">
-        <Columns>
-            <asp:BoundField DataField="IdCompra" HeaderText="ID Compra" />
-            <asp:BoundField DataField="Proveedor.Nombre" HeaderText="Proveedor" />
-            <asp:BoundField DataField="FechaCompra" HeaderText="Fecha de Compra" DataFormatString="{0:dd/MM/yyyy}" />
-            <asp:BoundField DataField="Estado" HeaderText="Estado" />
-        </Columns>
-    </asp:GridView>-->
-
-
-
 </asp:Content>
