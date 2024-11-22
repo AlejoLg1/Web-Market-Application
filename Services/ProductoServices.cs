@@ -286,5 +286,59 @@ namespace Services
                 DB.CloseConnection();
             }
         }
+
+        public bool verifySells(int IdProd)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("SELECT COUNT(*) FROM DetalleVenta WHERE IdProducto = @IdProd");
+                DB.setParameter("@IdProd", IdProd);
+                DB.excecuteQuery();
+
+                if (DB.Reader.Read())
+                {
+                    int count = DB.Reader.GetInt32(0);
+                    return count == 0;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al verificar VentasProducto. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return false;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
+
+        public bool verifyBuys(int IdProd)
+        {
+            try
+            {
+                DB.clearParameters();
+                DB.setQuery("SELECT COUNT(*) FROM DetalleCompra WHERE IdProducto = @IdProd");
+                DB.setParameter("@IdProd", IdProd);
+                DB.excecuteQuery();
+
+                if (DB.Reader.Read())
+                {
+                    int count = DB.Reader.GetInt32(0);
+                    return count == 0;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"FATAL ERROR: Error al verificar Compras. Comuníquese con el Soporte.\nDetalles: {ex.Message}");
+                return false;
+            }
+            finally
+            {
+                DB.CloseConnection();
+            }
+        }
     }
 }
