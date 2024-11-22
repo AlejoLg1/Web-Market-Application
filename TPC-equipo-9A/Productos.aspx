@@ -94,6 +94,7 @@
                         <asp:BoundField DataField="Marca.Nombre" HeaderText="Marca" />
                         <asp:BoundField DataField="PorcentajeGanancia" HeaderText="Porcentaje Ganancia" />
                         <asp:BoundField DataField="FechaVencimiento" HeaderText="Fecha de vencimiento" Visible="false" />
+                        <asp:BoundField DataField="Precio" HeaderText="Precio" Visible="true" />
                         <asp:TemplateField HeaderText="Ver detalle">
                             <ItemTemplate>
                                 <asp:LinkButton ID="btnVerDetalle" runat="server" CommandName="Select">
