@@ -26,17 +26,33 @@ namespace Services
 
                 if (!string.IsNullOrEmpty(filtro))
                 {
-                    query += " WHERE C.Nombre LIKE @Filtro " +
-                             "OR C.Apellido LIKE @Filtro " +
-                             "OR C.Correo LIKE @Filtro " +
-                             "OR CAST(V.IdVenta AS NVARCHAR) LIKE @Filtro " +
-                             "OR CONVERT(VARCHAR, V.FechaVenta, 103) LIKE @Filtro " +
-                             "OR V.NumeroFactura LIKE @Filtro";
+                    if (int.TryParse(filtro, out int idVenta))
+                    {
+                        query += " WHERE V.IdVenta = @Filtro";
+                    }
+                    else
+                    {
+                        query += " WHERE C.Nombre LIKE @Filtro " +
+                                 "OR C.Apellido LIKE @Filtro " +
+                                 "OR C.Correo LIKE @Filtro " +
+                                 "OR CONVERT(VARCHAR, V.FechaVenta, 103) LIKE @Filtro " +
+                                 "OR V.NumeroFactura LIKE @Filtro";
+                    }
                 }
 
                 DB.setQuery(query);
+
                 if (!string.IsNullOrEmpty(filtro))
-                    DB.setParameter("@Filtro", $"%{filtro}%");
+                {
+                    if (int.TryParse(filtro, out int idVenta))
+                    {
+                        DB.setParameter("@Filtro", idVenta);
+                    }
+                    else
+                    {
+                        DB.setParameter("@Filtro", $"%{filtro}%");
+                    }
+                }
 
                 DB.excecuteQuery();
 
