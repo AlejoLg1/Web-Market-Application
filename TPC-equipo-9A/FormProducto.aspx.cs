@@ -57,6 +57,7 @@ namespace TPC_equipo_9A
                     ddlCategoria.SelectedValue = seleccionado.Categoria.IdCategoria.ToString();
                     ddlMarca.SelectedValue = seleccionado.Marca.IdMarca.ToString();
                     txtFechaVencimiento.Text = seleccionado.FechaVencimiento?.ToString("yyyy-MM-dd") ?? "";
+                    txtPrecio.Text = seleccionado.Precio.ToString();
 
 
                     lblOpcional.Visible = false;
@@ -95,6 +96,8 @@ namespace TPC_equipo_9A
                     txtBuscarMar.Enabled = true;
                     txtBuscarCat.Visible = true;
                     txtBuscarMar.Visible = true;
+                    txtPrecio.Visible = false;
+                    lblPrecio.Visible = false;
 
 
 
@@ -132,6 +135,8 @@ namespace TPC_equipo_9A
                 txtBuscarMar.Enabled = true;
                 txtBuscarCat.Visible = true;
                 txtBuscarMar.Visible = true;
+                txtPrecio.Visible = false;
+                lblPrecio.Visible = false;
 
                 btnEliminar.Visible = false;
                 btnModificar.Visible = false;

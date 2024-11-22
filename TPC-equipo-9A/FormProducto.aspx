@@ -136,6 +136,12 @@
                                 Display="Dynamic"
                                 ValidationExpression="^\d+(\,\d{1,2})?$" />
                         </div>
+
+                        <div class="mb-3">
+                            <asp:Label ID="lblPrecio" for="txtPrecio" runat="server" class="form-label">Precio</asp:Label>
+                            <asp:TextBox ID="txtPrecio" CssClass="form-control" runat="server" step="0.01" ReadOnly="true"></asp:TextBox>
+                        </div>
+
                         <div class="mb-3">
                             <label for="txtFechaVencimiento" class="form-label">Fecha de Vencimiento</label>
                             <asp:Label ID="lblOpcional" runat="server" Text="(Opcional)" CssClass="text-green-bold"></asp:Label>
