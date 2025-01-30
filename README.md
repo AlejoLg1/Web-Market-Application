@@ -1,58 +1,62 @@
-# Aplicación Web de Gestión de Compras y Ventas
+# Web Application for Purchase and Sales Management
 
-## Descripción
+## Description
 
-Esta aplicación web está diseñada para administrar las compras y ventas de un negocio multipropósito. El sistema permite la gestión de clientes, proveedores, productos, y el registro de ventas y compras. Los productos están categorizados por marcas y tipos/categorías. Además, el sistema maneja un stock actual y un stock mínimo para facilitar la proyección de compras.
+This web application is designed to manage purchases and sales for a multi-purpose business. The system enables the management of customers, suppliers, and products, as well as the recording of sales and purchases. Products are categorized by brands and types/categories. Additionally, the system tracks current stock levels and minimum stock thresholds to facilitate purchase planning.
 
-## Funcionalidades
+## Features
 
-1. **Gestión de Clientes y Proveedores:**
-   - Alta, baja y modificación de clientes y proveedores.
+1. **Customer and Supplier Management:**
+   - Add, remove, and modify customers and suppliers.
 
-2. **Gestión de Productos:**
-   - Alta, baja y modificación de productos.
-   - Administración de marcas y tipos/categorías.
-   - Mantenimiento del stock actual y stock mínimo.
+2. **Product Management:**
+   - Add, remove, and modify products.
+   - Manage brands and types/categories.
+   - Maintain current stock and minimum stock levels.
 
-3. **Registro de Compras:**
-   - Registro de compras indicando el proveedor y el producto adquirido.
-   - Actualización automática del stock y registro de precios de compra.
+3. **Purchase Registration:**
+   - Record purchases by specifying the supplier and acquired product.
+   - Automatically update stock levels and record purchase prices.
 
-4. **Registro de Ventas:**
-   - Formulario de ventas donde se asigna el cliente y se selecciona el producto a vender.
-   - Validación de cantidades de stock disponibles.
-   - Descuento automático de stock al realizar una venta.
-   - Generación de facturas con números únicos para impresión.
+4. **Sales Registration:**
+   - Sales form where the customer is assigned, and the product to be sold is selected.
+   - Validation of available stock quantities.
+   - Automatic stock deduction upon completing a sale.
+   - Generation of unique-numbered invoices for printing.
 
-5. **Cálculo de Precios de Venta:**
-   - Cada producto tiene un porcentaje de ganancia asignado.
-   - El precio de venta se calcula aplicando el porcentaje de ganancia al precio de compra más reciente.
+5. **Sales Price Calculation:**
+   - Each product has an assigned profit percentage.
+   - The selling price is calculated by applying the profit percentage to the most recent purchase price.
 
-6. **Seguridad:**
-   - Ingreso con usuario y contraseña.
-   - Perfiles de usuario: vendedor y administrador.
-     - **Vendedor:** Registra operaciones, controla inventario y genera nuevas relaciones comerciales.
-     - **Administrador:** Accede a todas las funcionalidades del sistema.
+6. **Security:**
+   - Login with username and password.
+   - User roles: Seller and Administrator.
+     - **Seller:** Records transactions, manages inventory, and establishes new business relationships.
+     - **Administrator:** Has full access to all system functionalities.
 
-## Requisitos
+## Requirements
 
 - .NET Framework
 - SQL Server
 - Visual Studio
 
-## Instalación
+## Installation
 
-1. Clona el repositorio:
+1. Clone the repository:
    ```bash
    git clone https://github.com/AlejoLg1/tpc-equipo-9A.git
    
-2. **Crea la BDD**: Ubica y ejecuta el script SQL proporcionado en la carpeta *SQLScripts* para crear la base de datos y las tablas necesarias.
+2. **Create the Database**: Locate and execute the provided SQL script in the SQLScripts folder to create the database and necessary tables.
 
-3. Abre tu IDE de C# (por ejemplo, Visual Studio o Visual Studio Code).
+3. Open your C# IDE (e.g., Visual Studio or Visual Studio Code).
 
-4. Abre la solución en el IDE.
+4. Open the solution in the IDE.
 
-5. Inicializa tu variable **connectionString** dentro del archivo *Web.config*. Esto permitirá conectar la aplicación con tu BDD.
+5. Initialize your connectionString variable inside the Web.config file. This will allow the application to connect to your database.
 
-6. **Compila la solución**: En el IDE, selecciona la opción para compilar la solución. Esto asegurará que todos los archivos se construyan correctamente.
+6. **Compile the solution**: In the IDE, select the option to compile the solution. This will ensure that all files are built correctly.
 
+## Screenshots
+
+![Screenshot 1](images/screenshot1.jpg)
+![Screenshot 2](images/screenshot2.jpg)
